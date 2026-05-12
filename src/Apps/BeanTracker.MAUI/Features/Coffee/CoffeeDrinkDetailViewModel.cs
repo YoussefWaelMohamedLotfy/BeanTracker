@@ -5,13 +5,13 @@ using CommunityToolkit.Mvvm.Input;
 
 namespace BeanTracker.MAUI.Features.Coffee;
 
-public partial class CoffeeDrinkDetailViewModel(IFavouritesService favouritesService) : ObservableObject
+public sealed partial class CoffeeDrinkDetailViewModel(IFavouritesService favouritesService) : ObservableObject
 {
     [ObservableProperty]
-    private CoffeeDrink? selectedDrink;
+    public partial CoffeeDrink? SelectedDrink { get; set; }
 
     [ObservableProperty]
-    private string favouriteLabel = "Save to Favourites";
+    public partial string FavouriteLabel { get; set; } = "Save to Favourites";
 
     public async Task InitializeAsync(CoffeeDrink drink)
     {

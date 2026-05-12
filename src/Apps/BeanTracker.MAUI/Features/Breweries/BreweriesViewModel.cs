@@ -5,13 +5,13 @@ using System.Collections.ObjectModel;
 
 namespace BeanTracker.MAUI.Features.Breweries;
 
-public partial class BreweriesViewModel(IBreweryService breweryService) : ObservableObject
+public sealed partial class BreweriesViewModel(IBreweryService breweryService) : ObservableObject
 {
     [ObservableProperty]
-    private string searchQuery = string.Empty;
+    public partial string SearchQuery { get; set; } = string.Empty;
 
     [ObservableProperty]
-    private ObservableCollection<Brewery> breweries = [];
+    public partial ObservableCollection<Brewery> Breweries { get; set; } = [];
 
     [RelayCommand]
     private async Task SearchAsync()

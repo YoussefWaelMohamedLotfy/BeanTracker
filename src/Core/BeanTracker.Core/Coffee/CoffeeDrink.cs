@@ -1,6 +1,6 @@
 namespace BeanTracker.Core.Coffee;
 
-public class CoffeeDrink
+public sealed class CoffeeDrink
 {
     public string Id { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;

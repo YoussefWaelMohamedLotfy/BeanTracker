@@ -5,10 +5,10 @@ using System.Collections.ObjectModel;
 
 namespace BeanTracker.MAUI.Features.Favourites;
 
-public partial class FavouritesViewModel(IFavouritesService favouritesService) : ObservableObject
+public sealed partial class FavouritesViewModel(IFavouritesService favouritesService) : ObservableObject
 {
     [ObservableProperty]
-    private ObservableCollection<FavouriteDrink> favourites = [];
+    public partial ObservableCollection<FavouriteDrink> Favourites { get; set; } = [];
 
     [RelayCommand]
     private async Task LoadAsync()

@@ -3,7 +3,7 @@ using BeanTracker.MAUI.Features.Coffee;
 
 namespace BeanTracker.MAUI;
 
-public partial class AppShell : Shell
+public sealed partial class AppShell : Shell
 {
     public AppShell()
     {

@@ -3,8 +3,8 @@ using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace BeanTracker.MAUI.Features.Breweries;
 
-public partial class BreweryDetailViewModel : ObservableObject
+public sealed partial class BreweryDetailViewModel : ObservableObject
 {
     [ObservableProperty]
-    private Brewery? selectedBrewery;
+    public partial Brewery? SelectedBrewery { get; set; }
 }

@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace BeanTracker.Core.Breweries;
 
-public class BreweryApiService(HttpClient http) : IBreweryService
+public sealed class BreweryApiService(HttpClient http) : IBreweryService
 {
     private const string BaseUrl = "https://api.openbrewerydb.org/v1/breweries";
 

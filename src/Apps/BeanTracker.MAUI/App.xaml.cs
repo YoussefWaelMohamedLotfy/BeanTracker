@@ -2,7 +2,7 @@
 
 namespace BeanTracker.MAUI;
 
-public partial class App : Application
+public sealed partial class App : Application
 {
     public App()
     {
@@ -11,6 +11,6 @@ public partial class App : Application
 
     protected override Window CreateWindow(IActivationState? activationState)
     {
-        return new Window(new AppShell());
+        return new Window(new SplashPage());
     }
 }

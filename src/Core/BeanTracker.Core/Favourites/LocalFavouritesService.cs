@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace BeanTracker.Core.Favourites;
 
-public class LocalFavouritesService(BeanTrackerDbContext context) : IFavouritesService
+public sealed class LocalFavouritesService(BeanTrackerDbContext context) : IFavouritesService
 {
     public async Task<IReadOnlyList<FavouriteDrink>> GetAllAsync() =>
         await context.Favourites.OrderByDescending(f => f.DateSaved).ToListAsync();

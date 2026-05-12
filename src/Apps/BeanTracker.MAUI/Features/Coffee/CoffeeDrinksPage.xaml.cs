@@ -1,6 +1,6 @@
 namespace BeanTracker.MAUI.Features.Coffee;
 
-public partial class CoffeeDrinksPage : ContentPage
+public sealed partial class CoffeeDrinksPage : ContentPage
 {
     public CoffeeDrinksPage(CoffeeDrinksViewModel vm)
     {

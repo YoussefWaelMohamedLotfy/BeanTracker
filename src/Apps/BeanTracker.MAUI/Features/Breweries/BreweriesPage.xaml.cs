@@ -1,6 +1,6 @@
 namespace BeanTracker.MAUI.Features.Breweries;
 
-public partial class BreweriesPage : ContentPage
+public sealed partial class BreweriesPage : ContentPage
 {
     public BreweriesPage(BreweriesViewModel vm)
     {

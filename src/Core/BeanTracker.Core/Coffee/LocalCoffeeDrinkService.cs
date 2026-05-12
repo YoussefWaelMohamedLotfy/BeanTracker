@@ -6,8 +6,10 @@ namespace BeanTracker.Core.Coffee;
 /// Reads coffee drinks from a JSON stream supplied by the MAUI layer.
 /// The factory is called once and the result is cached.
 /// </summary>
-public class LocalCoffeeDrinkService(Func<Task<Stream>> openDrinksFile) : ICoffeeDrinkService
+public sealed class LocalCoffeeDrinkService(Func<Task<Stream>> openDrinksFile) : ICoffeeDrinkService
 {
+    private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
+
     private List<CoffeeDrink>? _cache;
 
     private async Task<List<CoffeeDrink>> LoadAsync()
@@ -16,7 +18,7 @@ public class LocalCoffeeDrinkService(Func<Task<Stream>> openDrinksFile) : ICoffe
             return _cache;
 
         await using var stream = await openDrinksFile();
-        _cache = await JsonSerializer.DeserializeAsync<List<CoffeeDrink>>(stream) ?? [];
+        _cache = await JsonSerializer.DeserializeAsync<List<CoffeeDrink>>(stream, JsonOptions) ?? [];
         return _cache;
     }
 

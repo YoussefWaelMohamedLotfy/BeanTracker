@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BeanTracker.MAUI.SplashPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    NavigationPage.HasNavigationBar="False"
+    Shell.NavBarIsVisible="False">
+
+    <!-- Deep coffee gradient: Espresso → Americano -->
+    <ContentPage.Background>
+        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+            <GradientStop Color="#1A0A00" Offset="0" />
+            <GradientStop Color="#3D1C02" Offset="1" />
+        </LinearGradientBrush>
+    </ContentPage.Background>
+
+    <Grid>
+        <VerticalStackLayout
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            Spacing="0">
+
+            <!-- Coffee cup icon -->
+            <Label
+                x:Name="IconLabel"
+                Text="☕"
+                FontSize="88"
+                HorizontalOptions="Center"
+                Opacity="0"
+                Margin="0,0,0,24" />
+
+            <!-- App name in Crema gold -->
+            <Label
+                x:Name="TitleLabel"
+                Text="BeanTracker"
+                FontSize="40"
+                FontAttributes="Bold"
+                FontFamily="OpenSansSemibold"
+                TextColor="#E8C99A"
+                HorizontalOptions="Center"
+                Opacity="0" />
+
+            <!-- Cappuccino accent rule -->
+            <BoxView
+                x:Name="RuleView"
+                HeightRequest="1.5"
+                WidthRequest="140"
+                Color="#C68642"
+                HorizontalOptions="Center"
+                Margin="0,12,0,12"
+                Opacity="0" />
+
+            <!-- Tagline in Steamed milk white -->
+            <Label
+                x:Name="TaglineLabel"
+                Text="Your coffee, tracked."
+                FontSize="15"
+                FontFamily="OpenSansRegular"
+                TextColor="#F0DEC0"
+                HorizontalOptions="Center"
+                Opacity="0" />
+
+        </VerticalStackLayout>
+    </Grid>
+
+</ContentPage>

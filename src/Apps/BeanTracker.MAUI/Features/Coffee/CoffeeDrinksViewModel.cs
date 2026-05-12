@@ -5,13 +5,13 @@ using System.Collections.ObjectModel;
 
 namespace BeanTracker.MAUI.Features.Coffee;
 
-public partial class CoffeeDrinksViewModel(ICoffeeDrinkService coffeeDrinkService) : ObservableObject
+public sealed partial class CoffeeDrinksViewModel(ICoffeeDrinkService coffeeDrinkService) : ObservableObject
 {
     [ObservableProperty]
-    private string searchQuery = string.Empty;
+    public partial string SearchQuery { get; set; } = string.Empty;
 
     [ObservableProperty]
-    private ObservableCollection<CoffeeDrink> drinks = [];
+    public partial ObservableCollection<CoffeeDrink> Drinks { get; set; } = [];
 
     [RelayCommand]
     private async Task SearchAsync()

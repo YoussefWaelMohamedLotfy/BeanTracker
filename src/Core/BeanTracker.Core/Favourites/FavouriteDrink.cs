@@ -2,7 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace BeanTracker.Core.Favourites;
 
-public class FavouriteDrink
+public sealed class FavouriteDrink
 {
     [Key]
     public int Id { get; set; }

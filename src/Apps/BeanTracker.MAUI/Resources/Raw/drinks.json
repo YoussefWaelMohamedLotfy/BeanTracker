@@ -1,1 +1,458 @@
-[]
+[
+  {
+    "id": "espresso",
+    "name": "Espresso",
+    "description": "The foundation of Italian coffee culture, brewed by forcing near-boiling water through finely-ground coffee under 9 bars of pressure into a 30 ml shot. Delivers intense concentration crowned with a thick, hazel-coloured crema. Every milk-based espresso drink starts here.",
+    "origin": "Italy",
+    "flavorNotes": ["Bold", "Dark Chocolate", "Caramel", "Rich", "Bitter Finish"],
+    "imageUrl": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "doppio",
+    "name": "Doppio",
+    "description": "Italian for 'double' — two espresso shots pulled through a double-basket portafilter into a single demitasse cup. The standard order at most Italian bars, it offers twice the caffeine and a deeper, more layered flavour than a single shot. The building block of large milk-based drinks.",
+    "origin": "Italy",
+    "flavorNotes": ["Intense", "Dark Chocolate", "Molasses", "Bold", "Caramelised Sugar"],
+    "imageUrl": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "ristretto",
+    "name": "Ristretto",
+    "description": "Italian for 'restricted' — the same dose of ground coffee as a standard espresso but extracted with only half the water (15–20 ml). The shortened extraction leaves behind bitter compounds, yielding a sweeter, syrupy, concentrated shot that many baristas prefer as the base for milk drinks.",
+    "origin": "Italy",
+    "flavorNotes": ["Sweet", "Syrupy", "Dark Fruit", "Concentrated", "Low Bitterness"],
+    "imageUrl": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "lungo",
+    "name": "Lungo",
+    "description": "Italian for 'long' — espresso extracted with significantly more water (60–120 ml) over a longer pull time. This draws out more caffeine and bitter compounds, producing a lighter yet more bitter drink than a standard espresso. Not to be confused with an Americano, which adds water after brewing.",
+    "origin": "Italy",
+    "flavorNotes": ["Mild", "Bitter", "Woody", "Light Caramel", "Extended Finish"],
+    "imageUrl": "https://images.unsplash.com/photo-1534040385115-33dcb3f21dfd?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "americano",
+    "name": "Americano",
+    "description": "Hot water poured over one or two espresso shots to approximate the strength and volume of drip coffee. Legend says American soldiers in WWII-era Italy diluted espresso to make it feel like home. The result is a light-bodied, clean black coffee with an unmistakable espresso character underneath.",
+    "origin": "Italy / USA",
+    "flavorNotes": ["Mild", "Clean", "Slightly Bitter", "Light Caramel", "Espresso Undertone"],
+    "imageUrl": "https://images.unsplash.com/photo-1534040385115-33dcb3f21dfd?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "cappuccino",
+    "name": "Cappuccino",
+    "description": "One of Italy's most iconic exports: equal thirds of espresso, steamed milk, and thick microfoam served in a 150–180 ml cup. The velvety foam insulates heat and softens the espresso's edge. Traditionally a morning drink in Italy — locals never order it after 11 am.",
+    "origin": "Italy",
+    "flavorNotes": ["Creamy", "Balanced", "Lightly Sweet", "Espresso Forward", "Velvety"],
+    "imageUrl": "https://images.unsplash.com/photo-1572442388796-11668a67e10c?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "latte",
+    "name": "Caffè Latte",
+    "description": "A milkier cousin of the cappuccino: one or two espresso shots topped with 150–240 ml of steamed milk and a thin layer of microfoam. The high milk-to-espresso ratio makes it one of the most approachable espresso drinks and the perfect canvas for latte art.",
+    "origin": "Italy",
+    "flavorNotes": ["Creamy", "Milky", "Mild Espresso", "Slightly Sweet", "Smooth"],
+    "imageUrl": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "flat-white",
+    "name": "Flat White",
+    "description": "Born in Australia and New Zealand in the 1980s, a flat white packs a double ristretto into a smaller 150–160 ml cup with silky, barely-there microfoam. Stronger and more coffee-forward than a latte, without the thick foam of a cappuccino. A barista benchmark drink.",
+    "origin": "Australia / New Zealand",
+    "flavorNotes": ["Strong", "Velvety", "Espresso Forward", "Creamy", "Sweet"],
+    "imageUrl": "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "macchiato",
+    "name": "Espresso Macchiato",
+    "description": "Italian for 'stained' — a straight espresso shot with just a dollop of foamed milk to soften its edge. At only 40–60 ml it is one of the smallest coffee drinks, prized by espresso purists who want a hint of milk without diluting the shot's intensity.",
+    "origin": "Italy",
+    "flavorNotes": ["Bold", "Creamy Accent", "Dark Chocolate", "Rich", "Intense"],
+    "imageUrl": "https://images.unsplash.com/photo-1540803440-3b1cd278b5c8?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "cortado",
+    "name": "Cortado",
+    "description": "Spanish for 'cut' — espresso cut with an equal part of warm milk to reduce acidity without adding foam. Served in a small 100–120 ml glass, the cortado sits between a macchiato and a flat white in both size and milk ratio. A staple of Spanish and Latin American café culture.",
+    "origin": "Spain",
+    "flavorNotes": ["Balanced", "Smooth", "Low Acidity", "Mild Sweetness", "Clean"],
+    "imageUrl": "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "mocha",
+    "name": "Caffè Mocha",
+    "description": "A rich marriage of espresso, steamed milk, and chocolate syrup or cocoa powder, finished with whipped cream. Named after the Yemeni port city of Mocha, historically synonymous with naturally chocolatey coffee. Indulgent, sweet, and deeply satisfying — coffee meets dessert.",
+    "origin": "Yemen / USA",
+    "flavorNotes": ["Chocolate", "Sweet", "Creamy", "Espresso Undertone", "Indulgent"],
+    "imageUrl": "https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "affogato",
+    "name": "Affogato",
+    "description": "Italian for 'drowned' — a scoop of vanilla gelato flooded with one or two hot espresso shots poured tableside. As the espresso melts the gelato, a magical bittersweet sauce forms. Served as dessert in Italy, it straddles the line between coffee drink and pudding.",
+    "origin": "Italy",
+    "flavorNotes": ["Bittersweet", "Creamy", "Vanilla", "Hot-Cold Contrast", "Intense"],
+    "imageUrl": "https://images.unsplash.com/photo-1541167760496-1628856ab772?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "breve",
+    "name": "Caffè Breve",
+    "description": "An American variation on the latte that swaps steamed whole milk for steamed half-and-half (equal parts milk and cream). The result is extraordinarily rich and indulgent, with a denser, longer-lasting foam that coats the palate. Significantly higher in calories than a traditional latte.",
+    "origin": "United States",
+    "flavorNotes": ["Ultra-Creamy", "Rich", "Full-Fat", "Mildly Sweet", "Velvety"],
+    "imageUrl": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "piccolo-latte",
+    "name": "Piccolo Latte",
+    "description": "Italian for 'small' — a single ristretto shot in a 100 ml glass topped with warm, silky milk and minimal foam. Born in Australian specialty cafés, it delivers latte-like texture and sweetness in a compact, espresso-focused format. A café-culture insider's order.",
+    "origin": "Australia",
+    "flavorNotes": ["Sweet", "Ristretto Sweetness", "Creamy", "Compact", "Balanced"],
+    "imageUrl": "https://images.unsplash.com/photo-1572442388796-11668a67e10c?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "vienna-coffee",
+    "name": "Vienna Coffee",
+    "description": "A Viennese classic: two strong espresso shots topped with a generous crown of hand-whipped cream, sometimes dusted with cocoa or cinnamon. Coffee is sipped through the cream rather than stirred in. A centrepiece of Vienna's legendary coffeehouse culture, or Kaffeehauskultur.",
+    "origin": "Austria",
+    "flavorNotes": ["Rich", "Creamy", "Sweet", "Indulgent", "Espresso Contrast"],
+    "imageUrl": "https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "cold-brew",
+    "name": "Cold Brew",
+    "description": "Coarsely ground coffee steeped in cold or room-temperature water for 12–24 hours, then filtered into a smooth, low-acid concentrate. Served over ice, neat or diluted with water or milk. The slow cold extraction avoids releasing harsh acids and bitter oils, yielding a naturally sweet, chocolatey cup.",
+    "origin": "Japan / United States",
+    "flavorNotes": ["Smooth", "Low Acid", "Chocolatey", "Sweet", "Full Body"],
+    "imageUrl": "https://images.unsplash.com/photo-1514432324607-a09d9b50da2e?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "iced-latte",
+    "name": "Iced Latte",
+    "description": "Espresso shots poured over a tall glass of ice and filled with cold milk — the refrigerated counterpart to the hot caffè latte. Unlike a blended frappé, an iced latte is stirred, not blended, preserving the distinct espresso and milk layers that slowly mingle as you drink.",
+    "origin": "United States",
+    "flavorNotes": ["Refreshing", "Creamy", "Mild Espresso", "Cool", "Smooth"],
+    "imageUrl": "https://images.unsplash.com/photo-1548695882-c585cdc9c367?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "iced-americano",
+    "name": "Iced Americano",
+    "description": "Espresso shots pulled hot then poured over a large glass of ice and cold water. The flash-chill produces a slightly different extraction character than a hot Americano — lighter, brighter, and crisper with a noticeable acidity that makes it particularly refreshing on warm days.",
+    "origin": "United States",
+    "flavorNotes": ["Crisp", "Clean", "Light Body", "Refreshing", "Slightly Bitter"],
+    "imageUrl": "https://images.unsplash.com/photo-1548695882-c585cdc9c367?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "nitro-cold-brew",
+    "name": "Nitro Cold Brew",
+    "description": "Cold brew coffee infused with nitrogen gas and served on tap through a stout-style faucet. The tiny nitrogen bubbles create a cascading, creamy head reminiscent of Guinness stout. Naturally sweet-tasting despite containing no sugar, with a uniquely velvety mouthfeel unlike any other coffee drink.",
+    "origin": "United States",
+    "flavorNotes": ["Creamy", "Silky", "Sweet", "Chocolatey", "Cascading Foam"],
+    "imageUrl": "https://images.unsplash.com/photo-1514432324607-a09d9b50da2e?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "iced-mocha",
+    "name": "Iced Mocha",
+    "description": "Espresso shaken or stirred with chocolate syrup, poured over ice, and topped with cold milk and whipped cream. The cooler temperature tames the bitterness of both the espresso and cocoa, turning this into a dessert-like treat that drinks almost like a chocolate coffee milkshake.",
+    "origin": "United States",
+    "flavorNotes": ["Chocolate", "Sweet", "Cool", "Creamy", "Dessert-Like"],
+    "imageUrl": "https://images.unsplash.com/photo-1548695882-c585cdc9c367?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "iced-macchiato",
+    "name": "Iced Macchiato",
+    "description": "Cold milk poured over ice first, then espresso shots slowly dropped through the milk to create a beautiful layered gradient from cream at the bottom to coffee at the top. Often sweetened with vanilla syrup. The espresso gradually sinks and mingles with the milk, changing flavour with every sip.",
+    "origin": "United States",
+    "flavorNotes": ["Layered", "Creamy", "Espresso Punch", "Slightly Sweet", "Refreshing"],
+    "imageUrl": "https://images.unsplash.com/photo-1548695882-c585cdc9c367?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "shakerato",
+    "name": "Caffè Shakerato",
+    "description": "An Italian summertime classic: espresso and sugar syrup vigorously shaken with ice in a cocktail shaker, then strained into a chilled martini or coupe glass. The vigorous shaking creates a thick, frothy head and a refreshing chilled drink without the dilution of ice-filled glasses.",
+    "origin": "Italy",
+    "flavorNotes": ["Frothy", "Sweet", "Bold", "Refreshing", "Chilled Espresso"],
+    "imageUrl": "https://images.unsplash.com/photo-1548695882-c585cdc9c367?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "frappe-greek",
+    "name": "Greek Frappé",
+    "description": "Instant coffee, sugar, and a small amount of water blended or vigorously shaken until it forms a thick, creamy foam, then poured over ice and topped with cold milk. Invented in Thessaloniki in 1957 by a Nescafé representative. The definitive summer drink of Greece for over six decades.",
+    "origin": "Greece",
+    "flavorNotes": ["Sweet", "Frothy", "Creamy Foam", "Coffee", "Refreshing"],
+    "imageUrl": "https://images.unsplash.com/photo-1548695882-c585cdc9c367?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "vietnamese-iced-coffee",
+    "name": "Cà Phê Sữa Đá",
+    "description": "Vietnamese iced coffee brewed by dripping dark, intense robusta through a small phin filter directly into sweetened condensed milk, then stirred and poured over ice. The condensed milk adds deep caramelised sweetness that beautifully balances the bold, earthy robusta bitterness.",
+    "origin": "Vietnam",
+    "flavorNotes": ["Bold", "Sweet", "Condensed Milk", "Caramel", "Robusta Earthiness"],
+    "imageUrl": "https://images.unsplash.com/photo-1548695882-c585cdc9c367?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "mazagran",
+    "name": "Mazagran",
+    "description": "One of the oldest known cold coffee drinks, dating to 1840s French Algeria. Traditionally cold or iced black coffee served in a tall glass, sometimes sweetened and occasionally spiked with rum or lemon juice. Many coffee historians consider it the ancestor of all modern iced coffee drinks.",
+    "origin": "Algeria / France",
+    "flavorNotes": ["Cold", "Black Coffee", "Tart", "Refreshing", "Historic"],
+    "imageUrl": "https://images.unsplash.com/photo-1514432324607-a09d9b50da2e?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "pour-over",
+    "name": "Pour Over",
+    "description": "Hot water poured in a slow, controlled spiral over freshly ground coffee in a filter cone, allowing the coffee to bloom and extract gradually. Paper filtration produces an exceptionally clear, nuanced cup that highlights delicate floral, fruity, and tea-like notes often masked in espresso.",
+    "origin": "Germany / Japan",
+    "flavorNotes": ["Delicate", "Clean", "Floral", "Fruity", "Complex Terroir"],
+    "imageUrl": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "french-press",
+    "name": "French Press",
+    "description": "Coarsely ground coffee steeped in near-boiling water for 4 minutes, then a metal mesh plunger is pressed to separate the grounds. No paper filter means coffee oils and fine particles remain in the cup, producing a full-bodied, rich, slightly cloudy brew with exceptional depth and texture.",
+    "origin": "France / Italy",
+    "flavorNotes": ["Full Body", "Rich", "Oily", "Heavy Texture", "Earthy"],
+    "imageUrl": "https://images.unsplash.com/photo-1485808191679-5f86510bd9d2?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "aeropress",
+    "name": "AeroPress",
+    "description": "Invented in 2005 by Alan Adler, the AeroPress uses air pressure to force water through ground coffee in 1–3 minutes. Unmatched versatility — brew concentrated espresso-style shots or longer filter-style cups by adjusting grind, temperature, and steep time. A cult favourite in the specialty coffee world.",
+    "origin": "United States",
+    "flavorNotes": ["Smooth", "Versatile", "Low Acid", "Clean", "Adjustable Strength"],
+    "imageUrl": "https://images.unsplash.com/photo-1467689621374-bf2a2cf28745?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "chemex",
+    "name": "Chemex",
+    "description": "Designed in 1941 by chemist Peter Schlumbohm, the Chemex is an hourglass-shaped glass decanter using a specially thick bonded paper filter that produces an exceptionally clean, bright, almost tea-like cup. Slower than most pour-over methods, it rewards patience with remarkable clarity and sweetness.",
+    "origin": "United States",
+    "flavorNotes": ["Ultra-Clean", "Bright", "Sweet", "Tea-Like", "Crystal Clear"],
+    "imageUrl": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "moka-pot",
+    "name": "Moka Pot Coffee",
+    "description": "Alfonso Bialetti's 1933 invention passes boiling water pressurised by steam through a basket of finely ground coffee into an upper chamber. Produces a strong, concentrated brew similar in intensity to espresso but without the crema, and with a slightly different pressure and temperature profile.",
+    "origin": "Italy",
+    "flavorNotes": ["Strong", "Bold", "Slightly Bitter", "Intense", "Dark Roast Character"],
+    "imageUrl": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "drip-coffee",
+    "name": "Drip Coffee",
+    "description": "Hot water drips over ground coffee in a flat or conical paper filter, with gravity drawing the brew into a carafe below. The quintessential American morning ritual. Modern drip machines with precise temperature control can produce café-quality results rivalling manual pour-over methods.",
+    "origin": "Germany / United States",
+    "flavorNotes": ["Balanced", "Mild", "Approachable", "Clean", "Everyday Comfort"],
+    "imageUrl": "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "siphon-coffee",
+    "name": "Siphon Coffee",
+    "description": "Also called a vacuum pot, the siphon brewer uses vapour pressure and vacuum to move water between two glass chambers separated by a filter. The resulting brew is astonishingly clear, bright, and complex — closer to sparkling tea than drip coffee. A theatrical method with a devoted following.",
+    "origin": "Germany / France",
+    "flavorNotes": ["Clear", "Bright", "Complex", "Aromatic", "Tea-Like Clarity"],
+    "imageUrl": "https://images.unsplash.com/photo-1485808191679-5f86510bd9d2?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "clever-dripper",
+    "name": "Clever Dripper",
+    "description": "A full-immersion dripper with a valve: coffee steeps like a French press then drains through a paper filter when placed on a mug or carafe. Combines the body of immersion brewing with the clarity of paper filtration. Forgiving, consistent, and ideal for beginners exploring specialty coffee.",
+    "origin": "Taiwan",
+    "flavorNotes": ["Clean", "Full Body", "Consistent", "Sweet", "Beginner Friendly"],
+    "imageUrl": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "turkish-coffee",
+    "name": "Turkish Coffee",
+    "description": "Finely ground coffee — the finest grind of any brewing method — simmered with water and usually sugar in a small long-handled brass or copper pot called a cezve or ibrik. Poured unfiltered into a small cup; grounds settle at the bottom. Rich, thick, and aromatic, often spiced with cardamom.",
+    "origin": "Turkey / Ottoman Empire",
+    "flavorNotes": ["Thick", "Intense", "Cardamom", "Unfiltered", "Rich Aroma"],
+    "imageUrl": "https://images.unsplash.com/photo-1565031491910-e57fac8be073?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "cafe-de-olla",
+    "name": "Café de Olla",
+    "description": "Brewed in an earthenware 'olla' (pot) with cinnamon and piloncillo (unrefined cane sugar), this traditional Mexican coffee is simmered slowly. The clay pot and spices infuse unique mineral and sweet notes into the brew. An ancient recipe that predates the espresso machine by centuries.",
+    "origin": "Mexico",
+    "flavorNotes": ["Cinnamon", "Piloncillo", "Earthy", "Warm Spice", "Traditional"],
+    "imageUrl": "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "cafe-cubano",
+    "name": "Café Cubano",
+    "description": "A Cuban espresso brewed with sugar placed in the portafilter basket before extraction, creating a thick, sweet caramelised froth called 'espumita'. Extremely sweet and intensely caffeinated — served in tiny cups and traditionally shared among friends. A cornerstone of Cuban social life.",
+    "origin": "Cuba",
+    "flavorNotes": ["Very Sweet", "Espumita Foam", "Intense", "Caramelised", "Bold"],
+    "imageUrl": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "cafe-con-leche",
+    "name": "Café con Leche",
+    "description": "Equal parts strong brewed coffee or espresso and hot scalded milk. A breakfast staple across Spain and Latin America, typically paired with toast or churros. The scalded milk — heated to near-boiling rather than steamed — adds a subtle cooked sweetness different from Italian milk-based drinks.",
+    "origin": "Spain",
+    "flavorNotes": ["Milky", "Balanced", "Warm", "Lightly Sweet", "Breakfast Classic"],
+    "imageUrl": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "dalgona-coffee",
+    "name": "Dalgona Coffee",
+    "description": "A 2020 global sensation from South Korea: instant coffee, sugar, and hot water whipped into a thick, glossy foam then spooned over cold or hot milk. Named after a Korean honeycomb toffee candy for its resemblance in flavour. Simple, photogenic, and surprisingly satisfying.",
+    "origin": "South Korea",
+    "flavorNotes": ["Sweet", "Whipped", "Frothy", "Instant Coffee", "Creamy Layer"],
+    "imageUrl": "https://images.unsplash.com/photo-1590439471364-192aa70958e1?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "bulletproof-coffee",
+    "name": "Bulletproof Coffee",
+    "description": "Strong brewed coffee blended with grass-fed unsalted butter and MCT (medium-chain triglyceride) oil until smoothly emulsified into a latte-like drink. Popularised by Dave Asprey in 2011 and embraced by the keto and biohacking communities as a high-fat, zero-carb breakfast replacement.",
+    "origin": "United States",
+    "flavorNotes": ["Buttery", "Rich", "Smooth", "High-Fat", "No Sugar"],
+    "imageUrl": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "cafe-bombon",
+    "name": "Café Bombón",
+    "description": "A visually striking Spanish specialty: sweetened condensed milk in the bottom of a small glass, then strong espresso carefully layered on top to create a dramatic two-tone gradient before stirring. Similar to Vietnamese iced coffee but served hot. A sweet, indulgent treat from Valencia.",
+    "origin": "Spain",
+    "flavorNotes": ["Layered", "Condensed Milk", "Very Sweet", "Espresso Contrast", "Dessert"],
+    "imageUrl": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "raf-coffee",
+    "name": "Raf Coffee",
+    "description": "A Russian specialty invented in Moscow in the 1990s: espresso, cream, and vanilla sugar are combined and steamed together — not separately as in a latte. The result is an incredibly smooth, almost dessert-like drink with uniform sweet creaminess throughout. Named after the customer who requested it.",
+    "origin": "Russia",
+    "flavorNotes": ["Vanilla", "Cream", "Smooth", "Sweet", "Dessert-Like"],
+    "imageUrl": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "espresso-romano",
+    "name": "Espresso Romano",
+    "description": "A single espresso shot served with a thin slice of lemon on the side or rubbed around the cup rim. Despite the name, this drink is largely unknown in Rome — it was popularised in American Italian-inspired cafés. The lemon's citrus oils brighten the espresso and cut elegantly through its bitterness.",
+    "origin": "United States (Italian Inspiration)",
+    "flavorNotes": ["Citrus Accent", "Bright", "Espresso", "Clean", "Unique"],
+    "imageUrl": "https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "white-coffee-malaysia",
+    "name": "Malaysian White Coffee",
+    "description": "Coffee beans roasted at roughly half the temperature of a typical light roast — often with palm oil margarine — producing a very pale, nutty brew with much higher natural sweetness and dramatically lower bitterness than conventionally roasted coffee. A signature of the Ipoh region's café culture.",
+    "origin": "Malaysia",
+    "flavorNotes": ["Nutty", "Light", "Naturally Sweet", "Low Bitterness", "Pale"],
+    "imageUrl": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "kopi-tubruk",
+    "name": "Kopi Tubruk",
+    "description": "The traditional Javanese and Balinese method: coarse coffee grounds boiled together with sugar and water in a cup, then left to settle before drinking — no filter, no press, just patience. Similar in approach to Turkish coffee but coarser and more rustic in character.",
+    "origin": "Indonesia",
+    "flavorNotes": ["Earthy", "Bold", "Sweet", "Unfiltered", "Rustic"],
+    "imageUrl": "https://images.unsplash.com/photo-1565031491910-e57fac8be073?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "caramel-macchiato",
+    "name": "Caramel Macchiato",
+    "description": "A popular coffeehouse creation: vanilla syrup and steamed milk in a cup, then marked with espresso shots poured through the foam, finished with a crosshatch drizzle of caramel sauce. Sipping through the caramel and foam reveals espresso, then sweet vanilla milk below. A layered experience.",
+    "origin": "United States",
+    "flavorNotes": ["Caramel", "Vanilla", "Sweet", "Espresso", "Layered"],
+    "imageUrl": "https://images.unsplash.com/photo-1562220963-06a6fd2dc570?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "vanilla-latte",
+    "name": "Vanilla Latte",
+    "description": "A caffè latte enhanced with vanilla syrup — one of the most universally beloved flavoured coffees. The vanilla's warm, sweet aroma complements espresso's roasty notes without overpowering them. Available hot, iced, or blended, making it the quintessential everyday flavoured coffee.",
+    "origin": "United States",
+    "flavorNotes": ["Vanilla", "Sweet", "Creamy", "Espresso", "Comforting"],
+    "imageUrl": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "hazelnut-latte",
+    "name": "Hazelnut Latte",
+    "description": "A latte flavoured with hazelnut syrup, producing a nutty, sweet beverage reminiscent of liquid Nutella. The hazelnut's natural affinity for dark-roasted coffee makes this pairing particularly harmonious. A perennial autumn favourite that shines with medium-dark or dark espresso roasts.",
+    "origin": "United States",
+    "flavorNotes": ["Hazelnut", "Nutty", "Sweet", "Creamy", "Autumn Warmth"],
+    "imageUrl": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "oat-milk-cortado",
+    "name": "Oat Milk Cortado",
+    "description": "A contemporary plant-based take on the cortado: espresso cut with an equal part of steamed oat milk. Oat milk's natural beta-glucan content gives it a surprisingly creamy texture and a subtle porridge sweetness that complements medium and dark espresso roasts beautifully. Dairy-free without compromise.",
+    "origin": "Scandinavia / Global Specialty Coffee",
+    "flavorNotes": ["Oaty", "Naturally Sweet", "Creamy", "Espresso Forward", "Dairy-Free"],
+    "imageUrl": "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "coconut-latte",
+    "name": "Coconut Latte",
+    "description": "Espresso paired with steamed coconut milk or coconut syrup. Coconut milk's tropical sweetness and gentle richness create a lighter, exotic alternative to dairy lattes. Particularly popular in tropical countries and Australian beach-side cafés served with light-roast single-origin beans.",
+    "origin": "Australia / Southeast Asia",
+    "flavorNotes": ["Tropical", "Coconut", "Lightly Sweet", "Exotic", "Dairy-Free"],
+    "imageUrl": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "pumpkin-spice-latte",
+    "name": "Pumpkin Spice Latte",
+    "description": "A seasonal American coffeehouse icon launched by Starbucks in 2003: espresso with steamed milk flavoured with pumpkin puree, cinnamon, nutmeg, clove, and ginger, topped with whipped cream and a dusting of pumpkin pie spice. Has become a global symbol of the autumn season.",
+    "origin": "United States",
+    "flavorNotes": ["Pumpkin", "Cinnamon", "Nutmeg", "Sweet", "Autumnal Spice"],
+    "imageUrl": "https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "irish-coffee",
+    "name": "Irish Coffee",
+    "description": "Invented in 1943 at Foynes Airport in County Limerick, Ireland: hot filter coffee sweetened with brown sugar, warmed Irish whiskey added, then topped with lightly whipped cream that floats on the surface. Coffee is drunk through the cool cream. A sophisticated, warming cold-weather drink.",
+    "origin": "Ireland",
+    "flavorNotes": ["Whiskey", "Coffee", "Brown Sugar", "Creamy", "Warming"],
+    "imageUrl": "https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "cafe-au-lait",
+    "name": "Café au Lait",
+    "description": "French for 'coffee with milk' — strong brewed coffee (traditionally from a French press or drip) combined with an equal part of hot steamed or scalded milk. Unlike a latte which uses espresso, café au lait is built on filter coffee, giving it a lighter, more rounded character. A Parisian breakfast ritual.",
+    "origin": "France",
+    "flavorNotes": ["Milky", "Light Body", "Rounded", "Gentle Coffee", "Breakfast"],
+    "imageUrl": "https://images.unsplash.com/photo-1461023058943-07fcbe16d735?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "gibraltar",
+    "name": "Gibraltar",
+    "description": "A 90 ml drink popularised at Blue Bottle Coffee in San Francisco: a double ristretto in a 4.5 oz 'Gibraltar' glass topped with steamed whole milk. More concentrated than a cortado, slightly smaller than a flat white. The glass allows you to see the beautiful layers of espresso and milk merging.",
+    "origin": "United States",
+    "flavorNotes": ["Intense", "Ristretto Sweet", "Creamy", "Compact", "Rich"],
+    "imageUrl": "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "lungo-freddo",
+    "name": "Lungo Freddo",
+    "description": "A chilled Italian coffee: a lungo extracted hot is immediately poured over ice in a short glass. The contrast between the hot, bitter lungo and cold ice creates a slightly different, more intense flavour than a regular iced Americano. A refreshing bridge between espresso culture and iced coffee.",
+    "origin": "Italy",
+    "flavorNotes": ["Bitter-Sweet", "Chilled", "Intense", "Refreshing", "Bold"],
+    "imageUrl": "https://images.unsplash.com/photo-1548695882-c585cdc9c367?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "einspanner",
+    "name": "Einspänner",
+    "description": "A Viennese coffeehouse staple: a double espresso or strong black coffee served in a tall glass, topped with a generous amount of unsweetened whipped cream. Named after the one-horse carriages whose drivers would hold their drinks in one hand while steering with the other. Drunk through the cool cream.",
+    "origin": "Austria",
+    "flavorNotes": ["Rich Cream", "Strong Coffee", "Contrast", "Viennese Classic", "Indulgent"],
+    "imageUrl": "https://images.unsplash.com/photo-1498804103079-a6351b050096?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "cascara-latte",
+    "name": "Cascara Latte",
+    "description": "Cascara (Spanish for 'husk') is a tea-like drink brewed from the dried husks of coffee cherries rather than the beans. Steeped in hot water it produces a fruity, hibiscus-like liquid with mild caffeine. Combined with steamed milk it becomes an exotic, light-bodied latte that surprises and delights first-timers.",
+    "origin": "Yemen / Bolivia",
+    "flavorNotes": ["Fruity", "Hibiscus", "Floral", "Mild Caffeine", "Exotic"],
+    "imageUrl": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": "magic-coffee",
+    "name": "Magic",
+    "description": "A Melbourne, Australia specialty: two ristretto shots in a 150 ml cup topped with silky steamed whole milk — smaller and stronger than a flat white but with the same microfoam technique. It has never appeared on a mainstream coffee chain menu; ordering one signals that you know your specialty coffee.",
+    "origin": "Australia",
+    "flavorNotes": ["Strong", "Ristretto Sweet", "Silky", "Hidden Gem", "Espresso Forward"],
+    "imageUrl": "https://images.unsplash.com/photo-1510707577719-ae7c14805e3a?auto=format&fit=crop&w=400&q=80"
+  }
+]

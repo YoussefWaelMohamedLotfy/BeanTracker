@@ -1,6 +1,6 @@
 namespace BeanTracker.MAUI.Features.Favourites;
 
-public partial class FavouritesPage : ContentPage
+public sealed partial class FavouritesPage : ContentPage
 {
     public FavouritesPage(FavouritesViewModel vm)
     {
