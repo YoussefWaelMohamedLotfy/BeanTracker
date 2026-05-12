@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Cappuccino — primary brand color (status bar background) -->
+    <color name="colorPrimary">#C68642</color>
+    <!-- Americano — dark roast for dark status bar / nav bar     -->
+    <color name="colorPrimaryDark">#3D1C02</color>
+    <!-- Macchiato — accent for floating buttons, highlights      -->
+    <color name="colorAccent">#8B4513</color>
+</resources>

@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<ResourceDictionary 
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml">
+
+    <!--
+    ╔══════════════════════════════════════════════════════════╗
+    ║            BeanTracker — Coffee Color Palette            ║
+    ║                                                          ║
+    ║  Palette flows from darkest roast to steamed foam.       ║
+    ║  Semantic keys (Primary, Gray*, etc.) map to these       ║
+    ║  palette colors so Styles.xaml stays unchanged.          ║
+    ║                                                          ║
+    ║  Light mode → warm, inviting café feel                   ║
+    ║  Dark mode  → deep roast, cosy evening ambience          ║
+    ╚══════════════════════════════════════════════════════════╝
+    
+    Note: For Android see also Platforms\Android\Resources\values\colors.xml
+    -->
+
+    <!-- ─── Coffee Palette ──────────────────────────────────── -->
+    <!-- Espresso  – near-black concentrate, darkest roast       -->
+    <Color x:Key="Espresso">#1A0A00</Color>
+    <!-- Ristretto – short, concentrated dark pull               -->
+    <Color x:Key="Ristretto">#2D1500</Color>
+    <!-- Americano  – dark roast diluted with hot water          -->
+    <Color x:Key="Americano">#3D1C02</Color>
+    <!-- Lungo      – long pour, medium-dark body                -->
+    <Color x:Key="Lungo">#5C2E00</Color>
+    <!-- Mocha      – deep chocolate-coffee blend                -->
+    <Color x:Key="Mocha">#6F3525</Color>
+    <!-- Macchiato  – espresso "stained" with a dash of milk     -->
+    <Color x:Key="Macchiato">#8B4513</Color>
+    <!-- Cortado    – equal parts espresso and steamed milk      -->
+    <Color x:Key="Cortado">#A05C2E</Color>
+    <!-- Cappuccino – warm, balanced espresso and foam           -->
+    <Color x:Key="Cappuccino">#C68642</Color>
+    <!-- Latte      – milky, light golden-brown                  -->
+    <Color x:Key="Latte">#C8956C</Color>
+    <!-- Crema      – the golden foam crown of a fresh espresso  -->
+    <Color x:Key="Crema">#E8C99A</Color>
+    <!-- Steamed    – warm steamed milk                          -->
+    <Color x:Key="Steamed">#F0DEC0</Color>
+    <!-- FlatWhite  – clean, lightly warm white                  -->
+    <Color x:Key="FlatWhite">#FAF0E6</Color>
+
+    <!-- ─── Warm Gray Scale ────────────────────────────────────
+         Coffee-tinted neutrals used for backgrounds, borders,
+         disabled states, and placeholder text.               -->
+    <Color x:Key="WarmGray100">#EDE3D9</Color>
+    <Color x:Key="WarmGray200">#D9C8B4</Color>
+    <Color x:Key="WarmGray300">#C0A882</Color>
+    <Color x:Key="WarmGray400">#A08060</Color>
+    <Color x:Key="WarmGray500">#7A5C40</Color>
+    <Color x:Key="WarmGray600">#5A3D25</Color>
+    <Color x:Key="WarmGray900">#291204</Color>
+    <Color x:Key="WarmGray950">#150800</Color>
+
+    <!-- ─── Semantic / Structural Colors ───────────────────────
+         These keys are referenced by Styles.xaml via
+         AppThemeBinding. Values cover both Light and Dark.
+
+         Light Mode  →  Cappuccino-family warm browns
+         Dark Mode   →  Latte/Crema on Espresso backgrounds   -->
+
+    <!-- Primary action color
+         Light: Cappuccino – warm, inviting CTA
+         Dark:  Latte      – lighter contrast on dark bg      -->
+    <Color x:Key="Primary">#C68642</Color>
+    <Color x:Key="PrimaryDark">#C8956C</Color>
+    <!-- Text placed ON the dark primary surface               -->
+    <Color x:Key="PrimaryDarkText">#1A0A00</Color>
+
+    <!-- Secondary / surface accent
+         Light: Crema   – soft golden
+         Dark:  Cortado – warm mid-brown                      -->
+    <Color x:Key="Secondary">#E8C99A</Color>
+    <Color x:Key="SecondaryDarkText">#A05C2E</Color>
+
+    <!-- Tertiary / decorative accent: Mocha                   -->
+    <Color x:Key="Tertiary">#6F3525</Color>
+
+    <!-- ─── Base Neutrals ──────────────────────────────────── -->
+    <Color x:Key="White">#FFFFFF</Color>
+    <Color x:Key="Black">#000000</Color>
+    <!-- Espresso replaces MidnightBlue for headline text      -->
+    <Color x:Key="MidnightBlue">#1A0A00</Color>
+    <!-- Warm dark surface for OffBlack states                 -->
+    <Color x:Key="OffBlack">#1F1400</Color>
+
+    <!-- ─── Gray Scale (warm-tinted, alias to WarmGray) ───────
+         Kept under "Gray*" keys so Styles.xaml needs no edits -->
+    <Color x:Key="Gray100">#EDE3D9</Color>
+    <Color x:Key="Gray200">#D9C8B4</Color>
+    <Color x:Key="Gray300">#C0A882</Color>
+    <Color x:Key="Gray400">#A08060</Color>
+    <Color x:Key="Gray500">#7A5C40</Color>
+    <Color x:Key="Gray600">#5A3D25</Color>
+    <Color x:Key="Gray900">#291204</Color>
+    <Color x:Key="Gray950">#150800</Color>
+
+    <!-- ─── Brushes ─────────────────────────────────────────── -->
+    <!-- Coffee palette brushes                                  -->
+    <SolidColorBrush x:Key="EspressoBrush"   Color="{StaticResource Espresso}"/>
+    <SolidColorBrush x:Key="RistrettoBrush"  Color="{StaticResource Ristretto}"/>
+    <SolidColorBrush x:Key="AmericanoBrush"  Color="{StaticResource Americano}"/>
+    <SolidColorBrush x:Key="LungoBrush"      Color="{StaticResource Lungo}"/>
+    <SolidColorBrush x:Key="MochaBrush"      Color="{StaticResource Mocha}"/>
+    <SolidColorBrush x:Key="MacchiatoBrush"  Color="{StaticResource Macchiato}"/>
+    <SolidColorBrush x:Key="CortadoBrush"    Color="{StaticResource Cortado}"/>
+    <SolidColorBrush x:Key="CappuccinoBrush" Color="{StaticResource Cappuccino}"/>
+    <SolidColorBrush x:Key="LatteBrush"      Color="{StaticResource Latte}"/>
+    <SolidColorBrush x:Key="CremaBrush"      Color="{StaticResource Crema}"/>
+    <SolidColorBrush x:Key="SteamedBrush"    Color="{StaticResource Steamed}"/>
+    <SolidColorBrush x:Key="FlatWhiteBrush"  Color="{StaticResource FlatWhite}"/>
+
+    <!-- Semantic brushes                                        -->
+    <SolidColorBrush x:Key="PrimaryBrush"   Color="{StaticResource Primary}"/>
+    <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>
+    <SolidColorBrush x:Key="TertiaryBrush"  Color="{StaticResource Tertiary}"/>
+    <SolidColorBrush x:Key="WhiteBrush"     Color="{StaticResource White}"/>
+    <SolidColorBrush x:Key="BlackBrush"     Color="{StaticResource Black}"/>
+
+    <!-- Magenta alias → Cappuccino (used by Styles.xaml for tab/nav bar text in light mode) -->
+    <Color x:Key="Magenta">#C68642</Color>
+
+    <!-- Gray scale brushes                                      -->
+    <SolidColorBrush x:Key="Gray100Brush" Color="{StaticResource Gray100}"/>
+    <SolidColorBrush x:Key="Gray200Brush" Color="{StaticResource Gray200}"/>
+    <SolidColorBrush x:Key="Gray300Brush" Color="{StaticResource Gray300}"/>
+    <SolidColorBrush x:Key="Gray400Brush" Color="{StaticResource Gray400}"/>
+    <SolidColorBrush x:Key="Gray500Brush" Color="{StaticResource Gray500}"/>
+    <SolidColorBrush x:Key="Gray600Brush" Color="{StaticResource Gray600}"/>
+    <SolidColorBrush x:Key="Gray900Brush" Color="{StaticResource Gray900}"/>
+    <SolidColorBrush x:Key="Gray950Brush" Color="{StaticResource Gray950}"/>
+
+</ResourceDictionary>
