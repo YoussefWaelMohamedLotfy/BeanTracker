@@ -8,16 +8,106 @@
     Title="{Binding SelectedBrewery.Name}">
 
     <ScrollView>
-        <VerticalStackLayout Padding="16" Spacing="12">
+        <VerticalStackLayout Padding="16" Spacing="14">
             <Label
                 Style="{StaticResource Title}"
                 Text="{Binding SelectedBrewery.Name}" />
-            <Label Text="{Binding SelectedBrewery.BreweryType}" />
-            <Label Text="{Binding SelectedBrewery.City}" />
-            <Label Text="{Binding SelectedBrewery.State}" />
-            <Label Text="{Binding SelectedBrewery.Country}" />
-            <Label Text="{Binding SelectedBrewery.Phone}" />
-            <Label Text="{Binding SelectedBrewery.WebsiteUrl}" />
+
+            <!-- Brewery Type -->
+            <Grid ColumnDefinitions="36,*" ColumnSpacing="10">
+                <Border
+                    BackgroundColor="{StaticResource Macchiato}"
+                    StrokeThickness="0"
+                    StrokeShape="Ellipse"
+                    HeightRequest="32" WidthRequest="32"
+                    HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="🏷️" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+                <VerticalStackLayout Grid.Column="1" Spacing="2">
+                    <Label Text="Type" FontSize="11" TextColor="{StaticResource WarmGray400}" FontAttributes="Bold" />
+                    <Label Text="{Binding SelectedBrewery.BreweryType}" FontSize="14" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- City -->
+            <Grid ColumnDefinitions="36,*" ColumnSpacing="10">
+                <Border
+                    BackgroundColor="{StaticResource Lungo}"
+                    StrokeThickness="0"
+                    StrokeShape="Ellipse"
+                    HeightRequest="32" WidthRequest="32"
+                    HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="📍" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+                <VerticalStackLayout Grid.Column="1" Spacing="2">
+                    <Label Text="City" FontSize="11" TextColor="{StaticResource WarmGray400}" FontAttributes="Bold" />
+                    <Label Text="{Binding SelectedBrewery.City}" FontSize="14" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- State -->
+            <Grid ColumnDefinitions="36,*" ColumnSpacing="10">
+                <Border
+                    BackgroundColor="{StaticResource Lungo}"
+                    StrokeThickness="0"
+                    StrokeShape="Ellipse"
+                    HeightRequest="32" WidthRequest="32"
+                    HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="🗺️" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+                <VerticalStackLayout Grid.Column="1" Spacing="2">
+                    <Label Text="State" FontSize="11" TextColor="{StaticResource WarmGray400}" FontAttributes="Bold" />
+                    <Label Text="{Binding SelectedBrewery.State}" FontSize="14" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- Country -->
+            <Grid ColumnDefinitions="36,*" ColumnSpacing="10">
+                <Border
+                    BackgroundColor="{StaticResource Lungo}"
+                    StrokeThickness="0"
+                    StrokeShape="Ellipse"
+                    HeightRequest="32" WidthRequest="32"
+                    HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="🌍" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+                <VerticalStackLayout Grid.Column="1" Spacing="2">
+                    <Label Text="Country" FontSize="11" TextColor="{StaticResource WarmGray400}" FontAttributes="Bold" />
+                    <Label Text="{Binding SelectedBrewery.Country}" FontSize="14" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- Phone -->
+            <Grid ColumnDefinitions="36,*" ColumnSpacing="10">
+                <Border
+                    BackgroundColor="{StaticResource Cortado}"
+                    StrokeThickness="0"
+                    StrokeShape="Ellipse"
+                    HeightRequest="32" WidthRequest="32"
+                    HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="📞" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+                <VerticalStackLayout Grid.Column="1" Spacing="2">
+                    <Label Text="Phone" FontSize="11" TextColor="{StaticResource WarmGray400}" FontAttributes="Bold" />
+                    <Label Text="{Binding SelectedBrewery.Phone}" FontSize="14" />
+                </VerticalStackLayout>
+            </Grid>
+
+            <!-- Website -->
+            <Grid ColumnDefinitions="36,*" ColumnSpacing="10">
+                <Border
+                    BackgroundColor="{StaticResource Cortado}"
+                    StrokeThickness="0"
+                    StrokeShape="Ellipse"
+                    HeightRequest="32" WidthRequest="32"
+                    HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="🌐" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+                <VerticalStackLayout Grid.Column="1" Spacing="2">
+                    <Label Text="Website" FontSize="11" TextColor="{StaticResource WarmGray400}" FontAttributes="Bold" />
+                    <Label Text="{Binding SelectedBrewery.WebsiteUrl}" FontSize="14" />
+                </VerticalStackLayout>
+            </Grid>
         </VerticalStackLayout>
     </ScrollView>
 

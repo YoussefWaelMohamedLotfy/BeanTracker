@@ -17,7 +17,27 @@
         </CollectionView.EmptyView>
         <CollectionView.ItemTemplate>
             <DataTemplate x:DataType="core:FavouriteDrink">
-                <Label Text="{Binding DrinkId}" Padding="16,12" />
+                <Grid ColumnDefinitions="64,*" Padding="16,10">
+                    <Border
+                        BackgroundColor="{StaticResource Mocha}"
+                        StrokeThickness="0"
+                        StrokeShape="Ellipse"
+                        HeightRequest="42" WidthRequest="42"
+                        HorizontalOptions="Center" VerticalOptions="Center">
+                        <Label
+                            Text="♥"
+                            FontSize="22"
+                            TextColor="{StaticResource Crema}"
+                            HorizontalOptions="Center"
+                            VerticalOptions="Center" />
+                    </Border>
+                    <Label
+                        Grid.Column="1"
+                        Text="{Binding DrinkId}"
+                        FontSize="15"
+                        FontAttributes="Bold"
+                        VerticalOptions="Center" />
+                </Grid>
             </DataTemplate>
         </CollectionView.ItemTemplate>
     </CollectionView>

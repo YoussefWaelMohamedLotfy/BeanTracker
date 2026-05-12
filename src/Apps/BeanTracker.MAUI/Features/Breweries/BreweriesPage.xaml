@@ -26,7 +26,33 @@
             </CollectionView.EmptyView>
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="core:Brewery">
-                    <Label Text="{Binding Name}" Padding="16,12" />
+                    <Grid ColumnDefinitions="64,*" Padding="16,10">
+                        <Border
+                            BackgroundColor="{StaticResource Lungo}"
+                            StrokeThickness="0"
+                            StrokeShape="Ellipse"
+                            HeightRequest="42" WidthRequest="42"
+                            HorizontalOptions="Center" VerticalOptions="Center">
+                            <Label
+                                Text="🏭"
+                                FontSize="20"
+                                HorizontalOptions="Center"
+                                VerticalOptions="Center" />
+                        </Border>
+                        <VerticalStackLayout
+                            Grid.Column="1"
+                            VerticalOptions="Center"
+                            Spacing="2">
+                            <Label
+                                Text="{Binding Name}"
+                                FontSize="15"
+                                FontAttributes="Bold" />
+                            <Label
+                                Text="{Binding City}"
+                                FontSize="12"
+                                TextColor="{StaticResource WarmGray400}" />
+                        </VerticalStackLayout>
+                    </Grid>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
