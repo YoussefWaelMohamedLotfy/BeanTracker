@@ -63,7 +63,6 @@ public static class MauiProgram
 
         var app = builder.Build();
 
-        // Ensure SQLite schema is created on first launch
         using var db = app.Services.GetRequiredService<BeanTrackerDbContext>();
         db.Database.EnsureCreated();
 
