@@ -1,4 +1,5 @@
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace BeanTracker.Core.Coffee;
 
@@ -6,10 +7,8 @@ namespace BeanTracker.Core.Coffee;
 /// Reads coffee drinks from a JSON stream supplied by the MAUI layer.
 /// The factory is called once and the result is cached.
 /// </summary>
-public sealed class LocalCoffeeDrinkService(Func<Task<Stream>> openDrinksFile) : ICoffeeDrinkService
+public sealed partial class LocalCoffeeDrinkService(Func<Task<Stream>> openDrinksFile) : ICoffeeDrinkService
 {
-    private static readonly JsonSerializerOptions JsonOptions = new() { PropertyNameCaseInsensitive = true };
-
     private List<CoffeeDrink>? _cache;
 
     private async Task<List<CoffeeDrink>> LoadAsync()
@@ -18,7 +17,7 @@ public sealed class LocalCoffeeDrinkService(Func<Task<Stream>> openDrinksFile) :
             return _cache;
 
         await using var stream = await openDrinksFile();
-        _cache = await JsonSerializer.DeserializeAsync<List<CoffeeDrink>>(stream, JsonOptions) ?? [];
+        _cache = await JsonSerializer.DeserializeAsync(stream, CoffeeDrinkSerializerContext.Default.ListCoffeeDrink) ?? [];
         return _cache;
     }
 
@@ -37,4 +36,8 @@ public sealed class LocalCoffeeDrinkService(Func<Task<Stream>> openDrinksFile) :
         var all = await LoadAsync();
         return all.FirstOrDefault(d => d.Id == id);
     }
+
+    [JsonSourceGenerationOptions(PropertyNameCaseInsensitive = true)]
+    [JsonSerializable(typeof(List<CoffeeDrink>))]
+    private sealed partial class CoffeeDrinkSerializerContext : JsonSerializerContext { }
 }

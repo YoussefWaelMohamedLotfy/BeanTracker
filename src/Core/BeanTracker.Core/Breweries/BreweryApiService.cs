@@ -3,26 +3,26 @@ using System.Text.Json.Serialization;
 
 namespace BeanTracker.Core.Breweries;
 
-public sealed class BreweryApiService(HttpClient http) : IBreweryService
+public sealed partial class BreweryApiService(HttpClient http) : IBreweryService
 {
     private const string BaseUrl = "https://api.openbrewerydb.org/v1/breweries";
 
     public async Task<IReadOnlyList<Brewery>> GetAllAsync(int page = 1)
     {
-        var dtos = await http.GetFromJsonAsync<List<BreweryDto>>($"{BaseUrl}?page={page}&per_page=25");
+        var dtos = await http.GetFromJsonAsync($"{BaseUrl}?page={page}&per_page=25", BrewerySerializerContext.Default.ListBreweryDto);
         return dtos?.Select(Map).ToList() ?? [];
     }
 
     public async Task<IReadOnlyList<Brewery>> SearchAsync(string query)
     {
         if (string.IsNullOrWhiteSpace(query)) return [];
-        var dtos = await http.GetFromJsonAsync<List<BreweryDto>>($"{BaseUrl}?by_name={Uri.EscapeDataString(query)}&per_page=25");
+        var dtos = await http.GetFromJsonAsync($"{BaseUrl}?by_name={Uri.EscapeDataString(query)}&per_page=25", BrewerySerializerContext.Default.ListBreweryDto);
         return dtos?.Select(Map).ToList() ?? [];
     }
 
     public async Task<Brewery?> GetByIdAsync(string id)
     {
-        var dto = await http.GetFromJsonAsync<BreweryDto>($"{BaseUrl}/{Uri.EscapeDataString(id)}");
+        var dto = await http.GetFromJsonAsync($"{BaseUrl}/{Uri.EscapeDataString(id)}", BrewerySerializerContext.Default.BreweryDto);
         return dto is null ? null : Map(dto);
     }
 
@@ -54,4 +54,8 @@ public sealed class BreweryApiService(HttpClient http) : IBreweryService
         [JsonPropertyName("latitude")] public double? Latitude { get; set; }
         [JsonPropertyName("longitude")] public double? Longitude { get; set; }
     }
+
+    [JsonSerializable(typeof(List<BreweryDto>))]
+    [JsonSerializable(typeof(BreweryDto))]
+    private sealed partial class BrewerySerializerContext : JsonSerializerContext { }
 }

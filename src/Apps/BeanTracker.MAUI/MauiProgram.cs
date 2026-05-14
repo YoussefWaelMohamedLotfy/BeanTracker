@@ -45,6 +45,7 @@ public static class MauiProgram
         builder.Services.AddTransient<IFavouritesService, LocalFavouritesService>();
         builder.Services.AddSingleton(new HttpClient());
         builder.Services.AddTransient<IBreweryService, BreweryApiService>();
+        builder.Services.AddTransient<ICoffeeImageService, CoffeeImageApiService>();
 
         // Pages
         builder.Services.AddTransient<CoffeeDrinksPage>();

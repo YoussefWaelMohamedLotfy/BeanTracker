@@ -9,17 +9,17 @@
     Title="BeanTracker">
 
     <TabBar>
-        <Tab Title="Coffee" Icon="tab_coffee.svg">
+        <Tab Title="Coffee" Icon="tab_coffee.svg" x:Name="CoffeeTab">
             <ShellContent
                 ContentTemplate="{DataTemplate coffee:CoffeeDrinksPage}"
                 Route="CoffeeDrinks" />
         </Tab>
-        <Tab Title="Favourites" Icon="tab_favourites.svg">
+        <Tab Title="Favourites" Icon="tab_favourites.svg" x:Name="FavouritesTab">
             <ShellContent
                 ContentTemplate="{DataTemplate favourites:FavouritesPage}"
                 Route="Favourites" />
         </Tab>
-        <Tab Title="Breweries" Icon="tab_breweries.svg">
+        <Tab Title="Breweries" Icon="tab_breweries.svg" x:Name="BreweriesTab">
             <ShellContent
                 ContentTemplate="{DataTemplate breweries:BreweriesPage}"
                 Route="Breweries" />

@@ -27,6 +27,11 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="core:CoffeeDrink">
                     <Grid ColumnDefinitions="64,*" Padding="16,10">
+                        <Grid.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CoffeeDrinksViewModel}}, Path=SelectDrinkCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Grid.GestureRecognizers>
                         <Border
                             BackgroundColor="{StaticResource Cappuccino}"
                             StrokeThickness="0"

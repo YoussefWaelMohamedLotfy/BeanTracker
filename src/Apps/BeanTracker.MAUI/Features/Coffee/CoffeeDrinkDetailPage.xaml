@@ -9,6 +9,23 @@
 
     <ScrollView>
         <VerticalStackLayout Padding="16" Spacing="16">
+
+            <!-- Coffee image -->
+            <Border HeightRequest="220" StrokeThickness="0" StrokeShape="RoundRectangle 12">
+                <Grid>
+                    <Image
+                        Source="{Binding ImageUrl}"
+                        Aspect="AspectFill"
+                        IsVisible="{Binding IsNotLoading}" />
+                    <ActivityIndicator
+                        IsRunning="{Binding IsLoading}"
+                        IsVisible="{Binding IsLoading}"
+                        Color="{StaticResource Cappuccino}"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center" />
+                </Grid>
+            </Border>
+
             <Label
                 Style="{StaticResource Title}"
                 Text="{Binding SelectedDrink.Name}" />
@@ -45,10 +62,36 @@
                 </VerticalStackLayout>
             </Grid>
 
+            <!-- Flavor Notes -->
+            <Grid ColumnDefinitions="36,*" ColumnSpacing="10">
+                <Border
+                    BackgroundColor="{StaticResource Mocha}"
+                    StrokeThickness="0"
+                    StrokeShape="Ellipse"
+                    HeightRequest="32" WidthRequest="32"
+                    HorizontalOptions="Center" VerticalOptions="Center">
+                    <Label Text="🍫" FontSize="16" HorizontalOptions="Center" VerticalOptions="Center" />
+                </Border>
+                <VerticalStackLayout Grid.Column="1" Spacing="2">
+                    <Label Text="Flavor Notes" FontSize="11" TextColor="{StaticResource WarmGray400}" FontAttributes="Bold" />
+                    <Label Text="{Binding FlavorNotesText}" FontSize="14" />
+                </VerticalStackLayout>
+            </Grid>
+
             <Button
                 Text="{Binding FavouriteLabel}"
                 Command="{Binding ToggleFavouriteCommand}"
-                Margin="0,8,0,0" />
+                BackgroundColor="{StaticResource WarmGray200}"
+                TextColor="{StaticResource Espresso}"
+                CornerRadius="24"
+                Margin="0,8,0,0">
+                <Button.Triggers>
+                    <DataTrigger TargetType="Button" Binding="{Binding IsFavourite}" Value="True">
+                        <Setter Property="BackgroundColor" Value="{StaticResource Macchiato}" />
+                        <Setter Property="TextColor" Value="{StaticResource FlatWhite}" />
+                    </DataTrigger>
+                </Button.Triggers>
+            </Button>
         </VerticalStackLayout>
     </ScrollView>
 

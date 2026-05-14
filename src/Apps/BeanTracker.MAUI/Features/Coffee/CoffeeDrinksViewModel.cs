@@ -71,4 +71,13 @@ public sealed partial class CoffeeDrinksViewModel(ICoffeeDrinkService coffeeDrin
         var all = await coffeeDrinkService.GetAllAsync();
         Drinks = new ObservableCollection<CoffeeDrink>(all);
     }
+
+    [RelayCommand]
+    private async Task SelectDrinkAsync(CoffeeDrink drink)
+    {
+        await Shell.Current.GoToAsync(nameof(CoffeeDrinkDetailPage), new Dictionary<string, object>
+        {
+            { "Drink", drink }
+        });
+    }
 }
