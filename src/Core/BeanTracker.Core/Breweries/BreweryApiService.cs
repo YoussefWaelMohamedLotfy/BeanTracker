@@ -34,6 +34,10 @@ public sealed partial class BreweryApiService(HttpClient http) : IBreweryService
         City = dto.City ?? string.Empty,
         State = dto.StateProvince ?? dto.State ?? string.Empty,
         Country = dto.Country ?? string.Empty,
+        Address1 = dto.Address1,
+        Address2 = dto.Address2,
+        Address3 = dto.Address3,
+        PostalCode = dto.PostalCode,
         Phone = dto.Phone,
         WebsiteUrl = dto.WebsiteUrl,
         Latitude = dto.Latitude,
@@ -49,6 +53,10 @@ public sealed partial class BreweryApiService(HttpClient http) : IBreweryService
         [JsonPropertyName("state")] public string? State { get; set; }
         [JsonPropertyName("state_province")] public string? StateProvince { get; set; }
         [JsonPropertyName("country")] public string? Country { get; set; }
+        [JsonPropertyName("address_1")] public string? Address1 { get; set; }
+        [JsonPropertyName("address_2")] public string? Address2 { get; set; }
+        [JsonPropertyName("address_3")] public string? Address3 { get; set; }
+        [JsonPropertyName("postal_code")] public string? PostalCode { get; set; }
         [JsonPropertyName("phone")] public string? Phone { get; set; }
         [JsonPropertyName("website_url")] public string? WebsiteUrl { get; set; }
         [JsonPropertyName("latitude")] public double? Latitude { get; set; }

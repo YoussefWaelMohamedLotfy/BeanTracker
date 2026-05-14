@@ -26,4 +26,13 @@ public sealed partial class BreweriesViewModel(IBreweryService breweryService) :
         var all = await breweryService.GetAllAsync();
         Breweries = new ObservableCollection<Brewery>(all);
     }
+
+    [RelayCommand]
+    private static async Task SelectBreweryAsync(Brewery brewery)
+    {
+        await Shell.Current.GoToAsync(nameof(BreweryDetailPage), new Dictionary<string, object>
+        {
+            ["BreweryId"] = brewery.Id
+        });
+    }
 }

@@ -1,5 +1,6 @@
 using BeanTracker.Core.Coffee;
 using BeanTracker.Core.Favourites;
+using BeanTracker.MAUI.Helpers;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Diagnostics;
@@ -78,11 +79,13 @@ public sealed partial class CoffeeDrinkDetailViewModel(
         {
             await favouritesService.RemoveAsync(SelectedDrink.Id);
             IsFavourite = false;
+            await FeedbackHelper.ShowNotificationAsync($"'{SelectedDrink.Name}' removed from Favourites 💔");
         }
         else
         {
             await favouritesService.AddAsync(SelectedDrink.Id);
             IsFavourite = true;
+            await FeedbackHelper.ShowNotificationAsync($"'{SelectedDrink.Name}' added to Favourites ❤️");
         }
     }
 }

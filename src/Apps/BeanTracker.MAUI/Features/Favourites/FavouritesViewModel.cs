@@ -1,4 +1,5 @@
 using BeanTracker.Core.Favourites;
+using BeanTracker.MAUI.Helpers;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
@@ -23,5 +24,6 @@ public sealed partial class FavouritesViewModel(IFavouritesService favouritesSer
         await favouritesService.RemoveAsync(drinkId);
         var item = Favourites.FirstOrDefault(f => f.DrinkId == drinkId);
         if (item is not null) Favourites.Remove(item);
+        await FeedbackHelper.ShowNotificationAsync("Removed from Favourites 💔");
     }
 }

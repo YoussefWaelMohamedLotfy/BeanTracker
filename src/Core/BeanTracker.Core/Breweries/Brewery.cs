@@ -8,6 +8,10 @@ public sealed class Brewery
     public string City { get; set; } = string.Empty;
     public string State { get; set; } = string.Empty;
     public string Country { get; set; } = string.Empty;
+    public string? Address1 { get; set; }
+    public string? Address2 { get; set; }
+    public string? Address3 { get; set; }
+    public string? PostalCode { get; set; }
     public string? Phone { get; set; }
     public string? WebsiteUrl { get; set; }
     public double? Latitude { get; set; }
