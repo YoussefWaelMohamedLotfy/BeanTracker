@@ -10,6 +10,7 @@ using CommunityToolkit.Maui;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Plugin.Maui.Biometric;
+using Plugin.Maui.ScreenSecurity;
 
 namespace BeanTracker.MAUI;
 
@@ -21,6 +22,7 @@ public static class MauiProgram
         builder
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
+            .UseScreenSecurity()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -43,6 +45,7 @@ public static class MauiProgram
 
         // Services
         builder.Services.AddSingleton<IBiometric>(_ => BiometricAuthenticationService.Default);
+        builder.Services.AddSingleton<IScreenSecurity>(_ => ScreenSecurity.Default);
         builder.Services.AddSingleton<ICoffeeDrinkService>(_ =>
             new LocalCoffeeDrinkService(() => FileSystem.OpenAppPackageFileAsync("drinks.json")));
         builder.Services.AddTransient<IFavouritesService, LocalFavouritesService>();
