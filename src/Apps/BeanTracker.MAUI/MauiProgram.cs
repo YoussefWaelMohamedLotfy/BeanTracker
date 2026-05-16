@@ -5,6 +5,7 @@ using BeanTracker.Core.Favourites;
 using BeanTracker.MAUI.Features.Breweries;
 using BeanTracker.MAUI.Features.Coffee;
 using BeanTracker.MAUI.Features.Favourites;
+using BeanTracker.MAUI.Features.OCR;
 using CommunityToolkit.Maui;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
@@ -53,6 +54,7 @@ public static class MauiProgram
         builder.Services.AddTransient<FavouritesPage>();
         builder.Services.AddTransient<BreweriesPage>();
         builder.Services.AddTransient<BreweryDetailPage>();
+        builder.Services.AddTransient<OcrPage>();
 
         // ViewModels
         builder.Services.AddTransient<CoffeeDrinksViewModel>();
@@ -60,6 +62,7 @@ public static class MauiProgram
         builder.Services.AddTransient<FavouritesViewModel>();
         builder.Services.AddTransient<BreweriesViewModel>();
         builder.Services.AddTransient<BreweryDetailViewModel>();
+        builder.Services.AddTransient<OcrViewModel>();
 
         var app = builder.Build();
 

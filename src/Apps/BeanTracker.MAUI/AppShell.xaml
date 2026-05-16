@@ -6,6 +6,7 @@
     xmlns:coffee="clr-namespace:BeanTracker.MAUI.Features.Coffee"
     xmlns:favourites="clr-namespace:BeanTracker.MAUI.Features.Favourites"
     xmlns:breweries="clr-namespace:BeanTracker.MAUI.Features.Breweries"
+    xmlns:ocr="clr-namespace:BeanTracker.MAUI.Features.OCR"
     Title="BeanTracker">
 
     <TabBar>
@@ -23,6 +24,11 @@
             <ShellContent
                 ContentTemplate="{DataTemplate breweries:BreweriesPage}"
                 Route="Breweries" />
+        </Tab>
+        <Tab Title="OCR" Icon="tab_ocr.svg" x:Name="OcrTab">
+            <ShellContent
+                ContentTemplate="{DataTemplate ocr:OcrPage}"
+                Route="OCR" />
         </Tab>
     </TabBar>
 

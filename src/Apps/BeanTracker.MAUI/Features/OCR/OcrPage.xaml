@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BeanTracker.MAUI.Features.OCR.OcrPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:BeanTracker.MAUI.Features.OCR"
+    x:DataType="vm:OcrViewModel"
+    Title="OCR Scan">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="20" Padding="16">
+
+            <!-- Action Buttons -->
+            <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
+                <Button
+                    Grid.Column="0"
+                    Text="📷 Take Photo"
+                    Command="{Binding TakePhotoCommand}" />
+                <Button
+                    Grid.Column="1"
+                    Text="📁 Upload File"
+                    Command="{Binding UploadFileCommand}" />
+            </Grid>
+
+            <!-- Empty State -->
+            <VerticalStackLayout
+                IsVisible="{Binding HasNoImage}"
+                Spacing="12"
+                HorizontalOptions="Center"
+                Padding="0,48">
+                <Label
+                    Text="🔍"
+                    FontSize="64"
+                    HorizontalOptions="Center" />
+                <Label
+                    Text="Take a photo or upload a file to begin scanning."
+                    HorizontalTextAlignment="Center"
+                    TextColor="{StaticResource WarmGray400}"
+                    FontSize="14" />
+            </VerticalStackLayout>
+
+            <!-- Image Preview -->
+            <Border
+                IsVisible="{Binding HasImage}"
+                StrokeShape="RoundRectangle 12"
+                StrokeThickness="1">
+                <Image
+                    Source="{Binding SelectedImageSource}"
+                    Aspect="AspectFit"
+                    HeightRequest="320" />
+            </Border>
+
+            <!-- File Size — visible only in Debug builds -->
+            <Label
+                Text="{Binding FileSizeText, StringFormat='File size: {0}'}"
+                IsVisible="{Binding ShowFileSizeInfo}"
+                HorizontalTextAlignment="Center"
+                FontSize="12"
+                TextColor="{StaticResource WarmGray400}" />
+
+            <!-- Clear Image Button -->
+            <Button
+                Text="🗑 Clear Image"
+                Command="{Binding ClearImageCommand}"
+                IsVisible="{Binding HasImage}"
+                BackgroundColor="{StaticResource Mocha}"
+                TextColor="{StaticResource White}" />
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>
