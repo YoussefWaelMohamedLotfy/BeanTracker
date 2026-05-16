@@ -30,5 +30,7 @@
 	<string>Assets.xcassets/appicon.appiconset</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Used to show the brewery location on the map.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>BeanTracker uses Face ID to keep your data secure.</string>
 </dict>
 </plist>

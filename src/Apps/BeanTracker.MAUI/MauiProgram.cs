@@ -9,6 +9,7 @@ using BeanTracker.MAUI.Features.OCR;
 using CommunityToolkit.Maui;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Plugin.Maui.Biometric;
 
 namespace BeanTracker.MAUI;
 
@@ -41,6 +42,7 @@ public static class MauiProgram
         });
 
         // Services
+        builder.Services.AddSingleton<IBiometric>(_ => BiometricAuthenticationService.Default);
         builder.Services.AddSingleton<ICoffeeDrinkService>(_ =>
             new LocalCoffeeDrinkService(() => FileSystem.OpenAppPackageFileAsync("drinks.json")));
         builder.Services.AddTransient<IFavouritesService, LocalFavouritesService>();
@@ -49,6 +51,7 @@ public static class MauiProgram
         builder.Services.AddTransient<ICoffeeImageService, CoffeeImageApiService>();
 
         // Pages
+        builder.Services.AddTransient<SplashPage>();
         builder.Services.AddTransient<CoffeeDrinksPage>();
         builder.Services.AddTransient<CoffeeDrinkDetailPage>();
         builder.Services.AddTransient<FavouritesPage>();

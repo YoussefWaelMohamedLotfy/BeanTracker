@@ -11,6 +11,7 @@ public sealed partial class App : Application
 
     protected override Window CreateWindow(IActivationState? activationState)
     {
-        return new Window(new SplashPage());
+        var splash = IPlatformApplication.Current!.Services.GetRequiredService<SplashPage>();
+        return new Window(splash);
     }
 }
