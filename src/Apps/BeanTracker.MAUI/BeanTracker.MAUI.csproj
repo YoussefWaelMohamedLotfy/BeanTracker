@@ -72,6 +72,7 @@
 		<PackageReference Include="Plugin.Maui.Biometric" />
 		<PackageReference Include="Plugin.Maui.ScreenSecurity" />
 		<PackageReference Include="Plugin.Maui.SwipeCardView" />
+		<PackageReference Include="OllamaSharp" />
 	</ItemGroup>
 
 </Project>

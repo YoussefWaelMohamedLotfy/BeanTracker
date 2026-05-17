@@ -10,6 +10,7 @@
     <PackageVersion Include="Plugin.Maui.Biometric" Version="0.1.0" />
     <PackageVersion Include="Plugin.Maui.ScreenSecurity" Version="1.2.3" />
     <PackageVersion Include="Plugin.Maui.SwipeCardView" Version="1.1.0" />
+    <PackageVersion Include="OllamaSharp" Version="5.4.25" />
     <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.25.0.139117" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.6.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.6.0" />

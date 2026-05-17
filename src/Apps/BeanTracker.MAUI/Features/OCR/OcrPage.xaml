@@ -7,7 +7,7 @@
     x:DataType="vm:OcrViewModel"
     Title="OCR Scan">
 
-    <ScrollView>
+    <ScrollView x:Name="PageScrollView">
         <VerticalStackLayout Spacing="20" Padding="16">
 
             <!-- Action Buttons -->
@@ -57,6 +57,51 @@
                 HorizontalTextAlignment="Center"
                 FontSize="12"
                 TextColor="{StaticResource WarmGray400}" />
+
+            <!-- Drink Selector — visible when image is loaded -->
+            <VerticalStackLayout IsVisible="{Binding HasImage}" Spacing="8">
+                <Label
+                    Text="Select drink type to analyze:"
+                    FontSize="14"
+                    FontAttributes="Bold" />
+                <Picker
+                    Title="Choose a drink…"
+                    ItemsSource="{Binding AvailableDrinks}"
+                    ItemDisplayBinding="{Binding Name}"
+                    SelectedItem="{Binding SelectedDrink}" />
+            </VerticalStackLayout>
+
+            <!-- Analyze Button -->
+            <Button
+                Text="🤖 Analyze with AI"
+                Command="{Binding AnalyzeImageCommand}"
+                IsVisible="{Binding HasImage}"
+                IsEnabled="{Binding CanAnalyze}" />
+
+            <!-- Busy Indicator -->
+            <ActivityIndicator
+                IsRunning="{Binding IsAnalyzing}"
+                IsVisible="{Binding IsAnalyzing}"
+                HorizontalOptions="Center" />
+
+            <!-- Analysis Result -->
+            <Border
+                x:Name="AnalysisResultBorder"
+                IsVisible="{Binding HasAnalysisResult}"
+                StrokeShape="RoundRectangle 12"
+                StrokeThickness="1"
+                Padding="12">
+                <VerticalStackLayout Spacing="6">
+                    <Label
+                        Text="🧠 AI Analysis"
+                        FontAttributes="Bold"
+                        FontSize="14" />
+                    <Label
+                        Text="{Binding AnalysisResult}"
+                        FontSize="13"
+                        LineBreakMode="WordWrap" />
+                </VerticalStackLayout>
+            </Border>
 
             <!-- Clear Image Button -->
             <Button
