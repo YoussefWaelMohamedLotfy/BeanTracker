@@ -1,11 +1,17 @@
 using BeanTracker.Core.Coffee;
 using CommunityToolkit.Mvvm.ComponentModel;
+using System.Windows.Input;
 
 namespace BeanTracker.MAUI.Features.Coffee;
 
 public sealed partial class CoffeeDrinkCardItem(CoffeeDrink drink) : ObservableObject
 {
     public CoffeeDrink Drink { get; } = drink;
+
+    /// <summary>
+    /// Set by the ViewModel so XAML can bind directly without RelativeSource.
+    /// </summary>
+    public ICommand? ToggleFavouriteCommand { get; set; }
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(IsImageVisible))]

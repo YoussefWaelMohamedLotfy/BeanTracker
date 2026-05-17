@@ -173,7 +173,7 @@
                             <Button
                                 Grid.Row="6"
                                 Text="{Binding FavouriteLabel}"
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CoffeeDrinksViewModel}}, Path=ToggleCardFavouriteCommand}"
+                                Command="{Binding ToggleFavouriteCommand}"
                                 CommandParameter="{Binding .}"
                                 BackgroundColor="{StaticResource WarmGray200}"
                                 TextColor="{StaticResource Espresso}"

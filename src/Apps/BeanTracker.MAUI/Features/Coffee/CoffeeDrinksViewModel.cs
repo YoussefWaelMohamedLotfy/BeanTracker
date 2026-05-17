@@ -128,18 +128,24 @@ public sealed partial class CoffeeDrinksViewModel(
     private void BuildCardDrinks(IReadOnlyList<CoffeeDrink> drinks)
     {
         CardDrinks = new ObservableCollection<CoffeeDrinkCardItem>(
-            drinks.Select(d => new CoffeeDrinkCardItem(d)));
+            drinks.Select(d => new CoffeeDrinkCardItem(d)
+            {
+                ToggleFavouriteCommand = ToggleCardFavouriteCommand
+            }));
     }
 
     private async Task LoadCardImagesAndFavouritesAsync()
     {
-        // Load each card's image and favourite state concurrently.
-        // Cards update as their data arrives — no blocking wait.
-        var tasks = CardDrinks.Select(async item =>
+        // Load favourite state sequentially to avoid concurrent DbContext access
+        foreach (var item in CardDrinks)
         {
             try { item.IsFavourite = await favouritesService.IsFavouriteAsync(item.Drink.Id); }
             catch { /* non-fatal */ }
+        }
 
+        // Images can be fetched concurrently (no DbContext involved)
+        var imageTasks = CardDrinks.Select(async item =>
+        {
             try
             {
                 item.ImageUrl = await coffeeImageService.GetImageUrlAsync(item.Drink.Id);
@@ -147,7 +153,7 @@ public sealed partial class CoffeeDrinksViewModel(
             catch { /* non-fatal */ }
             finally { item.IsImageLoading = false; }
         });
-        await Task.WhenAll(tasks);
+        await Task.WhenAll(imageTasks);
     }
 }
 
