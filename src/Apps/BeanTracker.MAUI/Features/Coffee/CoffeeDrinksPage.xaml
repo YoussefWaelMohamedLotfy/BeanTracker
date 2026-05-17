@@ -81,25 +81,25 @@
 
         <!-- ── Card Swipe View ────────────────────────────────── -->
         <swipe:SwipeCardView
+            x:Name="SwipeCard"
             Grid.Row="1"
             IsVisible="{Binding IsCardSwipeView}"
             ItemsSource="{Binding CardDrinks}"
             SupportedSwipeDirections="Left,Right"
             SupportedDraggingDirections="Left,Right"
             LoopCards="True"
-            StackDepth="2"
-            BackCardScale="0.92"
-            CardRotation="12"
             VerticalOptions="Fill"
             Margin="16,8">
             <swipe:SwipeCardView.ItemTemplate>
                 <DataTemplate x:DataType="vm:CoffeeDrinkCardItem">
                     <Border
-                        StrokeShape="RoundRectangle 16"
                         StrokeThickness="1"
                         Stroke="{StaticResource WarmGray200}"
-                        BackgroundColor="{AppThemeBinding Light={StaticResource FlatWhite}, Dark={StaticResource Ristretto}}"
+                        BackgroundColor="{StaticResource FlatWhite}"
                         Padding="0">
+                        <Border.StrokeShape>
+                            <RoundRectangle CornerRadius="16" />
+                        </Border.StrokeShape>
 
                         <Grid RowDefinitions="200,Auto,Auto,Auto,Auto,Auto,Auto">
 
@@ -107,8 +107,10 @@
                             <Border
                                 Grid.Row="0"
                                 StrokeThickness="0"
-                                StrokeShape="RoundRectangle 16,16,0,0"
                                 HeightRequest="200">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="16,16,0,0" />
+                                </Border.StrokeShape>
                                 <Grid>
                                     <Image
                                         Source="{Binding ImageUrl}"
@@ -175,17 +177,10 @@
                                 Text="{Binding FavouriteLabel}"
                                 Command="{Binding ToggleFavouriteCommand}"
                                 CommandParameter="{Binding .}"
-                                BackgroundColor="{StaticResource WarmGray200}"
-                                TextColor="{StaticResource Espresso}"
+                                BackgroundColor="{Binding FavouriteButtonBackground}"
+                                TextColor="{Binding FavouriteButtonTextColor}"
                                 CornerRadius="24"
-                                Margin="16,8,16,16">
-                                <Button.Triggers>
-                                    <DataTrigger TargetType="Button" Binding="{Binding IsFavourite}" Value="True">
-                                        <Setter Property="BackgroundColor" Value="{StaticResource Macchiato}" />
-                                        <Setter Property="TextColor" Value="{StaticResource FlatWhite}" />
-                                    </DataTrigger>
-                                </Button.Triggers>
-                            </Button>
+                                Margin="16,8,16,16" />
 
                         </Grid>
                     </Border>

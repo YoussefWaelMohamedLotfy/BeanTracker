@@ -6,6 +6,12 @@ namespace BeanTracker.MAUI.Features.Coffee;
 
 public sealed partial class CoffeeDrinkCardItem(CoffeeDrink drink) : ObservableObject
 {
+    // Macchiato (#8B4513) and WarmGray200 (#D9C8B4) match Colors.xaml palette entries.
+    private static readonly Color FavouriteActiveBackground = Color.FromArgb("#8B4513");
+    private static readonly Color FavouriteInactiveBackground = Color.FromArgb("#D9C8B4");
+    private static readonly Color FavouriteActiveText = Color.FromArgb("#FAF0E6");   // FlatWhite
+    private static readonly Color FavouriteInactiveText = Color.FromArgb("#1A0A00"); // Espresso
+
     public CoffeeDrink Drink { get; } = drink;
 
     /// <summary>
@@ -25,11 +31,19 @@ public sealed partial class CoffeeDrinkCardItem(CoffeeDrink drink) : ObservableO
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(nameof(FavouriteLabel))]
+    [NotifyPropertyChangedFor(nameof(FavouriteButtonBackground))]
+    [NotifyPropertyChangedFor(nameof(FavouriteButtonTextColor))]
     public partial bool IsFavourite { get; set; }
 
     public string FavouriteLabel => IsFavourite
         ? "❤️  Remove from Favourites"
         : "🤍  Save to Favourites";
+
+    /// <summary>Button background color — bound directly to avoid DataTrigger in XAML.</summary>
+    public Color FavouriteButtonBackground => IsFavourite ? FavouriteActiveBackground : FavouriteInactiveBackground;
+
+    /// <summary>Button text color — bound directly to avoid DataTrigger in XAML.</summary>
+    public Color FavouriteButtonTextColor => IsFavourite ? FavouriteActiveText : FavouriteInactiveText;
 
     public string FlavorNotesText => Drink.FlavorNotes is { Count: > 0 } notes
         ? string.Join(" • ", notes)

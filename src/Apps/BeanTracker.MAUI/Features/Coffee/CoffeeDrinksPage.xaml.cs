@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Diagnostics;
 
 namespace BeanTracker.MAUI.Features.Coffee;
@@ -18,6 +19,7 @@ public sealed partial class CoffeeDrinksPage : ContentPage
             throw;
         }
         BindingContext = _vm = vm;
+        _vm.PropertyChanged += OnVmPropertyChanged;
     }
 
     protected override void OnAppearing()
@@ -30,6 +32,16 @@ public sealed partial class CoffeeDrinksPage : ContentPage
         catch (Exception ex)
         {
             Debug.WriteLine($"[BeanTracker] CoffeeDrinksPage.OnAppearing failed: {ex}");
+        }
+    }
+
+    private void OnVmPropertyChanged(object? sender, PropertyChangedEventArgs e)
+    {
+        if (e.PropertyName == nameof(CoffeeDrinksViewModel.IsCardSwipeView) && _vm.IsCardSwipeView)
+        {
+            // Some platforms (WinUI in particular) do not re-measure a control that was
+            // invisible when first laid out. Force a layout pass after the toggle.
+            Dispatcher.Dispatch(() => SwipeCard.InvalidateMeasure());
         }
     }
 }
