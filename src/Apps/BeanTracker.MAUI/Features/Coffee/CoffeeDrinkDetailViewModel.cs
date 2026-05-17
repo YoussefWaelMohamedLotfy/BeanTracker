@@ -59,7 +59,7 @@ public sealed partial class CoffeeDrinkDetailViewModel(
 
         try
         {
-            ImageUrl = await coffeeImageService.GetRandomImageUrlAsync();
+            ImageUrl = await coffeeImageService.GetImageUrlAsync(drink.Id);
         }
         catch (Exception ex)
         {

@@ -5,19 +5,36 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:BeanTracker.MAUI.Features.Coffee"
     xmlns:core="clr-namespace:BeanTracker.Core.Coffee;assembly=BeanTracker.Core"
+    xmlns:swipe="clr-namespace:Plugin.Maui.SwipeCardView;assembly=Plugin.Maui.SwipeCardView"
     x:DataType="vm:CoffeeDrinksViewModel"
     Title="Coffee Drinks">
 
     <Grid RowDefinitions="Auto,*">
-        <SearchBar
-            Grid.Row="0"
-            Placeholder="Search drinks…"
-            Text="{Binding SearchQuery}"
-            SearchCommand="{Binding SearchCommand}" />
 
+        <!-- Top bar: Search + view-toggle button -->
+        <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Padding="0,4">
+            <SearchBar
+                Grid.Column="0"
+                Placeholder="Search drinks…"
+                Text="{Binding SearchQuery}"
+                SearchCommand="{Binding SearchCommand}"
+                IsVisible="{Binding IsListView}" />
+            <Button
+                Grid.Column="1"
+                Text="{Binding ToggleViewLabel}"
+                Command="{Binding ToggleViewCommand}"
+                CornerRadius="20"
+                FontSize="13"
+                Padding="12,8"
+                Margin="4,4,8,4"
+                VerticalOptions="Center" />
+        </Grid>
+
+        <!-- ── List View ──────────────────────────────────────── -->
         <CollectionView
             Grid.Row="1"
-            ItemsSource="{Binding Drinks}">
+            ItemsSource="{Binding Drinks}"
+            IsVisible="{Binding IsListView}">
             <CollectionView.EmptyView>
                 <Label
                     HorizontalOptions="Center"
@@ -61,6 +78,121 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+
+        <!-- ── Card Swipe View ────────────────────────────────── -->
+        <swipe:SwipeCardView
+            Grid.Row="1"
+            IsVisible="{Binding IsCardSwipeView}"
+            ItemsSource="{Binding CardDrinks}"
+            SupportedSwipeDirections="Left,Right"
+            SupportedDraggingDirections="Left,Right"
+            LoopCards="True"
+            StackDepth="2"
+            BackCardScale="0.92"
+            CardRotation="12"
+            VerticalOptions="Fill"
+            Margin="16,8">
+            <swipe:SwipeCardView.ItemTemplate>
+                <DataTemplate x:DataType="vm:CoffeeDrinkCardItem">
+                    <Border
+                        StrokeShape="RoundRectangle 16"
+                        StrokeThickness="1"
+                        Stroke="{StaticResource WarmGray200}"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource FlatWhite}, Dark={StaticResource Ristretto}}"
+                        Padding="0">
+
+                        <Grid RowDefinitions="200,Auto,Auto,Auto,Auto,Auto,Auto">
+
+                            <!-- Image -->
+                            <Border
+                                Grid.Row="0"
+                                StrokeThickness="0"
+                                StrokeShape="RoundRectangle 16,16,0,0"
+                                HeightRequest="200">
+                                <Grid>
+                                    <Image
+                                        Source="{Binding ImageUrl}"
+                                        Aspect="AspectFill"
+                                        IsVisible="{Binding IsImageVisible}" />
+                                    <ActivityIndicator
+                                        IsRunning="{Binding IsImageLoading}"
+                                        IsVisible="{Binding IsImageLoading}"
+                                        Color="{StaticResource Cappuccino}"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center" />
+                                </Grid>
+                            </Border>
+
+                            <!-- Name -->
+                            <Label
+                                Grid.Row="1"
+                                Text="{Binding Drink.Name}"
+                                FontSize="18"
+                                FontAttributes="Bold"
+                                Margin="16,12,16,0" />
+
+                            <!-- Description -->
+                            <Label
+                                Grid.Row="2"
+                                Text="{Binding Drink.Description}"
+                                FontSize="13"
+                                TextColor="{StaticResource WarmGray500}"
+                                LineBreakMode="TailTruncation"
+                                MaxLines="2"
+                                Margin="16,4,16,0" />
+
+                            <!-- Origin -->
+                            <Grid Grid.Row="3" ColumnDefinitions="20,*" Margin="16,8,16,0" ColumnSpacing="6">
+                                <Label Grid.Column="0" Text="🌍" FontSize="14" VerticalOptions="Center" />
+                                <Label Grid.Column="1" Text="{Binding Drink.Origin}" FontSize="13" VerticalOptions="Center" />
+                            </Grid>
+
+                            <!-- Flavor Notes -->
+                            <Grid Grid.Row="4" ColumnDefinitions="20,*" Margin="16,4,16,0" ColumnSpacing="6">
+                                <Label Grid.Column="0" Text="🍫" FontSize="14" VerticalOptions="Center" />
+                                <Label
+                                    Grid.Column="1"
+                                    Text="{Binding FlavorNotesText}"
+                                    FontSize="13"
+                                    TextColor="{StaticResource WarmGray400}"
+                                    LineBreakMode="TailTruncation"
+                                    MaxLines="1"
+                                    VerticalOptions="Center" />
+                            </Grid>
+
+                            <!-- Swipe hint -->
+                            <Label
+                                Grid.Row="5"
+                                Text="← swipe to browse →"
+                                FontSize="11"
+                                TextColor="{StaticResource WarmGray300}"
+                                HorizontalOptions="Center"
+                                Margin="0,6,0,0" />
+
+                            <!-- Save to Favourites button -->
+                            <Button
+                                Grid.Row="6"
+                                Text="{Binding FavouriteLabel}"
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:CoffeeDrinksViewModel}}, Path=ToggleCardFavouriteCommand}"
+                                CommandParameter="{Binding .}"
+                                BackgroundColor="{StaticResource WarmGray200}"
+                                TextColor="{StaticResource Espresso}"
+                                CornerRadius="24"
+                                Margin="16,8,16,16">
+                                <Button.Triggers>
+                                    <DataTrigger TargetType="Button" Binding="{Binding IsFavourite}" Value="True">
+                                        <Setter Property="BackgroundColor" Value="{StaticResource Macchiato}" />
+                                        <Setter Property="TextColor" Value="{StaticResource FlatWhite}" />
+                                    </DataTrigger>
+                                </Button.Triggers>
+                            </Button>
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </swipe:SwipeCardView.ItemTemplate>
+        </swipe:SwipeCardView>
+
     </Grid>
 
 </ContentPage>
