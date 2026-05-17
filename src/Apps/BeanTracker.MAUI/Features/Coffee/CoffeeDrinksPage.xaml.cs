@@ -1,3 +1,5 @@
+using System.Diagnostics;
+
 namespace BeanTracker.MAUI.Features.Coffee;
 
 public sealed partial class CoffeeDrinksPage : ContentPage
@@ -6,13 +8,28 @@ public sealed partial class CoffeeDrinksPage : ContentPage
 
     public CoffeeDrinksPage(CoffeeDrinksViewModel vm)
     {
-        InitializeComponent();
+        try
+        {
+            InitializeComponent();
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"[BeanTracker] CoffeeDrinksPage.InitializeComponent failed: {ex}");
+            throw;
+        }
         BindingContext = _vm = vm;
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
-        _vm.LoadCommand.Execute(null);
+        try
+        {
+            _vm.LoadCommand.Execute(null);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"[BeanTracker] CoffeeDrinksPage.OnAppearing failed: {ex}");
+        }
     }
 }

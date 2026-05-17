@@ -61,6 +61,12 @@
 
 		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
 		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+
+		<!-- Use runtime XAML inflation for CoffeeDrinksPage:
+		     the SwipeCardView DataTemplate with AppThemeBinding + DataTrigger
+		     causes source-gen issues on Android. Runtime inflation is more
+		     compatible and handles all XAML extensions correctly. -->
+		<MauiXaml Update="Features\Coffee\CoffeeDrinksPage.xaml" Inflator="Runtime" />
 	</ItemGroup>
 
 	<ItemGroup>
