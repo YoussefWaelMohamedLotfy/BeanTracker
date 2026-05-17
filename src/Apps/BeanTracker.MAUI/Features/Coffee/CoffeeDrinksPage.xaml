@@ -131,6 +131,7 @@
                                 Text="{Binding Drink.Name}"
                                 FontSize="18"
                                 FontAttributes="Bold"
+                                TextColor="{StaticResource Espresso}"
                                 Margin="16,12,16,0" />
 
                             <!-- Description -->
