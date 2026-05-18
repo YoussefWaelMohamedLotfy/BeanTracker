@@ -6,6 +6,7 @@ namespace BeanTracker.MAUI.Features.Coffee;
 public sealed partial class CoffeeDrinksPage : ContentPage
 {
     private readonly CoffeeDrinksViewModel _vm;
+    private CancellationTokenSource? _arrowAnimCts;
 
     public CoffeeDrinksPage(CoffeeDrinksViewModel vm)
     {
@@ -33,15 +34,78 @@ public sealed partial class CoffeeDrinksPage : ContentPage
         {
             Debug.WriteLine($"[BeanTracker] CoffeeDrinksPage.OnAppearing failed: {ex}");
         }
+
+        if (_vm.IsCardSwipeView)
+            StartArrowAnimation();
+    }
+
+    protected override void OnDisappearing()
+    {
+        base.OnDisappearing();
+        StopArrowAnimation();
     }
 
     private void OnVmPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
-        if (e.PropertyName == nameof(CoffeeDrinksViewModel.IsCardSwipeView) && _vm.IsCardSwipeView)
+        if (e.PropertyName != nameof(CoffeeDrinksViewModel.IsCardSwipeView))
+            return;
+
+        if (_vm.IsCardSwipeView)
         {
             // Some platforms (WinUI in particular) do not re-measure a control that was
             // invisible when first laid out. Force a layout pass after the toggle.
             Dispatcher.Dispatch(() => SwipeCard.InvalidateMeasure());
+            StartArrowAnimation();
+        }
+        else
+        {
+            StopArrowAnimation();
+        }
+    }
+
+    private void StartArrowAnimation()
+    {
+        StopArrowAnimation();
+        _arrowAnimCts = new CancellationTokenSource();
+        _ = RunArrowAnimationAsync(_arrowAnimCts.Token);
+    }
+
+    private void StopArrowAnimation()
+    {
+        _arrowAnimCts?.Cancel();
+        _arrowAnimCts?.Dispose();
+        _arrowAnimCts = null;
+        LeftArrowHint.TranslationX = 0;
+        RightArrowHint.TranslationX = 0;
+    }
+
+    private async Task RunArrowAnimationAsync(CancellationToken token)
+    {
+        const uint stepMs = 520;
+
+        while (!token.IsCancellationRequested)
+        {
+            try
+            {
+                // Arrows bounce outward
+                await Task.WhenAll(
+                    LeftArrowHint.TranslateToAsync(-9, 0, stepMs, Easing.SinInOut),
+                    RightArrowHint.TranslateToAsync(9, 0, stepMs, Easing.SinInOut));
+
+                if (token.IsCancellationRequested) break;
+
+                // Arrows return to centre
+                await Task.WhenAll(
+                    LeftArrowHint.TranslateToAsync(0, 0, stepMs, Easing.SinInOut),
+                    RightArrowHint.TranslateToAsync(0, 0, stepMs, Easing.SinInOut));
+
+                // Brief pause before next pulse
+                await Task.Delay(300, token);
+            }
+            catch (OperationCanceledException)
+            {
+                break;
+            }
         }
     }
 }

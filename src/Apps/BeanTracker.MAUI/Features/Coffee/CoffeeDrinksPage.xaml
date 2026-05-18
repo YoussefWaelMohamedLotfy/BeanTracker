@@ -80,16 +80,16 @@
         </CollectionView>
 
         <!-- ── Card Swipe View ────────────────────────────────── -->
-        <swipe:SwipeCardView
-            x:Name="SwipeCard"
-            Grid.Row="1"
-            IsVisible="{Binding IsCardSwipeView}"
-            ItemsSource="{Binding CardDrinks}"
-            SupportedSwipeDirections="Left,Right"
-            SupportedDraggingDirections="Left,Right"
-            LoopCards="True"
-            VerticalOptions="Fill"
-            Margin="16,8">
+        <Grid Grid.Row="1" IsVisible="{Binding IsCardSwipeView}">
+
+            <swipe:SwipeCardView
+                x:Name="SwipeCard"
+                ItemsSource="{Binding CardDrinks}"
+                SupportedSwipeDirections="Left,Right"
+                SupportedDraggingDirections="Left,Right"
+                LoopCards="True"
+                VerticalOptions="Fill"
+                Margin="36,8">
             <swipe:SwipeCardView.ItemTemplate>
                 <DataTemplate x:DataType="vm:CoffeeDrinkCardItem">
                     <Border
@@ -101,7 +101,7 @@
                             <RoundRectangle CornerRadius="16" />
                         </Border.StrokeShape>
 
-                        <Grid RowDefinitions="200,Auto,Auto,Auto,Auto,Auto,Auto">
+                        <Grid RowDefinitions="200,Auto,Auto,Auto,Auto,Auto">
 
                             <!-- Image -->
                             <Border
@@ -147,7 +147,7 @@
                             <!-- Origin -->
                             <Grid Grid.Row="3" ColumnDefinitions="20,*" Margin="16,8,16,0" ColumnSpacing="6">
                                 <Label Grid.Column="0" Text="🌍" FontSize="14" VerticalOptions="Center" />
-                                <Label Grid.Column="1" Text="{Binding Drink.Origin}" FontSize="13" VerticalOptions="Center" />
+                                <Label Grid.Column="1" Text="{Binding Drink.Origin}" FontSize="13" TextColor="{StaticResource WarmGray500}" VerticalOptions="Center" />
                             </Grid>
 
                             <!-- Flavor Notes -->
@@ -163,18 +163,9 @@
                                     VerticalOptions="Center" />
                             </Grid>
 
-                            <!-- Swipe hint -->
-                            <Label
-                                Grid.Row="5"
-                                Text="← swipe to browse →"
-                                FontSize="11"
-                                TextColor="{StaticResource WarmGray300}"
-                                HorizontalOptions="Center"
-                                Margin="0,6,0,0" />
-
                             <!-- Save to Favourites button -->
                             <Button
-                                Grid.Row="6"
+                                Grid.Row="5"
                                 Text="{Binding FavouriteLabel}"
                                 Command="{Binding ToggleFavouriteCommand}"
                                 CommandParameter="{Binding .}"
@@ -187,7 +178,33 @@
                     </Border>
                 </DataTemplate>
             </swipe:SwipeCardView.ItemTemplate>
-        </swipe:SwipeCardView>
+            </swipe:SwipeCardView>
+
+            <!-- Left swipe arrow -->
+            <Label
+                x:Name="LeftArrowHint"
+                Text="❮"
+                FontSize="36"
+                FontAttributes="Bold"
+                TextColor="{StaticResource Cappuccino}"
+                HorizontalOptions="Start"
+                VerticalOptions="Center"
+                Margin="4,0,0,0"
+                Opacity="0.85" />
+
+            <!-- Right swipe arrow -->
+            <Label
+                x:Name="RightArrowHint"
+                Text="❯"
+                FontSize="36"
+                FontAttributes="Bold"
+                TextColor="{StaticResource Cappuccino}"
+                HorizontalOptions="End"
+                VerticalOptions="Center"
+                Margin="0,0,4,0"
+                Opacity="0.85" />
+
+        </Grid>
 
     </Grid>
 
