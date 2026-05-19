@@ -9,6 +9,10 @@ public sealed partial class BarcodeScannerPage : ContentPage
     private readonly BarcodeScannerViewModel _vm;
     private readonly IAudioManager _audioManager;
     private IAudioPlayer? _beepPlayer;
+
+    // Serialise all camera start/stop operations so they never race
+    private readonly SemaphoreSlim _cameraLock = new(1, 1);
+    private bool _isVisible = false;
     private bool _cameraConfigured = false;
 
     public BarcodeScannerPage(BarcodeScannerViewModel vm, IAudioManager audioManager)
@@ -27,7 +31,6 @@ public sealed partial class BarcodeScannerPage : ContentPage
         if (CameraView.NumCamerasDetected == 0)
             return;
 
-        // Prefer back camera for barcode scanning
         CameraView.Camera = CameraView.Cameras
             .FirstOrDefault(c => c.Position == CameraPosition.Back)
             ?? CameraView.Cameras[0];
@@ -42,28 +45,46 @@ public sealed partial class BarcodeScannerPage : ContentPage
 
         _cameraConfigured = true;
 
-        // CamerasLoaded may fire on a background thread — marshal to UI thread
-        MainThread.BeginInvokeOnMainThread(async () =>
-            await CameraView.StartCameraAsync());
+        // Start only if the page is already visible
+        if (_isVisible)
+            _ = ApplyCameraStateAsync();
     }
 
     protected override void OnAppearing()
     {
         base.OnAppearing();
-
-        // Init beep player in the background — never block camera startup
         _ = EnsureBeepPlayerAsync();
 
-        // Cameras already configured (e.g. returning from ImageSubmitPage): restart preview
+        _isVisible = true;
         if (_cameraConfigured)
-            _ = CameraView.StartCameraAsync();
+            _ = ApplyCameraStateAsync();
     }
 
-    protected override async void OnDisappearing()
+    protected override void OnDisappearing()
     {
         base.OnDisappearing();
-        // Await the stop so it fully completes before StartCameraAsync can be called again
-        await CameraView.StopCameraAsync();
+        _isVisible = false;
+        _ = ApplyCameraStateAsync();
+    }
+
+    /// <summary>
+    /// Single entry point for all camera start/stop transitions.
+    /// The semaphore guarantees operations are sequential — never concurrent.
+    /// </summary>
+    private async Task ApplyCameraStateAsync()
+    {
+        await _cameraLock.WaitAsync();
+        try
+        {
+            if (_isVisible)
+                await CameraView.StartCameraAsync();
+            else
+                await CameraView.StopCameraAsync();
+        }
+        finally
+        {
+            _cameraLock.Release();
+        }
     }
 
     private async Task EnsureBeepPlayerAsync()
