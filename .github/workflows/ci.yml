@@ -22,7 +22,7 @@ jobs:
         run: dotnet workload install maui
 
       - name: Restore Dependencies
-        run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj
+        run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -r win-x64
 
       - name: Build Android
         run: dotnet build src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-android -c Release --no-restore
@@ -61,7 +61,7 @@ jobs:
         run: dotnet workload install maui
 
       - name: Restore Dependencies
-        run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj
+        run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -r ios-arm64
 
       - name: Build iOS
         run: >
