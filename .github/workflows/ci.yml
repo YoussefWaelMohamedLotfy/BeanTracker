@@ -16,13 +16,15 @@ jobs:
         uses: actions/setup-dotnet@v5.2.0
         with:
           dotnet-version: '10.x'
-          dotnet-quality: 'preview'
 
       - name: Install MAUI Workload
         run: dotnet workload install maui
 
-      - name: Restore Dependencies
-        run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -r win-x64
+      - name: Restore Android Dependencies
+        run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-android
+
+      - name: Restore Windows Dependencies
+        run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-windows10.0.19041.0 -r win-x64
 
       - name: Build Android
         run: dotnet build src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-android -c Release --no-restore
@@ -49,13 +51,17 @@ jobs:
     runs-on: macos-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v6.0.2
+
+      - name: Setup Xcode
+        uses: maxim-lobanov/setup-xcode@v1.7.0
+        with:
+          xcode-version: '26.4'
 
       - name: Setup .NET
-        uses: actions/setup-dotnet@v5
+        uses: actions/setup-dotnet@v5.2.0
         with:
           dotnet-version: '10.x'
-          dotnet-quality: 'preview'
 
       - name: Install MAUI Workload
         run: dotnet workload install maui
@@ -75,7 +81,7 @@ jobs:
           -p:ArchiveOnBuild=false
 
       - name: Upload iOS Artifact
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: ios-build
           path: src/Apps/BeanTracker.MAUI/bin/Release/net10.0-ios/
@@ -91,7 +97,7 @@ jobs:
           -p:CodesignRequire=false
 
       - name: Upload Mac Catalyst Artifact
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@v7.0.1
         with:
           name: maccatalyst-build
           path: src/Apps/BeanTracker.MAUI/bin/Release/net10.0-maccatalyst/
