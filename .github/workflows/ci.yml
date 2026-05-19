@@ -21,10 +21,10 @@ jobs:
         run: dotnet workload install maui
 
       - name: Restore Android Dependencies
-        run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-android
+        run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -p:TargetFramework=net10.0-android
 
       - name: Restore Windows Dependencies
-        run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-windows10.0.19041.0 -r win-x64
+        run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -p:TargetFramework=net10.0-windows10.0.19041.0 -r win-x64
 
       - name: Build Android
         run: dotnet build src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-android -c Release --no-restore
@@ -56,7 +56,7 @@ jobs:
       - name: Setup Xcode
         uses: maxim-lobanov/setup-xcode@v1.7.0
         with:
-          xcode-version: '26.4'
+          xcode-version: latest
 
       - name: Setup .NET
         uses: actions/setup-dotnet@v5.2.0
