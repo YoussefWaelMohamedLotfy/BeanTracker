@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BeanTracker.MAUI.Features.BarcodeScanner.BarcodeScannerPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:BeanTracker.MAUI.Features.BarcodeScanner"
+    xmlns:cv="clr-namespace:Camera.MAUI;assembly=Camera.MAUI"
+    x:DataType="vm:BarcodeScannerViewModel"
+    Title="Barcode Scanner">
+
+    <Grid RowDefinitions="Auto,*">
+
+        <!-- Camera View -->
+        <Border
+            Grid.Row="0"
+            StrokeShape="RoundRectangle 0,0,16,16"
+            StrokeThickness="0"
+            BackgroundColor="Black">
+            <cv:CameraView
+                x:Name="CameraView"
+                HeightRequest="300"
+                HorizontalOptions="Fill"
+                BarCodeDetectionEnabled="True"
+                ControlBarcodeResultDuplicate="True"
+                BarCodeDetectionFrameRate="10" />
+        </Border>
+
+        <!-- Results Section -->
+        <Grid Grid.Row="1" RowDefinitions="Auto,Auto,*" Padding="16,12,16,0">
+
+            <!-- Header row -->
+            <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto" Margin="0,0,0,8">
+                <Label
+                    Grid.Column="0"
+                    Text="Scanned Barcodes"
+                    FontSize="16"
+                    FontAttributes="Bold"
+                    VerticalOptions="Center" />
+                <Button
+                    Grid.Column="1"
+                    Text="📷"
+                    Clicked="OnCaptureImageClicked"
+                    HeightRequest="36"
+                    Padding="12,0"
+                    FontSize="13"
+                    Margin="0,0,8,0" />
+                <Button
+                    Grid.Column="2"
+                    Text="🗑 Clear"
+                    Command="{Binding ClearResultsCommand}"
+                    IsVisible="{Binding HasResults}"
+                    HeightRequest="36"
+                    Padding="12,0"
+                    FontSize="13" />
+            </Grid>
+
+            <!-- Empty state -->
+            <VerticalStackLayout
+                Grid.Row="1"
+                IsVisible="{Binding HasNoResults}"
+                Spacing="8"
+                HorizontalOptions="Center"
+                Padding="0,32">
+                <Label
+                    Text="📷"
+                    FontSize="48"
+                    HorizontalOptions="Center" />
+                <Label
+                    Text="Point the camera at a barcode to scan it."
+                    HorizontalTextAlignment="Center"
+                    TextColor="{StaticResource WarmGray400}"
+                    FontSize="14" />
+            </VerticalStackLayout>
+
+            <!-- Results list -->
+            <CollectionView
+                Grid.Row="2"
+                IsVisible="{Binding HasResults}"
+                ItemsSource="{Binding ScannedBarcodes}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:ScannedBarcode">
+                        <Border
+                            StrokeShape="RoundRectangle 8"
+                            StrokeThickness="1"
+                            Padding="12,10"
+                            Margin="0,0,0,8">
+                            <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto">
+                                <Label
+                                    Grid.Row="0" Grid.Column="0"
+                                    Text="{Binding Text}"
+                                    FontSize="14"
+                                    FontAttributes="Bold"
+                                    LineBreakMode="WordWrap" />
+                                <Label
+                                    Grid.Row="0" Grid.Column="1"
+                                    Text="{Binding DisplayTime}"
+                                    FontSize="11"
+                                    TextColor="{StaticResource WarmGray400}"
+                                    VerticalOptions="Start"
+                                    Margin="8,0,0,0" />
+                                <Label
+                                    Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                    Text="{Binding Format}"
+                                    FontSize="11"
+                                    TextColor="{StaticResource WarmGray400}"
+                                    Margin="0,2,0,0" />
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </Grid>
+
+    </Grid>
+
+</ContentPage>

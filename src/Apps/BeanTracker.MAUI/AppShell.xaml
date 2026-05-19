@@ -7,6 +7,7 @@
     xmlns:favourites="clr-namespace:BeanTracker.MAUI.Features.Favourites"
     xmlns:breweries="clr-namespace:BeanTracker.MAUI.Features.Breweries"
     xmlns:ocr="clr-namespace:BeanTracker.MAUI.Features.OCR"
+    xmlns:barcode="clr-namespace:BeanTracker.MAUI.Features.BarcodeScanner"
     Title="BeanTracker">
 
     <TabBar>
@@ -29,6 +30,11 @@
             <ShellContent
                 ContentTemplate="{DataTemplate ocr:OcrPage}"
                 Route="OCR" />
+        </Tab>
+        <Tab Title="Barcode" Icon="tab_barcode.svg" x:Name="BarcodeTab">
+            <ShellContent
+                ContentTemplate="{DataTemplate barcode:BarcodeScannerPage}"
+                Route="Barcode" />
         </Tab>
     </TabBar>
 

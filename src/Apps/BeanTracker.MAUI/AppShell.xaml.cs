@@ -1,3 +1,4 @@
+using BeanTracker.MAUI.Features.BarcodeScanner;
 using BeanTracker.MAUI.Features.Breweries;
 using BeanTracker.MAUI.Features.Coffee;
 
@@ -10,6 +11,7 @@ public sealed partial class AppShell : Shell
         InitializeComponent();
         Routing.RegisterRoute(nameof(CoffeeDrinkDetailPage), typeof(CoffeeDrinkDetailPage));
         Routing.RegisterRoute(nameof(BreweryDetailPage), typeof(BreweryDetailPage));
+        Routing.RegisterRoute(nameof(ImageSubmitPage), typeof(ImageSubmitPage));
 
 #if WINDOWS
         this.Loaded += OnWindowsLoaded;

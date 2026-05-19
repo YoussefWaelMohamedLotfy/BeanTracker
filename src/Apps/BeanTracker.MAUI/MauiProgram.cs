@@ -2,13 +2,16 @@ using BeanTracker.Core.Breweries;
 using BeanTracker.Core.Coffee;
 using BeanTracker.Core.Data;
 using BeanTracker.Core.Favourites;
+using BeanTracker.MAUI.Features.BarcodeScanner;
 using BeanTracker.MAUI.Features.Breweries;
 using BeanTracker.MAUI.Features.Coffee;
 using BeanTracker.MAUI.Features.Favourites;
 using BeanTracker.MAUI.Features.OCR;
+using Camera.MAUI;
 using CommunityToolkit.Maui;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Plugin.Maui.Audio;
 using Plugin.Maui.Biometric;
 using Plugin.Maui.ScreenSecurity;
 
@@ -23,6 +26,7 @@ public static class MauiProgram
             .UseMauiApp<App>()
             .UseMauiCommunityToolkit()
             .UseScreenSecurity()
+            .UseMauiCameraView()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -44,6 +48,7 @@ public static class MauiProgram
         });
 
         // Services
+        builder.Services.AddSingleton(AudioManager.Current);
         builder.Services.AddSingleton<IBiometric>(_ => BiometricAuthenticationService.Default);
         builder.Services.AddSingleton<IScreenSecurity>(_ => ScreenSecurity.Default);
         builder.Services.AddSingleton<ICoffeeDrinkService>(_ =>
@@ -61,6 +66,8 @@ public static class MauiProgram
         builder.Services.AddTransient<BreweriesPage>();
         builder.Services.AddTransient<BreweryDetailPage>();
         builder.Services.AddTransient<OcrPage>();
+        builder.Services.AddTransient<BarcodeScannerPage>();
+        builder.Services.AddTransient<ImageSubmitPage>();
 
         // ViewModels
         builder.Services.AddTransient<CoffeeDrinksViewModel>();
@@ -69,6 +76,8 @@ public static class MauiProgram
         builder.Services.AddTransient<BreweriesViewModel>();
         builder.Services.AddTransient<BreweryDetailViewModel>();
         builder.Services.AddTransient<OcrViewModel>();
+        builder.Services.AddTransient<BarcodeScannerViewModel>();
+        builder.Services.AddTransient<ImageSubmitViewModel>();
 
         var app = builder.Build();
 

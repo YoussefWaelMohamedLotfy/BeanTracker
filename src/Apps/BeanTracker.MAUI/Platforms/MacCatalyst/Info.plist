@@ -38,5 +38,7 @@
 	<string>Assets.xcassets/appicon.appiconset</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Used to show the brewery location on the map.</string>
+	<key>NSCameraUsageDescription</key>
+	<string>BeanTracker uses the camera to scan barcodes.</string>
 </dict>
 </plist>

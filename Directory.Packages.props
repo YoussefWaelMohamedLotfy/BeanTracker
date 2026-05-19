@@ -2,6 +2,7 @@
   <ItemGroup>
     <PackageVersion Include="Aspire.Hosting.DevTunnels" Version="13.3.3" />
     <PackageVersion Include="Aspire.Hosting.Maui" Version="13.3.3-preview.1.26264.13" />
+    <PackageVersion Include="CameraMaui" Version="1.4.14" />
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageVersion Include="CommunityToolkit.Maui" Version="14.1.1" />
     <PackageVersion Include="Microsoft.Maui.Controls" Version="10.0.60" />
@@ -9,9 +10,10 @@
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.8" />
     <PackageVersion Include="Plugin.Maui.Biometric" Version="0.1.0" />
     <PackageVersion Include="Plugin.Maui.ScreenSecurity" Version="1.2.3" />
+    <PackageVersion Include="Plugin.Maui.Audio" Version="3.0.1" />
     <PackageVersion Include="Plugin.Maui.SwipeCardView" Version="1.1.0" />
     <PackageVersion Include="OllamaSharp" Version="5.4.25" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.25.0.139117" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.26.0.140279" />
     <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.6.0" />
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.6.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.3" />
