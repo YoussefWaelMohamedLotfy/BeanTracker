@@ -9,6 +9,7 @@ public sealed partial class BarcodeScannerPage : ContentPage
     private readonly BarcodeScannerViewModel _vm;
     private readonly IAudioManager _audioManager;
     private IAudioPlayer? _beepPlayer;
+    private bool _cameraConfigured = false;
 
     public BarcodeScannerPage(BarcodeScannerViewModel vm, IAudioManager audioManager)
     {
@@ -39,33 +40,40 @@ public sealed partial class BarcodeScannerPage : ContentPage
             ReadMultipleCodes = false
         };
 
+        _cameraConfigured = true;
+
+        // CamerasLoaded may fire on a background thread — marshal to UI thread
         MainThread.BeginInvokeOnMainThread(async () =>
             await CameraView.StartCameraAsync());
     }
 
-    protected override async void OnAppearing()
+    protected override void OnAppearing()
     {
         base.OnAppearing();
 
-        // Initialise beep player (or re-use if already created)
-        _beepPlayer ??= _audioManager.CreatePlayer(
-            await FileSystem.OpenAppPackageFileAsync("beep.mp3"));
+        // Init beep player in the background — never block camera startup
+        _ = EnsureBeepPlayerAsync();
 
-        _beepPlayer.Volume = 1.0;
-
-        // If cameras already loaded (e.g. returning to tab), restart preview
-        if (CameraView.NumCamerasDetected > 0)
-        {
-            MainThread.BeginInvokeOnMainThread(async () =>
-                await CameraView.StartCameraAsync());
-        }
+        // Cameras already configured (e.g. returning from ImageSubmitPage): restart preview
+        if (_cameraConfigured)
+            _ = CameraView.StartCameraAsync();
     }
 
-    protected override void OnDisappearing()
+    protected override async void OnDisappearing()
     {
         base.OnDisappearing();
-        MainThread.BeginInvokeOnMainThread(async () =>
-            await CameraView.StopCameraAsync());
+        // Await the stop so it fully completes before StartCameraAsync can be called again
+        await CameraView.StopCameraAsync();
+    }
+
+    private async Task EnsureBeepPlayerAsync()
+    {
+        if (_beepPlayer is not null)
+            return;
+
+        var stream = await FileSystem.OpenAppPackageFileAsync("beep.mp3");
+        _beepPlayer = _audioManager.CreatePlayer(stream);
+        _beepPlayer.Volume = 1.0;
     }
 
     private async void OnCaptureImageClicked(object? sender, EventArgs e)
