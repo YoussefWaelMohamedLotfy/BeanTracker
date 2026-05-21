@@ -45,6 +45,13 @@ public sealed partial class CoffeeDrinksPage : ContentPage
         StopArrowAnimation();
     }
 
+    protected override void OnHandlerChanging(HandlerChangingEventArgs args)
+    {
+        base.OnHandlerChanging(args);
+        if (args.NewHandler is null)
+            _vm.PropertyChanged -= OnVmPropertyChanged;
+    }
+
     private void OnVmPropertyChanged(object? sender, PropertyChangedEventArgs e)
     {
         if (e.PropertyName != nameof(CoffeeDrinksViewModel.IsCardSwipeView))

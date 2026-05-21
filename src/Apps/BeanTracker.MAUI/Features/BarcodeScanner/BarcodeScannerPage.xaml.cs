@@ -4,7 +4,7 @@ using Plugin.Maui.Audio;
 
 namespace BeanTracker.MAUI.Features.BarcodeScanner;
 
-public sealed partial class BarcodeScannerPage : ContentPage
+public sealed partial class BarcodeScannerPage : ContentPage, IDisposable
 {
     private readonly BarcodeScannerViewModel _vm;
     private readonly IAudioManager _audioManager;
@@ -14,6 +14,7 @@ public sealed partial class BarcodeScannerPage : ContentPage
     private readonly SemaphoreSlim _cameraLock = new(1, 1);
     private bool _isVisible = false;
     private bool _cameraConfigured = false;
+    private bool _disposed;
 
     public BarcodeScannerPage(BarcodeScannerViewModel vm, IAudioManager audioManager)
     {
@@ -142,5 +143,26 @@ public sealed partial class BarcodeScannerPage : ContentPage
             _beepPlayer.Stop();
             _beepPlayer.Play();
         });
+    }
+
+    protected override void OnHandlerChanging(HandlerChangingEventArgs args)
+    {
+        base.OnHandlerChanging(args);
+        if (args.NewHandler is null)
+            Dispose();
+    }
+
+    public void Dispose()
+    {
+        if (_disposed) return;
+        _disposed = true;
+
+        CameraView.BarcodeDetected -= OnBarcodeDetected;
+        CameraView.CamerasLoaded -= OnCamerasLoaded;
+
+        _beepPlayer?.Dispose();
+        _beepPlayer = null;
+
+        _cameraLock.Dispose();
     }
 }

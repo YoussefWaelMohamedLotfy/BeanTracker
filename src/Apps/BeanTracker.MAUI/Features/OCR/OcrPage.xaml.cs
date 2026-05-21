@@ -2,18 +2,19 @@ namespace BeanTracker.MAUI.Features.OCR;
 
 public sealed partial class OcrPage : ContentPage
 {
+    private readonly OcrViewModel _vm;
+
     public OcrPage(OcrViewModel vm)
     {
         InitializeComponent();
-        BindingContext = vm;
-        vm.PropertyChanged += OnViewModelPropertyChanged;
+        BindingContext = _vm = vm;
+        _vm.PropertyChanged += OnViewModelPropertyChanged;
     }
 
     protected override async void OnAppearing()
     {
         base.OnAppearing();
-        if (BindingContext is OcrViewModel vm)
-            await vm.LoadDrinksAsync();
+        await _vm.LoadDrinksAsync();
     }
 
     private void OnViewModelPropertyChanged(object? sender, System.ComponentModel.PropertyChangedEventArgs e)
@@ -21,5 +22,12 @@ public sealed partial class OcrPage : ContentPage
         if (e.PropertyName == nameof(OcrViewModel.AnalysisResult))
             MainThread.BeginInvokeOnMainThread(() =>
                 PageScrollView.ScrollToAsync(AnalysisResultBorder, ScrollToPosition.End, animated: false));
+    }
+
+    protected override void OnHandlerChanging(HandlerChangingEventArgs args)
+    {
+        base.OnHandlerChanging(args);
+        if (args.NewHandler is null)
+            _vm.PropertyChanged -= OnViewModelPropertyChanged;
     }
 }

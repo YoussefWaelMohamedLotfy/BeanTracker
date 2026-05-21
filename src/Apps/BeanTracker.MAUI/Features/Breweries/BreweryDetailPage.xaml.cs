@@ -44,6 +44,13 @@ public sealed partial class BreweryDetailPage : ContentPage
         base.OnNavigatedFrom(args);
     }
 
+    protected override void OnHandlerChanging(HandlerChangingEventArgs args)
+    {
+        base.OnHandlerChanging(args);
+        if (args.NewHandler is null)
+            _vm.PropertyChanged -= OnViewModelPropertyChanged;
+    }
+
     private void SetScreenSecurity(bool enable)
     {
 #if ANDROID

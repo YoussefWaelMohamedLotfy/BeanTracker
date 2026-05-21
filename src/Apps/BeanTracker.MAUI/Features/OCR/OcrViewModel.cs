@@ -137,7 +137,7 @@ public sealed partial class OcrViewModel : ObservableObject
             var imageBytes = await File.ReadAllBytesAsync(_cachedImagePath);
             var base64Image = Convert.ToBase64String(imageBytes);
 
-            var ollama = new OllamaApiClient(OllamaBaseUri);
+            using var ollama = new OllamaApiClient(OllamaBaseUri);
             ollama.SelectedModel = VisionModel;
 
             var prompt = $"""

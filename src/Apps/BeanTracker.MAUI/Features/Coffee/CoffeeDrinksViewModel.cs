@@ -10,7 +10,7 @@ namespace BeanTracker.MAUI.Features.Coffee;
 public sealed partial class CoffeeDrinksViewModel(
     ICoffeeDrinkService coffeeDrinkService,
     ICoffeeImageService coffeeImageService,
-    IFavouritesService favouritesService) : ObservableObject
+    IFavouritesService favouritesService) : ObservableObject, IDisposable
 {
     private const int DebounceMs = 400;
 
@@ -154,6 +154,13 @@ public sealed partial class CoffeeDrinksViewModel(
             finally { item.IsImageLoading = false; }
         });
         await Task.WhenAll(imageTasks);
+    }
+
+    public void Dispose()
+    {
+        _debounceCts?.Cancel();
+        _debounceCts?.Dispose();
+        _debounceCts = null;
     }
 }
 

@@ -70,6 +70,7 @@ public sealed partial class AppShell : Shell
     // that MAUI's build task writes next to the executable (e.g. tab_coffee.scale-100.png).
     private void OnWindowsLoaded(object? sender, EventArgs e)
     {
+        this.Loaded -= OnWindowsLoaded;
         string baseDir = AppContext.BaseDirectory;
         CoffeeTab.Icon    = ImageSource.FromFile(Path.Combine(baseDir, "tab_coffee.scale-100.png"));
         FavouritesTab.Icon = ImageSource.FromFile(Path.Combine(baseDir, "tab_favourites.scale-100.png"));
