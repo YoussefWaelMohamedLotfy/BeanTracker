@@ -3,6 +3,8 @@ using BeanTracker.Core.Favourites;
 using BeanTracker.MAUI.Helpers;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using Plugin.LocalNotification;
+using Plugin.LocalNotification.Core.Models;
 using System.Diagnostics;
 
 namespace BeanTracker.MAUI.Features.Coffee;
@@ -86,6 +88,30 @@ public sealed partial class CoffeeDrinkDetailViewModel(
             await favouritesService.AddAsync(SelectedDrink.Id);
             IsFavourite = true;
             await FeedbackHelper.ShowNotificationAsync($"'{SelectedDrink.Name}' added to Favourites ❤️");
+            await SendFavouriteAddedNotificationAsync(SelectedDrink.Name);
+        }
+    }
+
+    private static async Task SendFavouriteAddedNotificationAsync(string drinkName)
+    {
+        try
+        {
+            if (!await LocalNotificationCenter.Current.AreNotificationsEnabled())
+                await LocalNotificationCenter.Current.RequestNotificationPermission();
+
+            var notification = new NotificationRequest
+            {
+                NotificationId = NotificationConstants.FavouriteAddedNotificationId,
+                Title = "Added to Favourites ❤️",
+                Description = $"'{drinkName}' is now in your Favourites.",
+                ReturningData = NotificationConstants.NavigateToFavourites
+            };
+
+            await LocalNotificationCenter.Current.Show(notification);
+        }
+        catch (Exception ex)
+        {
+            Debug.WriteLine($"[BeanTracker] Could not send favourite notification: {ex}");
         }
     }
 }

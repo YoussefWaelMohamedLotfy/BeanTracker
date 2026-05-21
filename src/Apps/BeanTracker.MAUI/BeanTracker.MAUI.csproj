@@ -17,6 +17,7 @@
 		<UseMaui>true</UseMaui>
 		<SingleProject>true</SingleProject>
 		<SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+		<UseMaterial3>true</UseMaterial3>
 
 		<!-- Enable XAML source generation for faster build times and improved performance.
 				 This generates C# code from XAML at compile time instead of runtime inflation.
@@ -76,6 +77,7 @@
 		<PackageReference Include="Plugin.Maui.Audio" />
 		<PackageReference Include="Plugin.Maui.SwipeCardView" />
 		<PackageReference Include="OllamaSharp" />
+		<PackageReference Include="Plugin.LocalNotification" />
 	</ItemGroup>
 
 </Project>
