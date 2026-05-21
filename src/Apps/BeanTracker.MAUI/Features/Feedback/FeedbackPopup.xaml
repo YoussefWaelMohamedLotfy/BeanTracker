@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<toolkit:Popup
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    x:Class="BeanTracker.MAUI.Features.Feedback.FeedbackPopup"
+    CanBeDismissedByTappingOutsideOfPopup="False">
+
+    <Border
+        BackgroundColor="{AppThemeBinding Light=#FFFDF8F4, Dark=#1E1410}"
+        StrokeThickness="0"
+        StrokeShape="RoundRectangle 20"
+        Padding="28,24"
+        WidthRequest="320">
+
+        <VerticalStackLayout Spacing="20">
+
+            <!-- Header -->
+            <Label
+                Text="☕ Rate Your Experience"
+                FontSize="18"
+                FontAttributes="Bold"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center" />
+
+            <Label
+                Text="How are you enjoying BeanTracker? We'd love to hear from you!"
+                FontSize="14"
+                HorizontalOptions="Center"
+                HorizontalTextAlignment="Center"
+                TextColor="{AppThemeBinding Light=#555, Dark=#aaa}" />
+
+            <!-- Star Rating -->
+            <toolkit:RatingView
+                x:Name="StarRating"
+                MaximumRating="5"
+                Rating="0"
+                HorizontalOptions="Center"
+                ShapeDiameter="40"
+                FillColor="#C8860A"
+                EmptyShapeColor="{AppThemeBinding Light=#ddd, Dark=#444}" />
+
+            <!-- Submit button -->
+            <Button
+                x:Name="SubmitButton"
+                Text="Submit Rating"
+                Clicked="OnSubmitClicked"
+                BackgroundColor="#C8860A"
+                TextColor="White"
+                CornerRadius="10"
+                FontAttributes="Bold"
+                HeightRequest="46" />
+
+            <!-- Dismiss -->
+            <Button
+                Text="Maybe Later"
+                Clicked="OnDismissClicked"
+                BackgroundColor="Transparent"
+                TextColor="{AppThemeBinding Light=#888, Dark=#666}"
+                BorderWidth="0"
+                FontSize="13" />
+
+        </VerticalStackLayout>
+    </Border>
+
+</toolkit:Popup>

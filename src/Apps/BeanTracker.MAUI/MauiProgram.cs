@@ -6,11 +6,13 @@ using BeanTracker.MAUI.Features.BarcodeScanner;
 using BeanTracker.MAUI.Features.Breweries;
 using BeanTracker.MAUI.Features.Coffee;
 using BeanTracker.MAUI.Features.Favourites;
+using BeanTracker.MAUI.Features.Feedback;
 using BeanTracker.MAUI.Features.OCR;
 using Camera.MAUI;
 using CommunityToolkit.Maui;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Plugin.LocalNotification;
 using Plugin.Maui.Audio;
 using Plugin.Maui.Biometric;
 using Plugin.Maui.ScreenSecurity;
@@ -27,6 +29,7 @@ public static class MauiProgram
             .UseMauiCommunityToolkit()
             .UseScreenSecurity()
             .UseMauiCameraView()
+            .UseLocalNotification()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");
@@ -78,6 +81,9 @@ public static class MauiProgram
         builder.Services.AddTransient<OcrViewModel>();
         builder.Services.AddTransient<BarcodeScannerViewModel>();
         builder.Services.AddTransient<ImageSubmitViewModel>();
+
+        // Popups
+        builder.Services.AddTransient<FeedbackPopup>();
 
         var app = builder.Build();
 
