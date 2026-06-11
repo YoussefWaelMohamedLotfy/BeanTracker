@@ -1,0 +1,439 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BeanTracker.MAUI.Features.Bluetooth.BleDeviceDetailPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:BeanTracker.MAUI.Features.Bluetooth"
+    x:DataType="vm:BleDeviceDetailViewModel"
+    Title="{Binding DeviceName}">
+
+    <Grid RowDefinitions="Auto,Auto,*">
+
+        <!-- ── Connection Status Banner ──────────────────────────────────── -->
+        <Border
+            Grid.Row="0"
+            Margin="16,12,16,0"
+            Padding="12,10"
+            StrokeShape="RoundRectangle 10"
+            StrokeThickness="0"
+            BackgroundColor="{StaticResource WarmGray100}">
+            <Grid ColumnDefinitions="Auto,*,Auto" ColumnSpacing="10">
+
+                <!-- Status indicator: spinner while busy, colored dot when idle -->
+                <ActivityIndicator
+                    Grid.Column="0"
+                    IsRunning="{Binding IsBusy}"
+                    IsVisible="{Binding IsBusy}"
+                    Color="{StaticResource Cappuccino}"
+                    WidthRequest="20" HeightRequest="20"
+                    VerticalOptions="Center" />
+                <Border
+                    Grid.Column="0"
+                    IsVisible="{Binding IsNotBusy}"
+                    WidthRequest="12" HeightRequest="12"
+                    StrokeShape="Ellipse"
+                    StrokeThickness="0"
+                    BackgroundColor="{Binding ConnectionStatusColor}"
+                    VerticalOptions="Center" />
+
+                <!-- Status text + error message -->
+                <VerticalStackLayout Grid.Column="1" Spacing="2" VerticalOptions="Center">
+                    <Label
+                        Text="{Binding BusyMessage}"
+                        IsVisible="{Binding IsBusy}"
+                        FontSize="13"
+                        FontAttributes="Bold"
+                        TextColor="{StaticResource Cappuccino}" />
+                    <Label
+                        Text="{Binding ConnectionStatusText}"
+                        IsVisible="{Binding IsNotBusy}"
+                        FontSize="13"
+                        FontAttributes="Bold" />
+                    <Label
+                        Text="{Binding ErrorMessage}"
+                        IsVisible="{Binding HasErrorMessage}"
+                        FontSize="11"
+                        TextColor="{StaticResource Mocha}" />
+                </VerticalStackLayout>
+
+                <!-- Action button: Disconnect or Reconnect -->
+                <Button
+                    Grid.Column="2"
+                    Text="Disconnect"
+                    Command="{Binding DisconnectCommand}"
+                    IsVisible="{Binding CanDisconnect}"
+                    BackgroundColor="{StaticResource Mocha}"
+                    TextColor="White"
+                    FontSize="11"
+                    Padding="10,6"
+                    CornerRadius="8" />
+                <Button
+                    Grid.Column="2"
+                    Text="Reconnect"
+                    Command="{Binding ConnectCommand}"
+                    IsVisible="{Binding CanConnect}"
+                    FontSize="11"
+                    Padding="10,6"
+                    CornerRadius="8" />
+
+            </Grid>
+        </Border>
+
+        <!-- ── Tab Bar ───────────────────────────────────────────────────── -->
+        <Grid
+            Grid.Row="1"
+            ColumnDefinitions="*,*"
+            Margin="16,10,16,0">
+
+            <!-- Live Data tab -->
+            <VerticalStackLayout Grid.Column="0" Spacing="0">
+                <Label
+                    Text="📥  Live Data"
+                    FontSize="14"
+                    HorizontalTextAlignment="Center"
+                    Padding="0,10"
+                    TextColor="{Binding LiveTabTextColor}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectLiveTabCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <BoxView
+                    HeightRequest="2"
+                    CornerRadius="1"
+                    BackgroundColor="{Binding LiveTabUnderlineColor}" />
+            </VerticalStackLayout>
+
+            <!-- Characteristics tab -->
+            <VerticalStackLayout Grid.Column="1" Spacing="0">
+                <Label
+                    Text="🔗  Characteristics"
+                    FontSize="14"
+                    HorizontalTextAlignment="Center"
+                    Padding="0,10"
+                    TextColor="{Binding CharacteristicsTabTextColor}">
+                    <Label.GestureRecognizers>
+                        <TapGestureRecognizer Command="{Binding SelectCharacteristicsTabCommand}" />
+                    </Label.GestureRecognizers>
+                </Label>
+                <BoxView
+                    HeightRequest="2"
+                    CornerRadius="1"
+                    BackgroundColor="{Binding CharacteristicsTabUnderlineColor}" />
+            </VerticalStackLayout>
+        </Grid>
+
+        <!-- ── Tab Content ───────────────────────────────────────────────── -->
+        <Grid Grid.Row="2">
+
+            <!-- ── Live Data Panel ───────────────────────────────────────── -->
+            <Grid
+                IsVisible="{Binding IsLiveTabVisible}"
+                RowDefinitions="Auto,*"
+                Margin="16,8,16,0">
+
+                <!-- Toolbar: record button + entry count + clear button -->
+                <Grid Grid.Row="0" ColumnDefinitions="Auto,*,Auto,Auto" ColumnSpacing="6" Margin="0,0,0,6">
+                    <!-- Record / Stop toggle -->
+                    <Button
+                        Grid.Column="0"
+                        Text="{Binding RecordButtonText}"
+                        Command="{Binding ToggleRecordingCommand}"
+                        BackgroundColor="{Binding RecordButtonColor}"
+                        TextColor="White"
+                        FontSize="11"
+                        Padding="10,5"
+                        CornerRadius="8" />
+                    <!-- Recording counter badge -->
+                    <Border
+                        Grid.Column="1"
+                        IsVisible="{Binding IsRecording}"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        Padding="8,3"
+                        StrokeShape="RoundRectangle 8"
+                        StrokeThickness="0"
+                        BackgroundColor="#B71C1C">
+                        <Label
+                            Text="{Binding RecordingCount, StringFormat='💾 {0} saved'}"
+                            FontSize="11"
+                            TextColor="White" />
+                    </Border>
+                    <Label
+                        Grid.Column="1"
+                        IsVisible="{Binding IsNotRecording}"
+                        Text="Incoming notifications (newest first)"
+                        FontSize="11"
+                        TextColor="{StaticResource WarmGray400}"
+                        VerticalOptions="Center" />
+                    <Button
+                        Grid.Column="3"
+                        Text="🗑 Clear"
+                        Command="{Binding ClearLogCommand}"
+                        IsVisible="{Binding HasLiveData}"
+                        BackgroundColor="{StaticResource WarmGray200}"
+                        TextColor="{StaticResource Espresso}"
+                        FontSize="11"
+                        Padding="10,5"
+                        CornerRadius="8" />
+                </Grid>
+
+                <!-- Live data log -->
+                <CollectionView
+                    Grid.Row="1"
+                    ItemsSource="{Binding LiveDataEntries}">
+
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Spacing="10"
+                            Padding="0,40">
+                            <Label Text="📡" FontSize="48" HorizontalOptions="Center" />
+                            <Label
+                                Text="No data received yet."
+                                HorizontalTextAlignment="Center"
+                                FontAttributes="Bold"
+                                FontSize="15" />
+                            <Label
+                                Text="Subscribable characteristics are subscribed&#10;automatically on connection."
+                                HorizontalTextAlignment="Center"
+                                TextColor="{StaticResource WarmGray400}"
+                                FontSize="13" />
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:BleDataLogEntry">
+                            <Border
+                                Margin="0,3"
+                                Padding="12"
+                                StrokeShape="RoundRectangle 10"
+                                StrokeThickness="1"
+                                Stroke="{StaticResource WarmGray200}">
+                                <Grid RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="4">
+
+                                    <!-- Row 0: Timestamp + characteristic / service name -->
+                                    <Grid Grid.Row="0" ColumnDefinitions="Auto,*">
+                                        <Label
+                                            Grid.Column="0"
+                                            Text="{Binding TimeDisplay}"
+                                            FontSize="11"
+                                            TextColor="{StaticResource WarmGray400}"
+                                            FontAttributes="Bold"
+                                            VerticalOptions="Center" />
+                                        <VerticalStackLayout Grid.Column="1" Margin="10,0,0,0">
+                                            <Label
+                                                Text="{Binding CharacteristicName}"
+                                                FontSize="13"
+                                                FontAttributes="Bold" />
+                                            <Label
+                                                Text="{Binding ServiceName}"
+                                                FontSize="11"
+                                                TextColor="{StaticResource WarmGray400}" />
+                                        </VerticalStackLayout>
+                                    </Grid>
+
+                                    <!-- Row 1: HEX bytes -->
+                                    <Border
+                                        Grid.Row="1"
+                                        Padding="8,4"
+                                        StrokeShape="RoundRectangle 6"
+                                        StrokeThickness="0"
+                                        BackgroundColor="{StaticResource WarmGray100}">
+                                        <Label
+                                            Text="{Binding HexDisplay}"
+                                            FontSize="12"
+                                            FontFamily="OpenSansRegular"
+                                            TextColor="{StaticResource Espresso}"
+                                            LineBreakMode="CharacterWrap" />
+                                    </Border>
+
+                                    <!-- Row 2: ASCII (only when has printable chars) -->
+                                    <Label
+                                        Grid.Row="2"
+                                        Text="{Binding AsciiDisplay, StringFormat='ASCII: {0}'}"
+                                        IsVisible="{Binding HasAsciiDisplay}"
+                                        FontSize="12"
+                                        TextColor="{StaticResource WarmGray500}" />
+
+                                    <!-- Row 3: Decimal (only for 1/2/4 byte payloads) -->
+                                    <Label
+                                        Grid.Row="3"
+                                        Text="{Binding DecimalDisplay, StringFormat='Dec: {0}'}"
+                                        IsVisible="{Binding HasDecimalDisplay}"
+                                        FontSize="12"
+                                        TextColor="{StaticResource WarmGray500}" />
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+            </Grid>
+
+            <!-- ── Characteristics Panel ─────────────────────────────────── -->
+            <Grid
+                IsVisible="{Binding IsCharacteristicsTabVisible}"
+                RowDefinitions="Auto,*"
+                Margin="16,8,16,0">
+
+                <!-- Discovering overlay -->
+                <VerticalStackLayout
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    IsVisible="{Binding IsDiscovering}"
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Spacing="12">
+                    <ActivityIndicator
+                        IsRunning="{Binding IsDiscovering}"
+                        Color="{StaticResource Cappuccino}"
+                        HorizontalOptions="Center" />
+                    <Label
+                        Text="Discovering BLE services…"
+                        HorizontalTextAlignment="Center"
+                        FontSize="13"
+                        TextColor="{StaticResource WarmGray400}" />
+                </VerticalStackLayout>
+
+                <!-- Grouped characteristics list -->
+                <CollectionView
+                    Grid.Row="0"
+                    Grid.RowSpan="2"
+                    IsVisible="{Binding IsNotDiscovering}"
+                    IsGrouped="True"
+                    ItemsSource="{Binding ServiceGroups}">
+
+                    <CollectionView.EmptyView>
+                        <VerticalStackLayout
+                            VerticalOptions="Center"
+                            HorizontalOptions="Center"
+                            Spacing="10"
+                            Padding="0,40">
+                            <Label Text="🔍" FontSize="48" HorizontalOptions="Center" />
+                            <Label
+                                Text="No BLE services found."
+                                HorizontalTextAlignment="Center"
+                                FontAttributes="Bold"
+                                FontSize="15" />
+                            <Label
+                                Text="Connect to the device first to discover&#10;its available GATT services."
+                                HorizontalTextAlignment="Center"
+                                TextColor="{StaticResource WarmGray400}"
+                                FontSize="13" />
+                        </VerticalStackLayout>
+                    </CollectionView.EmptyView>
+
+                    <!-- Service group header -->
+                    <CollectionView.GroupHeaderTemplate>
+                        <DataTemplate x:DataType="vm:BleServiceGroup">
+                            <Border
+                                Margin="0,8,0,2"
+                                Padding="12,8"
+                                StrokeShape="RoundRectangle 8"
+                                StrokeThickness="0"
+                                BackgroundColor="{StaticResource Lungo}">
+                                <VerticalStackLayout Spacing="2">
+                                    <Label
+                                        Text="{Binding DisplayName}"
+                                        FontAttributes="Bold"
+                                        FontSize="13"
+                                        TextColor="White" />
+                                    <Label
+                                        Text="{Binding SubtitleDisplay}"
+                                        FontSize="11"
+                                        TextColor="{StaticResource Crema}" />
+                                </VerticalStackLayout>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.GroupHeaderTemplate>
+
+                    <!-- Characteristic item -->
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:BleCharacteristicItem">
+                            <Border
+                                Margin="4,2"
+                                Padding="12"
+                                StrokeShape="RoundRectangle 8"
+                                StrokeThickness="1"
+                                Stroke="{StaticResource WarmGray200}">
+                                <Grid RowDefinitions="Auto,Auto,Auto,Auto" RowSpacing="4">
+
+                                    <!-- Row 0: Name + subscribed badge -->
+                                    <Grid Grid.Row="0" ColumnDefinitions="*,Auto">
+                                        <Label
+                                            Grid.Column="0"
+                                            Text="{Binding CharacteristicName}"
+                                            FontAttributes="Bold"
+                                            FontSize="13"
+                                            VerticalOptions="Center" />
+                                        <Border
+                                            Grid.Column="1"
+                                            IsVisible="{Binding IsSubscribed}"
+                                            Padding="6,3"
+                                            StrokeShape="RoundRectangle 8"
+                                            StrokeThickness="0"
+                                            BackgroundColor="#2E7D32"
+                                            VerticalOptions="Center">
+                                            <Label
+                                                Text="🔔 Live"
+                                                FontSize="10"
+                                                TextColor="White" />
+                                        </Border>
+                                    </Grid>
+
+                                    <!-- Row 1: UUID + properties -->
+                                    <Grid Grid.Row="1" ColumnDefinitions="Auto,*" ColumnSpacing="8">
+                                        <Label
+                                            Grid.Column="0"
+                                            Text="{Binding ShortUuid}"
+                                            FontSize="11"
+                                            TextColor="{StaticResource WarmGray400}" />
+                                        <Label
+                                            Grid.Column="1"
+                                            Text="{Binding PropertiesDisplay}"
+                                            FontSize="11"
+                                            TextColor="{StaticResource Cappuccino}" />
+                                    </Grid>
+
+                                    <!-- Row 2: Last received value (only when HasValue) -->
+                                    <Border
+                                        Grid.Row="2"
+                                        IsVisible="{Binding HasValue}"
+                                        Padding="8,4"
+                                        StrokeShape="RoundRectangle 6"
+                                        StrokeThickness="0"
+                                        BackgroundColor="{StaticResource WarmGray100}">
+                                        <VerticalStackLayout Spacing="2">
+                                            <Label
+                                                Text="{Binding LastValueHex}"
+                                                FontSize="12"
+                                                TextColor="{StaticResource Espresso}"
+                                                LineBreakMode="CharacterWrap" />
+                                            <Label
+                                                Text="{Binding LastValueAscii, StringFormat='ASCII: {0}'}"
+                                                FontSize="11"
+                                                TextColor="{StaticResource WarmGray500}" />
+                                        </VerticalStackLayout>
+                                    </Border>
+
+                                    <!-- Row 3: Timestamp (only when HasValue) -->
+                                    <Label
+                                        Grid.Row="3"
+                                        Text="{Binding TimestampDisplay, StringFormat='Last update: {0}'}"
+                                        IsVisible="{Binding HasValue}"
+                                        FontSize="11"
+                                        TextColor="{StaticResource WarmGray400}" />
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+
+                </CollectionView>
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+</ContentPage>

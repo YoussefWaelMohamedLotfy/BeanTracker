@@ -1,0 +1,5 @@
+{
+    "appHost": {
+        "path": "src\\Aspire\\BeanTracker.Aspire.AppHost\\BeanTracker.Aspire.AppHost.csproj"
+    }
+}

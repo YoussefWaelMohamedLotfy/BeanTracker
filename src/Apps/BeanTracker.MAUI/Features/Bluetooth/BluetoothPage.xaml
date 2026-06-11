@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BeanTracker.MAUI.Features.Bluetooth.BluetoothPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:BeanTracker.MAUI.Features.Bluetooth"
+    x:DataType="vm:BluetoothViewModel"
+    Title="BLE Devices">
+
+    <Grid RowDefinitions="Auto,Auto,Auto,*">
+
+        <!-- Bluetooth Status Banner -->
+        <Border
+            Grid.Row="0"
+            Margin="16,12,16,0"
+            Padding="12,10"
+            StrokeShape="RoundRectangle 10"
+            StrokeThickness="0"
+            BackgroundColor="{StaticResource WarmGray100}">
+            <Grid ColumnDefinitions="Auto,*">
+                <Label
+                    Grid.Column="0"
+                    Text="🔵"
+                    FontSize="20"
+                    VerticalOptions="Center"
+                    IsVisible="{Binding IsBluetoothOn}" />
+                <Label
+                    Grid.Column="0"
+                    Text="⚫"
+                    FontSize="20"
+                    VerticalOptions="Center"
+                    IsVisible="{Binding IsBluetoothOff}" />
+                <Label
+                    Grid.Column="1"
+                    Text="{Binding BluetoothStatusText}"
+                    FontAttributes="Bold"
+                    FontSize="14"
+                    VerticalOptions="Center"
+                    Margin="10,0,0,0" />
+            </Grid>
+        </Border>
+
+        <!-- Action Buttons -->
+        <Grid
+            Grid.Row="1"
+            ColumnDefinitions="*,*,48"
+            ColumnSpacing="8"
+            Margin="16,10,16,0">
+            <Button
+                Grid.Column="0"
+                Text="📡 Load Connected"
+                Command="{Binding LoadSystemDevicesCommand}"
+                FontSize="12" />
+            <Button
+                Grid.Column="1"
+                Text="🔍 Scan"
+                Command="{Binding StartScanCommand}"
+                IsVisible="{Binding IsNotScanning}"
+                FontSize="12" />
+            <Button
+                Grid.Column="1"
+                Text="⏹ Stop"
+                Command="{Binding StopScanCommand}"
+                IsVisible="{Binding IsScanning}"
+                BackgroundColor="{StaticResource Mocha}"
+                FontSize="12" />
+            <Button
+                Grid.Column="2"
+                Text="🗑"
+                Command="{Binding ClearDevicesCommand}"
+                BackgroundColor="{StaticResource WarmGray300}"
+                TextColor="{StaticResource Espresso}"
+                FontSize="14" />
+        </Grid>
+
+        <!-- Scanning Progress -->
+        <VerticalStackLayout
+            Grid.Row="2"
+            Spacing="4"
+            Margin="16,8,16,0"
+            IsVisible="{Binding IsScanning}">
+            <ActivityIndicator
+                IsRunning="{Binding IsScanning}"
+                HorizontalOptions="Center" />
+            <Label
+                Text="Scanning for nearby BLE devices…"
+                HorizontalTextAlignment="Center"
+                FontSize="12"
+                TextColor="{StaticResource WarmGray400}" />
+        </VerticalStackLayout>
+
+        <!-- Device List -->
+        <RefreshView
+            Grid.Row="3"
+            Margin="16,8,16,16"
+            IsRefreshing="{Binding IsRefreshing}"
+            Command="{Binding RefreshCommand}">
+        <CollectionView
+            ItemsSource="{Binding Devices}">
+
+            <CollectionView.EmptyView>
+                <VerticalStackLayout
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center"
+                    Spacing="10"
+                    Padding="0,40">
+                    <Label
+                        Text="📡"
+                        FontSize="56"
+                        HorizontalOptions="Center" />
+                    <Label
+                        Text="No BLE devices found."
+                        HorizontalTextAlignment="Center"
+                        FontAttributes="Bold"
+                        FontSize="15" />
+                    <Label
+                        Text="Tap 'Load Connected' to show bonded devices,&#10;or use 'Scan' to discover nearby devices."
+                        HorizontalTextAlignment="Center"
+                        TextColor="{StaticResource WarmGray400}"
+                        FontSize="13" />
+                </VerticalStackLayout>
+            </CollectionView.EmptyView>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="vm:BleDeviceItem">
+                    <Border
+                        Margin="0,4"
+                        Padding="14"
+                        StrokeShape="RoundRectangle 12"
+                        StrokeThickness="1"
+                        Stroke="{StaticResource WarmGray200}">
+                        <Border.GestureRecognizers>
+                            <TapGestureRecognizer
+                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BluetoothViewModel}}, Path=SelectDeviceCommand}"
+                                CommandParameter="{Binding .}" />
+                        </Border.GestureRecognizers>
+                        <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
+
+                            <!-- Device Name + State Badge -->
+                            <Label
+                                Grid.Row="0" Grid.Column="0"
+                                Text="{Binding Name}"
+                                FontAttributes="Bold"
+                                FontSize="15"
+                                VerticalOptions="Center" />
+                            <Border
+                                Grid.Row="0" Grid.Column="1"
+                                Padding="8,3"
+                                StrokeShape="RoundRectangle 10"
+                                StrokeThickness="0"
+                                BackgroundColor="{Binding StateBadgeColor}"
+                                VerticalOptions="Center">
+                                <Label
+                                    Text="{Binding State}"
+                                    FontSize="11"
+                                    TextColor="White" />
+                            </Border>
+
+                            <!-- Device ID -->
+                            <Label
+                                Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2"
+                                Text="{Binding Id, StringFormat='ID: {0}'}"
+                                FontSize="11"
+                                TextColor="{StaticResource WarmGray400}"
+                                Margin="0,4,0,0"
+                                LineBreakMode="MiddleTruncation" />
+
+                            <!-- Bond State Badge -->
+                            <Border
+                                Grid.Row="2" Grid.Column="0"
+                                Padding="8,3"
+                                Margin="0,4,0,0"
+                                StrokeShape="RoundRectangle 10"
+                                StrokeThickness="0"
+                                BackgroundColor="{Binding BondStateBadgeColor}"
+                                HorizontalOptions="Start"
+                                IsVisible="{Binding IsBondStateVisible}">
+                                <Label
+                                    Text="{Binding BondStateLabel}"
+                                    FontSize="11"
+                                    TextColor="White" />
+                            </Border>
+
+                            <!-- Connection Profile (Android native, shown only when connected via native check) -->
+                            <Label
+                                Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2"
+                                Text="{Binding ConnectionProfile, StringFormat='📡 {0}'}"
+                                FontSize="11"
+                                TextColor="{StaticResource WarmGray500}"
+                                Margin="0,3,0,0"
+                                IsVisible="{Binding IsConnectionProfileVisible}" />
+
+                            <!-- Divider -->
+                            <BoxView
+                                Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2"
+                                HeightRequest="1"
+                                BackgroundColor="{StaticResource WarmGray200}"
+                                Margin="0,6" />
+
+                            <!-- Signal Strength -->
+                            <HorizontalStackLayout
+                                Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2"
+                                Spacing="12">
+                                <Label
+                                    Text="📶"
+                                    FontSize="13"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Text="{Binding RssiText}"
+                                    FontSize="12"
+                                    TextColor="{StaticResource WarmGray500}"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Text="{Binding SignalStrengthLabel}"
+                                    FontSize="12"
+                                    TextColor="{StaticResource Cappuccino}"
+                                    FontAttributes="Bold"
+                                    VerticalOptions="Center" />
+                            </HorizontalStackLayout>
+
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        </RefreshView>
+
+    </Grid>
+
+</ContentPage>

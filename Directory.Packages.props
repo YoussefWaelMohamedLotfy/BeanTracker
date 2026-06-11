@@ -1,24 +1,25 @@
 <Project>
   <ItemGroup>
-    <PackageVersion Include="Aspire.Hosting.DevTunnels" Version="13.3.3" />
-    <PackageVersion Include="Aspire.Hosting.Maui" Version="13.3.3-preview.1.26264.13" />
+    <PackageVersion Include="Aspire.Hosting.DevTunnels" Version="13.4.3" />
+    <PackageVersion Include="Aspire.Hosting.Maui" Version="13.4.3-preview.1.26305.13" />
     <PackageVersion Include="CameraMaui" Version="1.4.14" />
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
-    <PackageVersion Include="CommunityToolkit.Maui" Version="14.1.1" />
-    <PackageVersion Include="Microsoft.Maui.Controls" Version="10.0.60" />
-    <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="10.0.8" />
-    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.8" />
+    <PackageVersion Include="CommunityToolkit.Maui" Version="14.2.0" />
+    <PackageVersion Include="Microsoft.Maui.Controls" Version="10.0.71" />
+    <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="10.0.9" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.9" />
+    <PackageVersion Include="Plugin.BLE" Version="3.2.1" />
     <PackageVersion Include="Plugin.Maui.Biometric" Version="0.1.0" />
     <PackageVersion Include="Plugin.Maui.ScreenSecurity" Version="1.2.3" />
-    <PackageVersion Include="Plugin.Maui.Audio" Version="3.0.1" />
+    <PackageVersion Include="Plugin.Maui.Audio" Version="4.0.0" />
     <PackageVersion Include="Plugin.Maui.SwipeCardView" Version="1.1.0" />
     <PackageVersion Include="OllamaSharp" Version="5.4.25" />
-    <PackageVersion Include="Plugin.LocalNotification" Version="14.1.0" />
-    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.26.0.140279" />
-    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.6.0" />
-    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.6.0" />
-    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.15.3" />
-    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.15.3" />
+    <PackageVersion Include="Plugin.LocalNotification" Version="14.1.1" />
+    <PackageVersion Include="SonarAnalyzer.CSharp" Version="10.27.0.140913" />
+    <PackageVersion Include="Microsoft.Extensions.Http.Resilience" Version="10.7.0" />
+    <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.7.0" />
+    <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.16.0" />
+    <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.16.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.2" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.1" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.1" />

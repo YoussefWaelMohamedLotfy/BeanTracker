@@ -8,6 +8,7 @@
     xmlns:breweries="clr-namespace:BeanTracker.MAUI.Features.Breweries"
     xmlns:ocr="clr-namespace:BeanTracker.MAUI.Features.OCR"
     xmlns:barcode="clr-namespace:BeanTracker.MAUI.Features.BarcodeScanner"
+    xmlns:bluetooth="clr-namespace:BeanTracker.MAUI.Features.Bluetooth"
     Title="BeanTracker">
 
     <TabBar>
@@ -35,6 +36,11 @@
             <ShellContent
                 ContentTemplate="{DataTemplate barcode:BarcodeScannerPage}"
                 Route="Barcode" />
+        </Tab>
+        <Tab Title="BLE" Icon="tab_bluetooth.svg" x:Name="BluetoothTab">
+            <ShellContent
+                ContentTemplate="{DataTemplate bluetooth:BluetoothPage}"
+                Route="Bluetooth" />
         </Tab>
     </TabBar>
 

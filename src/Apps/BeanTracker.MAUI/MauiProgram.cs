@@ -3,6 +3,7 @@ using BeanTracker.Core.Coffee;
 using BeanTracker.Core.Data;
 using BeanTracker.Core.Favourites;
 using BeanTracker.MAUI.Features.BarcodeScanner;
+using BeanTracker.MAUI.Features.Bluetooth;
 using BeanTracker.MAUI.Features.Breweries;
 using BeanTracker.MAUI.Features.Coffee;
 using BeanTracker.MAUI.Features.Favourites;
@@ -71,6 +72,8 @@ public static class MauiProgram
         builder.Services.AddTransient<OcrPage>();
         builder.Services.AddTransient<BarcodeScannerPage>();
         builder.Services.AddTransient<ImageSubmitPage>();
+        builder.Services.AddTransient<BluetoothPage>();
+        builder.Services.AddTransient<BleDeviceDetailPage>();
 
         // ViewModels
         builder.Services.AddTransient<CoffeeDrinksViewModel>();
@@ -81,6 +84,8 @@ public static class MauiProgram
         builder.Services.AddTransient<OcrViewModel>();
         builder.Services.AddTransient<BarcodeScannerViewModel>();
         builder.Services.AddTransient<ImageSubmitViewModel>();
+        builder.Services.AddTransient<BluetoothViewModel>();
+        builder.Services.AddTransient<BleDeviceDetailViewModel>();
 
         // Popups
         builder.Services.AddTransient<FeedbackPopup>();
@@ -89,6 +94,22 @@ public static class MauiProgram
 
         using var db = app.Services.GetRequiredService<BeanTrackerDbContext>();
         db.Database.EnsureCreated();
+        // Ensures the BleRecordings table exists even on databases created before this feature was added.
+        db.Database.ExecuteSqlRaw("""
+            CREATE TABLE IF NOT EXISTS "BleRecordings" (
+                "Id"                INTEGER NOT NULL CONSTRAINT "PK_BleRecordings" PRIMARY KEY AUTOINCREMENT,
+                "DeviceId"          TEXT    NOT NULL,
+                "DeviceName"        TEXT    NOT NULL,
+                "ServiceId"         TEXT    NOT NULL,
+                "ServiceName"       TEXT    NOT NULL,
+                "CharacteristicId"  TEXT    NOT NULL,
+                "CharacteristicName" TEXT   NOT NULL,
+                "RawHex"            TEXT    NOT NULL,
+                "AsciiValue"        TEXT,
+                "Timestamp"         TEXT    NOT NULL,
+                "SessionLabel"      TEXT
+            )
+            """);
 
         return app;
     }

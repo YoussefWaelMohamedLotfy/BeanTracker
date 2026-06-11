@@ -72,6 +72,7 @@
 
 	<ItemGroup>
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" />
+		<PackageReference Include="Plugin.BLE" />
 		<PackageReference Include="Plugin.Maui.Biometric" />
 		<PackageReference Include="Plugin.Maui.ScreenSecurity" />
 		<PackageReference Include="Plugin.Maui.Audio" />
