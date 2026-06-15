@@ -21,14 +21,19 @@ public sealed partial class BleDeviceDetailViewModel : ObservableObject, IQueryA
     private IDevice? _device;
     private CancellationTokenSource? _cts;
     private string _sessionLabel = string.Empty;
+    private readonly string _dbPath;
 
     // Maps each subscribed ICharacteristic to its handler delegate so it can be removed cleanly.
     private readonly Dictionary<ICharacteristic, EventHandler<CharacteristicUpdatedEventArgs>>
         _characteristicHandlers = [];
 
     private Guid _deviceId;
+
+    // Page reference for showing dialogs — set from the code-behind via SetPage().
+    private Page? _page;
     
-    private readonly Channel<BleDataRecord> _dbWriteChannel = Channel.CreateUnbounded<BleDataRecord>(new UnboundedChannelOptions { SingleReader = true });
+    private Channel<BleDataRecord> _dbWriteChannel = Channel.CreateUnbounded<BleDataRecord>(new UnboundedChannelOptions { SingleReader = true });
+    private Task _dbProcessorTask;
     private readonly object _uiLock = new();
     private readonly List<(BleCharacteristicItem item, byte[] bytes, DateTimeOffset now)> _pendingUiUpdates = [];
     private bool _uiUpdateScheduled;
@@ -36,8 +41,12 @@ public sealed partial class BleDeviceDetailViewModel : ObservableObject, IQueryA
     public BleDeviceDetailViewModel(BeanTrackerDbContext db)
     {
         _db = db;
-        _ = Task.Run(ProcessDbWritesAsync);
+        _dbPath = Path.Combine(FileSystem.AppDataDirectory, "beantracker.db");
+        _dbProcessorTask = Task.Run(ProcessDbWritesAsync);
     }
+
+    /// <summary>Called by the code-behind to supply a page reference for dialogs.</summary>
+    public void SetPage(Page page) => _page = page;
 
     private async Task ProcessDbWritesAsync()
     {
@@ -182,11 +191,12 @@ public sealed partial class BleDeviceDetailViewModel : ObservableObject, IQueryA
     }
 
     [RelayCommand]
-    private void ToggleRecording()
+    private async Task ToggleRecording()
     {
         if (IsRecording)
         {
             IsRecording = false;
+            await OfferShareAsync();
         }
         else
         {
@@ -195,6 +205,54 @@ public sealed partial class BleDeviceDetailViewModel : ObservableObject, IQueryA
             IsRecording = true;
         }
     }
+
+    private async Task OfferShareAsync()
+    {
+        if (_page is null) return;
+
+        // ── 1. Drain all pending writes before showing the dialog ────────────
+        // Completing the writer signals ProcessDbWritesAsync to exit once the
+        // queue empties. We await that task so every queued BleDataRecord is
+        // committed to disk before we do anything with the file.
+        _dbWriteChannel.Writer.TryComplete();
+        await _dbProcessorTask;
+
+        bool share = await _page.DisplayAlertAsync(
+            title:   "Recording Saved",
+            message: $"Session recorded {RecordingCount} entries.\nShare the database file?",
+            accept:  "Share",
+            cancel:  "Not Now");
+
+        if (share)
+        {
+            try
+            {
+                // ── 2. WAL checkpoint ────────────────────────────────────────
+                // EF Core's SQLite provider runs in WAL mode by default.
+                // Recent writes live in `beantracker.db-wal`, NOT in the main
+                // .db file. TRUNCATE merges + clears the WAL so the shared file
+                // is fully self-contained and contains all BLE recordings.
+                await _db.Database.ExecuteSqlRawAsync("PRAGMA wal_checkpoint(TRUNCATE)");
+
+                // ── 3. Share ─────────────────────────────────────────────────
+                await Share.Default.RequestAsync(new ShareFileRequest
+                {
+                    Title = $"BeanTracker BLE Session — {DeviceName}",
+                    File  = new ShareFile(_dbPath, "application/octet-stream")
+                });
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"[BLE Share] Share failed: {ex.Message}");
+                await _page.DisplayAlertAsync("Share Failed", ex.Message, "OK");
+            }
+        }
+
+        // ── 4. Restart the processor so the next recording session works ─────
+        _dbWriteChannel = Channel.CreateUnbounded<BleDataRecord>(new UnboundedChannelOptions { SingleReader = true });
+        _dbProcessorTask = Task.Run(ProcessDbWritesAsync);
+    }
+
 
     // ─── IQueryAttributable ─────────────────────────────────────────────────
     public void ApplyQueryAttributes(IDictionary<string, object> query)

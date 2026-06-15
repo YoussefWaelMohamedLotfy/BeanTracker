@@ -35,19 +35,21 @@ The main application targeting **Android**, **iOS**, **macOS (Mac Catalyst)**, a
 | **Breweries** | Search and browse breweries powered by the [Open Brewery DB](https://www.openbrewerydb.org/) public REST API. View brewery details including address, type, and website. |
 | **Barcode Scanner** | Real-time barcode/QR-code scanning using the device camera (`Camera.MAUI`). Deduplicates results and plays a beep sound on successful scan. |
 | **OCR / AI Vision** | Capture or select an image and run it through a local **Ollama** vision model (`gemma4:e2b`) to identify coffee-related content. Matches AI output against the coffee drink catalog. |
+| **Bluetooth (BLE) Data Logger** | Scan and connect to nearby BLE devices, explore services and characteristics, subscribe to notifications/indications, and log data. Upon stopping a recording, offers to share the database file via native sharing sheet. |
 | **Feedback** | Star-rating popup with a local notification or toast confirming the submitted rating. |
 
 #### Key Libraries
 
 - **[.NET MAUI Community Toolkit](https://github.com/CommunityToolkit/Maui)** — UI helpers, popups, toasts, alerts
 - **[MVVM Community Toolkit](https://github.com/CommunityToolkit/dotnet)** — `ObservableObject`, `RelayCommand`, source generators
+- **[Plugin.BLE](https://github.com/dotnet-bluetooth-le/Plugin.BLE)** — Bluetooth Low Energy (BLE) scanning, connection, and data acquisition
 - **[CameraMaui](https://github.com/janusw/CameraMaui)** — Camera preview & barcode scanning
 - **[OllamaSharp](https://github.com/awaescher/OllamaSharp)** — .NET client for local Ollama LLM inference
 - **[Plugin.LocalNotification](https://github.com/thudugala/Plugin.LocalNotification)** — Cross-platform local push notifications
 - **[Plugin.Maui.Audio](https://github.com/jfversluis/Plugin.Maui.Audio)** — Audio playback (beep on scan)
 - **[Plugin.Maui.Biometric](https://github.com/oscoreio/Maui.Biometric)** — Biometric authentication
 - **[Plugin.Maui.ScreenSecurity](https://github.com/FabriBertani/Plugin.Maui.ScreenSecurity)** — Prevent screenshots
-- **Entity Framework Core + SQLite** — Local database for favourites
+- **Entity Framework Core + SQLite** — Local database for favourites and BLE recordings
 
 ---
 
@@ -126,7 +128,7 @@ dotnet build -t:Run -f net10.0-windows10.0.19041.0  # Windows
 │                                         │
 │  Features:                              │
 │   Coffee | Breweries | Barcode | OCR    │
-│   Favourites | Feedback                 │
+│   Favourites | Feedback | Bluetooth     │
 └───────────────────┬─────────────────────┘
                     │ references
 ┌───────────────────▼─────────────────────┐
@@ -134,10 +136,11 @@ dotnet build -t:Run -f net10.0-windows10.0.19041.0  # Windows
 │  Models | Services | EF Core DbContext  │
 └─────────────────────────────────────────┘
 
-External APIs:
+External APIs & Devices:
   • Open Brewery DB  →  BreweryApiService
   • coffee.alexflipnote.dev  →  CoffeeImageApiService
   • Ollama (local)  →  OcrViewModel
+  • Bluetooth Low Energy Devices  →  BluetoothViewModel / BleDeviceDetailViewModel
 ```
 
 ---

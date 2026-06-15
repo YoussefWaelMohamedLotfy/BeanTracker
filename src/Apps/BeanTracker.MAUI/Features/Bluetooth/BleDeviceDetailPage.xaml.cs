@@ -8,6 +8,7 @@ public sealed partial class BleDeviceDetailPage : ContentPage
     {
         InitializeComponent();
         BindingContext = _vm = vm;
+        _vm.SetPage(this);
     }
 
     protected override void OnDisappearing()
