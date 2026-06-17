@@ -26,24 +26,24 @@ jobs:
       - name: Restore Windows Dependencies
         run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -p:TargetFramework=net10.0-windows10.0.19041.0 -r win-x64
 
-      - name: Build Android
-        run: dotnet build src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-android -c Release
+      - name: Publish Android
+        run: dotnet publish src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-android -c Release
 
       - name: Upload Android Artifact
         uses: actions/upload-artifact@v7.0.1
         with:
           name: android-build
-          path: src/Apps/BeanTracker.MAUI/bin/Release/net10.0-android/
+          path: src/Apps/BeanTracker.MAUI/bin/Release/net10.0-android/**/*-Signed.apk
           retention-days: 7
 
-      - name: Build Windows
-        run: dotnet build src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-windows10.0.19041.0 -c Release
+      - name: Publish Windows
+        run: dotnet publish src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-windows10.0.19041.0 -c Release -r win-x64
 
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v7.0.1
         with:
           name: windows-build
-          path: src/Apps/BeanTracker.MAUI/bin/Release/net10.0-windows10.0.19041.0/
+          path: src/Apps/BeanTracker.MAUI/bin/Release/net10.0-windows10.0.19041.0/win-x64/publish/
           retention-days: 7
 
   build-macos:
@@ -69,9 +69,9 @@ jobs:
       - name: Restore Dependencies
         run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj
 
-      - name: Build iOS
+      - name: Publish iOS
         run: >
-          dotnet build src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj
+          dotnet publish src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj
           -f net10.0-ios
           -c Release
           -p:RuntimeIdentifier=iossimulator-x64
@@ -81,12 +81,12 @@ jobs:
         uses: actions/upload-artifact@v7.0.1
         with:
           name: ios-build
-          path: src/Apps/BeanTracker.MAUI/bin/Release/net10.0-ios/
+          path: src/Apps/BeanTracker.MAUI/bin/Release/net10.0-ios/**/publish/
           retention-days: 7
 
-      - name: Build Mac Catalyst
+      - name: Publish Mac Catalyst
         run: >
-          dotnet build src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj
+          dotnet publish src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj
           -f net10.0-maccatalyst
           -c Release
           -p:CodesignKey=""
@@ -96,5 +96,5 @@ jobs:
         uses: actions/upload-artifact@v7.0.1
         with:
           name: maccatalyst-build
-          path: src/Apps/BeanTracker.MAUI/bin/Release/net10.0-maccatalyst/
+          path: src/Apps/BeanTracker.MAUI/bin/Release/net10.0-maccatalyst/**/publish/
           retention-days: 7
