@@ -48,6 +48,7 @@
 	</PropertyGroup>
 
   <PropertyGroup Condition="$(TargetFramework.Contains('-ios')) and '$(Configuration)' == 'Debug'">
+    <RuntimeIdentifiers>iossimulator-x64</RuntimeIdentifiers>
     <DisableCodesignVerification>true</DisableCodesignVerification>
   </PropertyGroup>
 
