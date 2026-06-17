@@ -27,7 +27,7 @@ jobs:
         run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -p:TargetFramework=net10.0-windows10.0.19041.0 -r win-x64
 
       - name: Build Android
-        run: dotnet build src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-android -c Release --no-restore
+        run: dotnet build src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-android -c Release
 
       - name: Upload Android Artifact
         uses: actions/upload-artifact@v7.0.1
@@ -37,7 +37,7 @@ jobs:
           retention-days: 7
 
       - name: Build Windows
-        run: dotnet build src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-windows10.0.19041.0 -c Release --no-restore
+        run: dotnet build src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-windows10.0.19041.0 -c Release
 
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v7.0.1
@@ -67,14 +67,13 @@ jobs:
         run: dotnet workload install maui
 
       - name: Restore Dependencies
-        run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -r ios-arm64
+        run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj
 
       - name: Build iOS
         run: >
           dotnet build src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj
           -f net10.0-ios
           -c Release
-          --no-restore
           -p:RuntimeIdentifier=iossimulator-x64
           -p:BuildIpa=false
 
@@ -90,7 +89,6 @@ jobs:
           dotnet build src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj
           -f net10.0-maccatalyst
           -c Release
-          --no-restore
           -p:CodesignKey=""
           -p:CodesignRequire=false
 
