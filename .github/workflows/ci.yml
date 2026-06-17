@@ -24,7 +24,7 @@ jobs:
         run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -p:TargetFramework=net10.0-android
 
       - name: Restore Windows Dependencies
-        run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -p:TargetFramework=net10.0-windows10.0.19041.0 -r win-x64
+        run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -p:TargetFramework=net10.0-windows10.0.19041.0
 
       - name: Publish Android
         run: dotnet publish src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-android -c Release
@@ -37,13 +37,13 @@ jobs:
           retention-days: 7
 
       - name: Publish Windows
-        run: dotnet publish src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-windows10.0.19041.0 -c Release -r win-x64
+        run: dotnet publish src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj -f net10.0-windows10.0.19041.0 -c Release
 
       - name: Upload Windows Artifact
         uses: actions/upload-artifact@v7.0.1
         with:
           name: windows-build
-          path: src/Apps/BeanTracker.MAUI/bin/Release/net10.0-windows10.0.19041.0/win-x64/publish/
+          path: src/Apps/BeanTracker.MAUI/bin/Release/net10.0-windows10.0.19041.0/**/publish/
           retention-days: 7
 
   build-macos:
@@ -69,9 +69,9 @@ jobs:
       - name: Restore Dependencies
         run: dotnet restore src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj
 
-      - name: Publish iOS
+      - name: Build iOS
         run: >
-          dotnet publish src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj
+          dotnet build src/Apps/BeanTracker.MAUI/BeanTracker.MAUI.csproj
           -f net10.0-ios
           -c Release
           -p:RuntimeIdentifier=iossimulator-x64
@@ -81,7 +81,7 @@ jobs:
         uses: actions/upload-artifact@v7.0.1
         with:
           name: ios-build
-          path: src/Apps/BeanTracker.MAUI/bin/Release/net10.0-ios/**/publish/
+          path: src/Apps/BeanTracker.MAUI/bin/Release/net10.0-ios/iossimulator-x64/**/*.app
           retention-days: 7
 
       - name: Publish Mac Catalyst
