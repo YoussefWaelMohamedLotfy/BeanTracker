@@ -1,6 +1,6 @@
 namespace BeanTracker.MAUI.Features.Breweries;
 
-public sealed partial class BreweriesPage : ContentPage
+public sealed partial class BreweriesPage : BeanTracker.MAUI.Features.Host.FeatureView
 {
     private readonly BreweriesViewModel _vm;
 
@@ -10,9 +10,9 @@ public sealed partial class BreweriesPage : ContentPage
         BindingContext = _vm = vm;
     }
 
-    protected override void OnAppearing()
+    public override void HandleAppearing()
     {
-        base.OnAppearing();
+        base.HandleAppearing();
         _vm.LoadCommand.Execute(null);
     }
 }

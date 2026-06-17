@@ -1,6 +1,6 @@
 namespace BeanTracker.MAUI.Features.Favourites;
 
-public sealed partial class FavouritesPage : ContentPage
+public sealed partial class FavouritesPage : BeanTracker.MAUI.Features.Host.FeatureView
 {
     private readonly FavouritesViewModel _vm;
 
@@ -10,9 +10,9 @@ public sealed partial class FavouritesPage : ContentPage
         BindingContext = _vm = vm;
     }
 
-    protected override void OnAppearing()
+    public override void HandleAppearing()
     {
-        base.OnAppearing();
+        base.HandleAppearing();
         _vm.LoadCommand.Execute(null);
     }
 }

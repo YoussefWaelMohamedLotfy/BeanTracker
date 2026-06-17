@@ -87,14 +87,21 @@ public sealed partial class BluetoothViewModel : ObservableObject
         };
     }
 
+    [ObservableProperty]
+    public partial BleDeviceItem? SelectedItem { get; set; }
+
     [RelayCommand]
-    private static async Task SelectDeviceAsync(BleDeviceItem device)
+    private async Task SelectDeviceAsync(BleDeviceItem device)
     {
+        if (device is null) return;
+
         await Shell.Current.GoToAsync(nameof(BleDeviceDetailPage), new Dictionary<string, object>
         {
             ["DeviceId"] = device.Id.ToString(),
             ["DeviceName"] = device.Name
         });
+
+        SelectedItem = null;
     }
 
     /// <summary>Returns system-connected or bonded devices (primarily useful on Android).</summary>

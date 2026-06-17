@@ -1,4 +1,4 @@
-﻿using BeanTracker.MAUI.Features.Feedback;
+using BeanTracker.MAUI.Features.Feedback;
 using BeanTracker.MAUI.Helpers;
 
 using CommunityToolkit.Maui.Extensions;
@@ -18,6 +18,15 @@ public sealed partial class App : Application
     {
         InitializeComponent();
         LocalNotificationCenter.Current.NotificationActionTapped += OnNotificationActionTapped;
+
+        AppDomain.CurrentDomain.UnhandledException += (s, e) => 
+        {
+            System.IO.File.WriteAllText(System.IO.Path.Combine(FileSystem.CacheDirectory, "unhandled_crash.txt"), e.ExceptionObject.ToString());
+        };
+        TaskScheduler.UnobservedTaskException += (s, e) =>
+        {
+            System.IO.File.WriteAllText(System.IO.Path.Combine(FileSystem.CacheDirectory, "task_crash.txt"), e.Exception.ToString());
+        };
     }
 
     protected override Window CreateWindow(IActivationState? activationState)

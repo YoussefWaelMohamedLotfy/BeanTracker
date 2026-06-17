@@ -9,6 +9,7 @@ using BeanTracker.MAUI.Features.Coffee;
 using BeanTracker.MAUI.Features.Favourites;
 using BeanTracker.MAUI.Features.Feedback;
 using BeanTracker.MAUI.Features.OCR;
+using BeanTracker.MAUI.Features.Host;
 using Camera.MAUI;
 using CommunityToolkit.Maui;
 using Microsoft.EntityFrameworkCore;
@@ -63,6 +64,7 @@ public static class MauiProgram
         builder.Services.AddSingleton<ICoffeeImageService, CoffeeImageApiService>();
 
         // Pages
+        builder.Services.AddSingleton<MainHostPage>();
         builder.Services.AddTransient<SplashPage>();
         builder.Services.AddTransient<CoffeeDrinksPage>();
         builder.Services.AddTransient<CoffeeDrinkDetailPage>();
@@ -76,6 +78,7 @@ public static class MauiProgram
         builder.Services.AddTransient<BleDeviceDetailPage>();
 
         // ViewModels
+        builder.Services.AddSingleton<MainHostViewModel>();
         builder.Services.AddTransient<CoffeeDrinksViewModel>();
         builder.Services.AddTransient<CoffeeDrinkDetailViewModel>();
         builder.Services.AddTransient<FavouritesViewModel>();

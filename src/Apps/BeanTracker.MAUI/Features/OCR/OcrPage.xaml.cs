@@ -1,6 +1,6 @@
 namespace BeanTracker.MAUI.Features.OCR;
 
-public sealed partial class OcrPage : ContentPage
+public sealed partial class OcrPage : BeanTracker.MAUI.Features.Host.FeatureView
 {
     private readonly OcrViewModel _vm;
 
@@ -11,9 +11,9 @@ public sealed partial class OcrPage : ContentPage
         _vm.PropertyChanged += OnViewModelPropertyChanged;
     }
 
-    protected override async void OnAppearing()
+    public override async void HandleAppearing()
     {
-        base.OnAppearing();
+        base.HandleAppearing();
         await _vm.LoadDrinksAsync();
     }
 

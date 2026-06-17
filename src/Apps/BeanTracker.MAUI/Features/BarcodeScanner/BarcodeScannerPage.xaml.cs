@@ -4,7 +4,7 @@ using Plugin.Maui.Audio;
 
 namespace BeanTracker.MAUI.Features.BarcodeScanner;
 
-public sealed partial class BarcodeScannerPage : ContentPage, IDisposable
+public sealed partial class BarcodeScannerPage : BeanTracker.MAUI.Features.Host.FeatureView, IDisposable
 {
     private readonly BarcodeScannerViewModel _vm;
     private readonly IAudioManager _audioManager;
@@ -51,9 +51,9 @@ public sealed partial class BarcodeScannerPage : ContentPage, IDisposable
             _ = ApplyCameraStateAsync();
     }
 
-    protected override void OnAppearing()
+    public override void HandleAppearing()
     {
-        base.OnAppearing();
+        base.HandleAppearing();
         _ = EnsureBeepPlayerAsync();
 
         _isVisible = true;
@@ -61,9 +61,9 @@ public sealed partial class BarcodeScannerPage : ContentPage, IDisposable
             _ = ApplyCameraStateAsync();
     }
 
-    protected override void OnDisappearing()
+    public override void HandleDisappearing()
     {
-        base.OnDisappearing();
+        base.HandleDisappearing();
         _isVisible = false;
         _ = ApplyCameraStateAsync();
     }
@@ -119,7 +119,7 @@ public sealed partial class BarcodeScannerPage : ContentPage, IDisposable
         }
         catch (Exception ex)
         {
-            await DisplayAlertAsync("Error", ex.Message, "OK");
+            await Application.Current!.Windows[0].Page!.DisplayAlert("Error", ex.Message, "OK");
         }
     }
 
