@@ -48,7 +48,7 @@ jobs:
 
   build-macos:
     name: Build iOS & Mac Catalyst
-    runs-on: macos-latest
+    runs-on: macos-26
     steps:
       - name: Checkout
         uses: actions/checkout@v6.0.2
