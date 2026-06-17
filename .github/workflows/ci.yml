@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v7.0.1
         with:
           name: android-build
-          path: src/Apps/BeanTracker.MAUI/bin/Release/net10.0-android/**/*-Signed.apk
+          path: src/Apps/BeanTracker.MAUI/bin/Release/net10.0-android/*-Signed.apk
           retention-days: 7
 
       - name: Publish Windows
