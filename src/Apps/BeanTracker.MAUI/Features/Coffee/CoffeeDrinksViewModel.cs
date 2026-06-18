@@ -23,6 +23,9 @@ public sealed partial class CoffeeDrinksViewModel(
     public partial ObservableCollection<CoffeeDrink> Drinks { get; set; } = [];
 
     [ObservableProperty]
+    public partial CoffeeDrink? SelectedItem { get; set; }
+
+    [ObservableProperty]
     public partial ObservableCollection<CoffeeDrinkCardItem> CardDrinks { get; set; } = [];
 
     [ObservableProperty]
@@ -96,10 +99,14 @@ public sealed partial class CoffeeDrinksViewModel(
     [RelayCommand]
     private async Task SelectDrinkAsync(CoffeeDrink drink)
     {
+        if (drink is null) return;
+        
         await Shell.Current.GoToAsync(nameof(CoffeeDrinkDetailPage), new Dictionary<string, object>
         {
             { "Drink", drink }
         });
+        
+        SelectedItem = null;
     }
 
     [RelayCommand]

@@ -1,6 +1,6 @@
 namespace BeanTracker.MAUI.Features.Bluetooth;
 
-public sealed partial class BluetoothPage : ContentPage
+public sealed partial class BluetoothPage : BeanTracker.MAUI.Features.Host.FeatureView
 {
     private readonly BluetoothViewModel _vm;
 
@@ -11,15 +11,15 @@ public sealed partial class BluetoothPage : ContentPage
         BindingContext = vm;
     }
 
-    protected override void OnAppearing()
+    public override void HandleAppearing()
     {
-        base.OnAppearing();
+        base.HandleAppearing();
         _vm.Initialize();
     }
 
-    protected override void OnDisappearing()
+    public override void HandleDisappearing()
     {
-        base.OnDisappearing();
+        base.HandleDisappearing();
         _vm.Cleanup();
     }
 }

@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<ContentPage
+    x:Class="BeanTracker.MAUI.Features.Host.MainHostPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:toolkit="http://schemas.microsoft.com/dotnet/2022/maui/toolkit"
+    xmlns:vm="clr-namespace:BeanTracker.MAUI.Features.Host"
+    x:DataType="vm:MainHostViewModel"
+    Shell.TabBarIsVisible="False"
+    Shell.NavBarIsVisible="False"
+    Title="BeanTracker">
+
+    <Grid RowDefinitions="Auto, *, Auto">
+
+        <!-- ── Custom Title Bar ────────────────────────────────────────── -->
+        <Grid 
+            Grid.Row="0" 
+            Padding="16,12" 
+            BackgroundColor="{AppThemeBinding Light=#C68642, Dark=#1A0A00}">
+            <Label 
+                Text="BeanTracker" 
+                FontAttributes="Bold" 
+                FontSize="20" 
+                TextColor="{AppThemeBinding Light=#FFFFFF, Dark=#E8DCC8}" 
+                VerticalOptions="Center" />
+        </Grid>
+
+        <!-- ── Content area: active tab content, swapped on switch ─────── -->
+        <Grid x:Name="MainContent" Grid.Row="1" />
+
+        <!-- ── Custom scrollable bottom tab bar ─────────────────────────── -->
+        <Grid Grid.Row="2">
+
+            <!-- Background + top-border line -->
+            <BoxView
+                VerticalOptions="Start"
+                HeightRequest="1"
+                BackgroundColor="{AppThemeBinding Light=#D9C8B4, Dark=#291204}" />
+
+            <Grid
+                BackgroundColor="{AppThemeBinding Light=#FFFFFF, Dark=#000000}"
+                Padding="0,4,0,0">
+
+                <ScrollView
+                    Orientation="Horizontal"
+                    HorizontalScrollBarVisibility="Never"
+                    VerticalScrollBarVisibility="Never">
+
+                    <HorizontalStackLayout Spacing="0">
+
+                        <!-- ── Coffee tab ────────────────────────────────── -->
+                        <VerticalStackLayout
+                            WidthRequest="76"
+                            Spacing="2"
+                            Padding="0,6,0,4">
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding SelectTabCommand}"
+                                    CommandParameter="0" />
+                            </VerticalStackLayout.GestureRecognizers>
+                            <Path
+                                Data="M2,21H20V19H2M20,8H18V5H20M20,3H4V13A4,4 0 0,0 8,17H14A4,4 0 0,0 18,13V10H20A2,2 0 0,0 22,8V5C22,3.89 21.1,3 20,3Z"
+                                Fill="{Binding CoffeeTabTextColor}"
+                                Aspect="Uniform"
+                                HeightRequest="24"
+                                WidthRequest="24"
+                                HorizontalOptions="Center" />
+                            <Label
+                                Text="Coffee"
+                                FontSize="10"
+                                HorizontalTextAlignment="Center"
+                                TextColor="{Binding CoffeeTabTextColor}"
+                                HorizontalOptions="Center" />
+                            <BoxView
+                                HeightRequest="2"
+                                CornerRadius="1"
+                                Margin="12,2,12,0"
+                                BackgroundColor="{AppThemeBinding Light=#C68642, Dark=#C8956C}"
+                                Opacity="{Binding CoffeeUnderlineOpacity}" />
+                        </VerticalStackLayout>
+
+                        <!-- ── Favourites tab ────────────────────────────── -->
+                        <VerticalStackLayout
+                            WidthRequest="76"
+                            Spacing="2"
+                            Padding="0,6,0,4">
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding SelectTabCommand}"
+                                    CommandParameter="1" />
+                            </VerticalStackLayout.GestureRecognizers>
+                            <Path
+                                Data="M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z"
+                                Fill="{Binding FavouritesTabTextColor}"
+                                Aspect="Uniform"
+                                HeightRequest="24"
+                                WidthRequest="24"
+                                HorizontalOptions="Center" />
+                            <Label
+                                Text="Favourites"
+                                FontSize="10"
+                                HorizontalTextAlignment="Center"
+                                TextColor="{Binding FavouritesTabTextColor}"
+                                HorizontalOptions="Center" />
+                            <BoxView
+                                HeightRequest="2"
+                                CornerRadius="1"
+                                Margin="12,2,12,0"
+                                BackgroundColor="{AppThemeBinding Light=#C68642, Dark=#C8956C}"
+                                Opacity="{Binding FavouritesUnderlineOpacity}" />
+                        </VerticalStackLayout>
+
+                        <!-- ── Breweries tab ─────────────────────────────── -->
+                        <VerticalStackLayout
+                            WidthRequest="76"
+                            Spacing="2"
+                            Padding="0,6,0,4">
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding SelectTabCommand}"
+                                    CommandParameter="2" />
+                            </VerticalStackLayout.GestureRecognizers>
+                            <Path
+                                Data="M12,18H6V14H12M21,14V12L20,7H4L3,12V14H4V20H14V14H18V20H20V14M20,4H4V6H20V4Z"
+                                Fill="{Binding BreweriesTabTextColor}"
+                                Aspect="Uniform"
+                                HeightRequest="24"
+                                WidthRequest="24"
+                                HorizontalOptions="Center" />
+                            <Label
+                                Text="Breweries"
+                                FontSize="10"
+                                HorizontalTextAlignment="Center"
+                                TextColor="{Binding BreweriesTabTextColor}"
+                                HorizontalOptions="Center" />
+                            <BoxView
+                                HeightRequest="2"
+                                CornerRadius="1"
+                                Margin="12,2,12,0"
+                                BackgroundColor="{AppThemeBinding Light=#C68642, Dark=#C8956C}"
+                                Opacity="{Binding BreweriesUnderlineOpacity}" />
+                        </VerticalStackLayout>
+
+                        <!-- ── OCR tab ───────────────────────────────────── -->
+                        <VerticalStackLayout
+                            WidthRequest="76"
+                            Spacing="2"
+                            Padding="0,6,0,4">
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding SelectTabCommand}"
+                                    CommandParameter="3" />
+                            </VerticalStackLayout.GestureRecognizers>
+                            <Path
+                                Data="M12,8A4,4 0 0,0 8,12A4,4 0 0,0 12,16A4,4 0 0,0 16,12A4,4 0 0,0 12,8M20,4L18.17,2H9.83L8,4H4C2.9,4 2,4.9 2,6V18C2,19.1 2.9,20 4,20H20C21.1,20 22,19.1 22,18V6C22,4.9 21.1,4 20,4Z"
+                                Fill="{Binding OcrTabTextColor}"
+                                Aspect="Uniform"
+                                HeightRequest="24"
+                                WidthRequest="24"
+                                HorizontalOptions="Center" />
+                            <Label
+                                Text="OCR"
+                                FontSize="10"
+                                HorizontalTextAlignment="Center"
+                                TextColor="{Binding OcrTabTextColor}"
+                                HorizontalOptions="Center" />
+                            <BoxView
+                                HeightRequest="2"
+                                CornerRadius="1"
+                                Margin="12,2,12,0"
+                                BackgroundColor="{AppThemeBinding Light=#C68642, Dark=#C8956C}"
+                                Opacity="{Binding OcrUnderlineOpacity}" />
+                        </VerticalStackLayout>
+
+                        <!-- ── Barcode tab ───────────────────────────────── -->
+                        <VerticalStackLayout
+                            WidthRequest="76"
+                            Spacing="2"
+                            Padding="0,6,0,4">
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding SelectTabCommand}"
+                                    CommandParameter="4" />
+                            </VerticalStackLayout.GestureRecognizers>
+                            <Path
+                                Data="M2,4H4V20H2V4M5,4H6V20H5V4M7,4H10V20H7V4M11,4H12V20H11V4M13,4H15V20H13V4M16,4H18V20H16V4M19,4H20V20H19V4M21,4H22V20H21V4"
+                                Fill="{Binding BarcodeTabTextColor}"
+                                Aspect="Uniform"
+                                HeightRequest="24"
+                                WidthRequest="24"
+                                HorizontalOptions="Center" />
+                            <Label
+                                Text="Barcode"
+                                FontSize="10"
+                                HorizontalTextAlignment="Center"
+                                TextColor="{Binding BarcodeTabTextColor}"
+                                HorizontalOptions="Center" />
+                            <BoxView
+                                HeightRequest="2"
+                                CornerRadius="1"
+                                Margin="12,2,12,0"
+                                BackgroundColor="{AppThemeBinding Light=#C68642, Dark=#C8956C}"
+                                Opacity="{Binding BarcodeUnderlineOpacity}" />
+                        </VerticalStackLayout>
+
+                        <!-- ── BLE tab ───────────────────────────────────── -->
+                        <VerticalStackLayout
+                            WidthRequest="76"
+                            Spacing="2"
+                            Padding="0,6,0,4">
+                            <VerticalStackLayout.GestureRecognizers>
+                                <TapGestureRecognizer
+                                    Command="{Binding SelectTabCommand}"
+                                    CommandParameter="5" />
+                            </VerticalStackLayout.GestureRecognizers>
+                            <Path
+                                Data="M17.71 7.71L12 2h-1v7.59L6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 11 14.41V22h1l5.71-5.71-4.3-4.29 4.3-4.29zM13 5.83l1.88 1.88L13 9.59V5.83zm1.88 10.46L13 18.17v-3.76l1.88 1.88z"
+                                Fill="{Binding BluetoothTabTextColor}"
+                                Aspect="Uniform"
+                                HeightRequest="24"
+                                WidthRequest="24"
+                                HorizontalOptions="Center" />
+                            <Label
+                                Text="BLE"
+                                FontSize="10"
+                                HorizontalTextAlignment="Center"
+                                TextColor="{Binding BluetoothTabTextColor}"
+                                HorizontalOptions="Center" />
+                            <BoxView
+                                HeightRequest="2"
+                                CornerRadius="1"
+                                Margin="12,2,12,0"
+                                BackgroundColor="{AppThemeBinding Light=#C68642, Dark=#C8956C}"
+                                Opacity="{Binding BluetoothUnderlineOpacity}" />
+                        </VerticalStackLayout>
+
+                    </HorizontalStackLayout>
+                </ScrollView>
+
+            </Grid>
+        </Grid>
+
+    </Grid>
+</ContentPage>

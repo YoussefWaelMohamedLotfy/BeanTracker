@@ -3,45 +3,12 @@
     x:Class="BeanTracker.MAUI.AppShell"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-    xmlns:coffee="clr-namespace:BeanTracker.MAUI.Features.Coffee"
-    xmlns:favourites="clr-namespace:BeanTracker.MAUI.Features.Favourites"
-    xmlns:breweries="clr-namespace:BeanTracker.MAUI.Features.Breweries"
-    xmlns:ocr="clr-namespace:BeanTracker.MAUI.Features.OCR"
-    xmlns:barcode="clr-namespace:BeanTracker.MAUI.Features.BarcodeScanner"
-    xmlns:bluetooth="clr-namespace:BeanTracker.MAUI.Features.Bluetooth"
-    Title="BeanTracker">
+    xmlns:host="clr-namespace:BeanTracker.MAUI.Features.Host"
+    Title="BeanTracker"
+    Shell.TabBarIsVisible="False">
 
-    <TabBar>
-        <Tab Title="Coffee" Icon="tab_coffee.svg" x:Name="CoffeeTab">
-            <ShellContent
-                ContentTemplate="{DataTemplate coffee:CoffeeDrinksPage}"
-                Route="CoffeeDrinks" />
-        </Tab>
-        <Tab Title="Favourites" Icon="tab_favourites.svg" x:Name="FavouritesTab">
-            <ShellContent
-                ContentTemplate="{DataTemplate favourites:FavouritesPage}"
-                Route="Favourites" />
-        </Tab>
-        <Tab Title="Breweries" Icon="tab_breweries.svg" x:Name="BreweriesTab">
-            <ShellContent
-                ContentTemplate="{DataTemplate breweries:BreweriesPage}"
-                Route="Breweries" />
-        </Tab>
-        <Tab Title="OCR" Icon="tab_ocr.svg" x:Name="OcrTab">
-            <ShellContent
-                ContentTemplate="{DataTemplate ocr:OcrPage}"
-                Route="OCR" />
-        </Tab>
-        <Tab Title="Barcode" Icon="tab_barcode.svg" x:Name="BarcodeTab">
-            <ShellContent
-                ContentTemplate="{DataTemplate barcode:BarcodeScannerPage}"
-                Route="Barcode" />
-        </Tab>
-        <Tab Title="BLE" Icon="tab_bluetooth.svg" x:Name="BluetoothTab">
-            <ShellContent
-                ContentTemplate="{DataTemplate bluetooth:BluetoothPage}"
-                Route="Bluetooth" />
-        </Tab>
-    </TabBar>
+    <ShellContent
+        ContentTemplate="{DataTemplate host:MainHostPage}"
+        Route="Main" />
 
 </Shell>

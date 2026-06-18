@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<ContentPage
+<host:FeatureView xmlns:host="clr-namespace:BeanTracker.MAUI.Features.Host"
     x:Class="BeanTracker.MAUI.Features.Bluetooth.BluetoothPage"
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:BeanTracker.MAUI.Features.Bluetooth"
-    x:DataType="vm:BluetoothViewModel"
-    Title="BLE Devices">
+    x:DataType="vm:BluetoothViewModel">
 
     <Grid RowDefinitions="Auto,Auto,Auto,*">
 
@@ -96,7 +95,11 @@
             IsRefreshing="{Binding IsRefreshing}"
             Command="{Binding RefreshCommand}">
         <CollectionView
-            ItemsSource="{Binding Devices}">
+            ItemsSource="{Binding Devices}"
+            SelectionMode="Single"
+            SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+            SelectionChangedCommand="{Binding SelectDeviceCommand}"
+            SelectionChangedCommandParameter="{Binding SelectedItem}">
 
             <CollectionView.EmptyView>
                 <VerticalStackLayout
@@ -129,11 +132,6 @@
                         StrokeShape="RoundRectangle 12"
                         StrokeThickness="1"
                         Stroke="{StaticResource WarmGray200}">
-                        <Border.GestureRecognizers>
-                            <TapGestureRecognizer
-                                Command="{Binding Source={RelativeSource AncestorType={x:Type vm:BluetoothViewModel}}, Path=SelectDeviceCommand}"
-                                CommandParameter="{Binding .}" />
-                        </Border.GestureRecognizers>
                         <Grid ColumnDefinitions="*,Auto" RowDefinitions="Auto,Auto,Auto,Auto,Auto,Auto">
 
                             <!-- Device Name + State Badge -->
@@ -227,4 +225,4 @@
 
     </Grid>
 
-</ContentPage>
+</host:FeatureView>

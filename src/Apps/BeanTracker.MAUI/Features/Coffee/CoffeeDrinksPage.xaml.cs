@@ -3,7 +3,7 @@ using System.Diagnostics;
 
 namespace BeanTracker.MAUI.Features.Coffee;
 
-public sealed partial class CoffeeDrinksPage : ContentPage
+public sealed partial class CoffeeDrinksPage : BeanTracker.MAUI.Features.Host.FeatureView
 {
     private readonly CoffeeDrinksViewModel _vm;
     private CancellationTokenSource? _arrowAnimCts;
@@ -23,9 +23,9 @@ public sealed partial class CoffeeDrinksPage : ContentPage
         _vm.PropertyChanged += OnVmPropertyChanged;
     }
 
-    protected override void OnAppearing()
+    public override void HandleAppearing()
     {
-        base.OnAppearing();
+        base.HandleAppearing();
         try
         {
             _vm.LoadCommand.Execute(null);
@@ -39,9 +39,9 @@ public sealed partial class CoffeeDrinksPage : ContentPage
             StartArrowAnimation();
     }
 
-    protected override void OnDisappearing()
+    public override void HandleDisappearing()
     {
-        base.OnDisappearing();
+        base.HandleDisappearing();
         StopArrowAnimation();
     }
 

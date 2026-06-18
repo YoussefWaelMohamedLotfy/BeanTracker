@@ -19,10 +19,6 @@ public sealed partial class AppShell : Shell
         Routing.RegisterRoute(nameof(ImageSubmitPage), typeof(ImageSubmitPage));
         Routing.RegisterRoute(nameof(BleDeviceDetailPage), typeof(BleDeviceDetailPage));
 
-#if WINDOWS
-        this.Loaded += OnWindowsLoaded;
-#endif
-
         _ = ScheduleFeedbackNotificationAsync();
     }
 
@@ -66,17 +62,5 @@ public sealed partial class AppShell : Shell
             Debug.WriteLine($"[BeanTracker] Could not schedule feedback notification: {ex}");
         }
     }
-
-#if WINDOWS
-    // WinUI cannot render SVG images, so we point each tab at the pre-rasterised PNG
-    // that MAUI's build task writes next to the executable (e.g. tab_coffee.scale-100.png).
-    private void OnWindowsLoaded(object? sender, EventArgs e)
-    {
-        this.Loaded -= OnWindowsLoaded;
-        string baseDir = AppContext.BaseDirectory;
-        CoffeeTab.Icon    = ImageSource.FromFile(Path.Combine(baseDir, "tab_coffee.scale-100.png"));
-        FavouritesTab.Icon = ImageSource.FromFile(Path.Combine(baseDir, "tab_favourites.scale-100.png"));
-        BreweriesTab.Icon  = ImageSource.FromFile(Path.Combine(baseDir, "tab_breweries.scale-100.png"));
-    }
-#endif
 }
+
