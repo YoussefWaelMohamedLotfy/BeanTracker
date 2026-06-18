@@ -1,3 +1,5 @@
+using BeanTracker.Core.Data;
+using Microsoft.EntityFrameworkCore;
 using Plugin.Maui.Biometric;
 
 namespace BeanTracker.MAUI;
@@ -15,8 +17,32 @@ public sealed partial class SplashPage : ContentPage
     protected override async void OnAppearing()
     {
         base.OnAppearing();
+        var dbTask = Task.Run(InitializeDatabaseAsync);
         await RunSplashAnimationAsync();
+        await dbTask; // Ensure DB is ready before proceeding
         await AuthenticateAndNavigateAsync();
+    }
+
+    private static async Task InitializeDatabaseAsync()
+    {
+        using var db = IPlatformApplication.Current!.Services.GetRequiredService<BeanTrackerDbContext>();
+        await db.Database.EnsureCreatedAsync().ConfigureAwait(false);
+        // Ensures the BleRecordings table exists even on databases created before this feature was added.
+        await db.Database.ExecuteSqlRawAsync("""
+            CREATE TABLE IF NOT EXISTS "BleRecordings" (
+                "Id"                INTEGER NOT NULL CONSTRAINT "PK_BleRecordings" PRIMARY KEY AUTOINCREMENT,
+                "DeviceId"          TEXT    NOT NULL,
+                "DeviceName"        TEXT    NOT NULL,
+                "ServiceId"         TEXT    NOT NULL,
+                "ServiceName"       TEXT    NOT NULL,
+                "CharacteristicId"  TEXT    NOT NULL,
+                "CharacteristicName" TEXT   NOT NULL,
+                "RawHex"            TEXT    NOT NULL,
+                "AsciiValue"        TEXT,
+                "Timestamp"         TEXT    NOT NULL,
+                "SessionLabel"      TEXT
+            )
+            """).ConfigureAwait(false);
     }
 
     private async Task RunSplashAnimationAsync()

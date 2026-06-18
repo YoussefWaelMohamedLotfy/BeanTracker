@@ -28,7 +28,7 @@ public sealed partial class CoffeeImageApiService(HttpClient http) : ICoffeeImag
     private async Task<string?> FetchRandomUrlAsync()
     {
         using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
-        var response = await http.GetFromJsonAsync(ApiUrl, CoffeeSerializerContext.Default.CoffeeImageResponse, cts.Token);
+        var response = await http.GetFromJsonAsync(ApiUrl, CoffeeSerializerContext.Default.CoffeeImageResponse, cts.Token).ConfigureAwait(false);
         return response?.File;
     }
 

@@ -9,20 +9,20 @@ public sealed partial class BreweryApiService(HttpClient http) : IBreweryService
 
     public async Task<IReadOnlyList<Brewery>> GetAllAsync(int page = 1)
     {
-        var dtos = await http.GetFromJsonAsync($"{BaseUrl}?page={page}&per_page=25", BrewerySerializerContext.Default.ListBreweryDto);
+        var dtos = await http.GetFromJsonAsync($"{BaseUrl}?page={page}&per_page=25", BrewerySerializerContext.Default.ListBreweryDto).ConfigureAwait(false);
         return dtos?.Select(Map).ToList() ?? [];
     }
 
     public async Task<IReadOnlyList<Brewery>> SearchAsync(string query)
     {
         if (string.IsNullOrWhiteSpace(query)) return [];
-        var dtos = await http.GetFromJsonAsync($"{BaseUrl}?by_name={Uri.EscapeDataString(query)}&per_page=25", BrewerySerializerContext.Default.ListBreweryDto);
+        var dtos = await http.GetFromJsonAsync($"{BaseUrl}?by_name={Uri.EscapeDataString(query)}&per_page=25", BrewerySerializerContext.Default.ListBreweryDto).ConfigureAwait(false);
         return dtos?.Select(Map).ToList() ?? [];
     }
 
     public async Task<Brewery?> GetByIdAsync(string id)
     {
-        var dto = await http.GetFromJsonAsync($"{BaseUrl}/{Uri.EscapeDataString(id)}", BrewerySerializerContext.Default.BreweryDto);
+        var dto = await http.GetFromJsonAsync($"{BaseUrl}/{Uri.EscapeDataString(id)}", BrewerySerializerContext.Default.BreweryDto).ConfigureAwait(false);
         return dto is null ? null : Map(dto);
     }
 

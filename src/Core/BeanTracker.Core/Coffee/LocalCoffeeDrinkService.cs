@@ -16,8 +16,8 @@ public sealed partial class LocalCoffeeDrinkService(Func<Task<Stream>> openDrink
         if (_cache is not null)
             return _cache;
 
-        await using var stream = await openDrinksFile();
-        _cache = await JsonSerializer.DeserializeAsync(stream, CoffeeDrinkSerializerContext.Default.ListCoffeeDrink) ?? [];
+        await using var stream = await openDrinksFile().ConfigureAwait(false);
+        _cache = await JsonSerializer.DeserializeAsync(stream, CoffeeDrinkSerializerContext.Default.ListCoffeeDrink).ConfigureAwait(false) ?? [];
         return _cache;
     }
 

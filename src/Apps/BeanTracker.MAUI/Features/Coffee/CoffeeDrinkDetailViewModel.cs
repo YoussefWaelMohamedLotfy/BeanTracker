@@ -50,27 +50,22 @@ public sealed partial class CoffeeDrinkDetailViewModel(
         IsLoading = true;
         SelectedDrink = drink;
 
-        try
-        {
-            IsFavourite = await favouritesService.IsFavouriteAsync(drink.Id);
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine($"[BeanTracker] Could not check favourite status: {ex}");
-        }
+        var favTask = LoadFavouriteStatusAsync(drink.Id);
+        var imgTask = LoadImageAsync(drink.Id);
+        await Task.WhenAll(favTask, imgTask);
+        IsLoading = false;
+    }
 
-        try
-        {
-            ImageUrl = await coffeeImageService.GetImageUrlAsync(drink.Id);
-        }
-        catch (Exception ex)
-        {
-            Debug.WriteLine($"[BeanTracker] Could not fetch coffee image: {ex}");
-        }
-        finally
-        {
-            IsLoading = false;
-        }
+    private async Task LoadFavouriteStatusAsync(string drinkId)
+    {
+        try { IsFavourite = await favouritesService.IsFavouriteAsync(drinkId); }
+        catch (Exception ex) { Debug.WriteLine($"[BeanTracker] Could not check favourite status: {ex}"); }
+    }
+
+    private async Task LoadImageAsync(string drinkId)
+    {
+        try { ImageUrl = await coffeeImageService.GetImageUrlAsync(drinkId); }
+        catch (Exception ex) { Debug.WriteLine($"[BeanTracker] Could not fetch coffee image: {ex}"); }
     }
 
     [RelayCommand]

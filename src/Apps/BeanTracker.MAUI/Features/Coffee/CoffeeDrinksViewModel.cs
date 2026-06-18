@@ -63,7 +63,7 @@ public sealed partial class CoffeeDrinksViewModel(
     {
         try
         {
-            await Task.Delay(DebounceMs, token);
+            await Task.Delay(DebounceMs, token).ConfigureAwait(false);
             await ApplySearchAsync();
         }
         catch (OperationCanceledException)

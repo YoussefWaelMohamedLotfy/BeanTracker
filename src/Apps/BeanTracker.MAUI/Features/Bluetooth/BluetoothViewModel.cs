@@ -61,6 +61,8 @@ public sealed partial class BluetoothViewModel : ObservableObject
         _adapter.ScanTimeoutElapsed -= OnScanTimeoutElapsed;
 
         _scanCts?.Cancel();
+        _scanCts?.Dispose();
+        _scanCts = null;
     }
 
     private void OnBleStateChanged(object? sender, BluetoothStateChangedArgs e) =>

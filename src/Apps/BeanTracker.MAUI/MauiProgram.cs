@@ -93,27 +93,6 @@ public static class MauiProgram
         // Popups
         builder.Services.AddTransient<FeedbackPopup>();
 
-        var app = builder.Build();
-
-        using var db = app.Services.GetRequiredService<BeanTrackerDbContext>();
-        db.Database.EnsureCreated();
-        // Ensures the BleRecordings table exists even on databases created before this feature was added.
-        db.Database.ExecuteSqlRaw("""
-            CREATE TABLE IF NOT EXISTS "BleRecordings" (
-                "Id"                INTEGER NOT NULL CONSTRAINT "PK_BleRecordings" PRIMARY KEY AUTOINCREMENT,
-                "DeviceId"          TEXT    NOT NULL,
-                "DeviceName"        TEXT    NOT NULL,
-                "ServiceId"         TEXT    NOT NULL,
-                "ServiceName"       TEXT    NOT NULL,
-                "CharacteristicId"  TEXT    NOT NULL,
-                "CharacteristicName" TEXT   NOT NULL,
-                "RawHex"            TEXT    NOT NULL,
-                "AsciiValue"        TEXT,
-                "Timestamp"         TEXT    NOT NULL,
-                "SessionLabel"      TEXT
-            )
-            """);
-
-        return app;
+        return builder.Build();
     }
 }
