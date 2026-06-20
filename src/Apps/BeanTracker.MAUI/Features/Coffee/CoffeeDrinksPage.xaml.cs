@@ -1,3 +1,4 @@
+using BeanTracker.MAUI.Helpers;
 using System.ComponentModel;
 using System.Diagnostics;
 
@@ -6,9 +7,10 @@ namespace BeanTracker.MAUI.Features.Coffee;
 public sealed partial class CoffeeDrinksPage : BeanTracker.MAUI.Features.Host.FeatureView
 {
     private readonly CoffeeDrinksViewModel _vm;
+    private readonly BatteryAwarenessService _batteryService;
     private CancellationTokenSource? _arrowAnimCts;
 
-    public CoffeeDrinksPage(CoffeeDrinksViewModel vm)
+    public CoffeeDrinksPage(CoffeeDrinksViewModel vm, BatteryAwarenessService batteryService)
     {
         try
         {
@@ -20,7 +22,9 @@ public sealed partial class CoffeeDrinksPage : BeanTracker.MAUI.Features.Host.Fe
             throw;
         }
         BindingContext = _vm = vm;
+        _batteryService = batteryService;
         _vm.PropertyChanged += OnVmPropertyChanged;
+        _batteryService.AnimationsEnabledChanged += OnAnimationsEnabledChanged;
     }
 
     public override void HandleAppearing()
@@ -49,7 +53,21 @@ public sealed partial class CoffeeDrinksPage : BeanTracker.MAUI.Features.Host.Fe
     {
         base.OnHandlerChanging(args);
         if (args.NewHandler is null)
+        {
             _vm.PropertyChanged -= OnVmPropertyChanged;
+            _batteryService.AnimationsEnabledChanged -= OnAnimationsEnabledChanged;
+        }
+    }
+
+    private void OnAnimationsEnabledChanged(object? sender, EventArgs e)
+    {
+        if (_vm.IsCardSwipeView)
+        {
+            if (_batteryService.AnimationsEnabled)
+                StartArrowAnimation();
+            else
+                StopArrowAnimation();
+        }
     }
 
     private void OnVmPropertyChanged(object? sender, PropertyChangedEventArgs e)
@@ -72,6 +90,10 @@ public sealed partial class CoffeeDrinksPage : BeanTracker.MAUI.Features.Host.Fe
 
     private void StartArrowAnimation()
     {
+        // Don't start if battery is too low.
+        if (!_batteryService.AnimationsEnabled)
+            return;
+
         StopArrowAnimation();
         _arrowAnimCts = new CancellationTokenSource();
         _ = RunArrowAnimationAsync(_arrowAnimCts.Token);

@@ -10,6 +10,7 @@ using BeanTracker.MAUI.Features.Favourites;
 using BeanTracker.MAUI.Features.Feedback;
 using BeanTracker.MAUI.Features.OCR;
 using BeanTracker.MAUI.Features.Host;
+using BeanTracker.MAUI.Helpers;
 using Camera.MAUI;
 using CommunityToolkit.Maui;
 using Microsoft.EntityFrameworkCore;
@@ -53,6 +54,7 @@ public static class MauiProgram
         });
 
         // Services
+        builder.Services.AddSingleton<BatteryAwarenessService>();
         builder.Services.AddSingleton(AudioManager.Current);
         builder.Services.AddSingleton<IBiometric>(_ => BiometricAuthenticationService.Default);
         builder.Services.AddSingleton<IScreenSecurity>(_ => ScreenSecurity.Default);

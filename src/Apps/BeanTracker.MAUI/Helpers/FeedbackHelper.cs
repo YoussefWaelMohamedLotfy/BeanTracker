@@ -15,6 +15,33 @@ internal static class FeedbackHelper
 #endif
     }
 
+    /// <summary>
+    /// Shows a snackbar informing the user that battery is below 20% and animations are disabled.
+    /// </summary>
+    internal static Task ShowLowBatterySnackbarAsync()
+    {
+        var snackbar = Snackbar.Make(
+            "🔋 Battery below 20% — animations disabled to save power",
+            duration: TimeSpan.FromSeconds(4));
+        return snackbar.Show();
+    }
+
+    internal static Task ShowChargingSnackbarAsync()
+    {
+        var snackbar = Snackbar.Make(
+            "⚡ Device is charging",
+            duration: TimeSpan.FromSeconds(3));
+        return snackbar.Show();
+    }
+
+    internal static Task ShowNotChargingSnackbarAsync()
+    {
+        var snackbar = Snackbar.Make(
+            "🔌 Device is no longer charging",
+            duration: TimeSpan.FromSeconds(3));
+        return snackbar.Show();
+    }
+
 #if WINDOWS
     private const string OverlayGridId = "BeanTrackerToastOverlay";
 

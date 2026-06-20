@@ -24,25 +24,25 @@ public sealed partial class BreweryDetailPage : ContentPage
         SetScreenSecurity(true);
     }
 
+#if !ANDROID
     protected override void OnDisappearing()
     {
-#if !ANDROID
         // For iOS/Windows the plugin correctly handles backgrounding vs navigation
         SetScreenSecurity(false);
-#endif
         base.OnDisappearing();
     }
+#endif
 
+#if ANDROID
     protected override void OnNavigatedFrom(NavigatedFromEventArgs args)
     {
-#if ANDROID
         // Remove FLAG_SECURE only when navigating away inside the app.
         // OnDisappearing fires too early (before the Recents thumbnail is captured),
         // so we use OnNavigatedFrom which fires only on in-app navigation.
         SetScreenSecurity(false);
-#endif
         base.OnNavigatedFrom(args);
     }
+#endif
 
     protected override void OnHandlerChanging(HandlerChangingEventArgs args)
     {

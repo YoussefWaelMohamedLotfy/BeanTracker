@@ -1,4 +1,5 @@
 using BeanTracker.Core.Data;
+using BeanTracker.MAUI.Helpers;
 using Microsoft.EntityFrameworkCore;
 using Plugin.Maui.Biometric;
 
@@ -7,11 +8,13 @@ namespace BeanTracker.MAUI;
 public sealed partial class SplashPage : ContentPage
 {
     private readonly IBiometric _biometric;
+    private readonly BatteryAwarenessService _batteryService;
 
-    public SplashPage(IBiometric biometric)
+    public SplashPage(IBiometric biometric, BatteryAwarenessService batteryService)
     {
         InitializeComponent();
         _biometric = biometric;
+        _batteryService = batteryService;
     }
 
     protected override async void OnAppearing()
@@ -51,6 +54,16 @@ public sealed partial class SplashPage : ContentPage
         IconLabel.Scale = 0.5;
         TitleLabel.TranslationY = 28;
         TaglineLabel.TranslationY = 16;
+
+        if (!_batteryService.AnimationsEnabled)
+        {
+            // Low battery — snap all elements to their final state immediately.
+            IconLabel.Scale   = 1; IconLabel.Opacity    = 1;
+            TitleLabel.TranslationY = 0; TitleLabel.Opacity = 1;
+            RuleView.Opacity  = 1;
+            TaglineLabel.TranslationY = 0; TaglineLabel.Opacity = 1;
+            return;
+        }
 
         // 1 — Icon blooms in (scale + fade, 650 ms)
         await Task.WhenAll(

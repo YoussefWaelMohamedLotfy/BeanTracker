@@ -17,9 +17,10 @@ public sealed partial class App : Application
     public App()
     {
         InitializeComponent();
+
         LocalNotificationCenter.Current.NotificationActionTapped += OnNotificationActionTapped;
 
-        AppDomain.CurrentDomain.UnhandledException += (s, e) => 
+        AppDomain.CurrentDomain.UnhandledException += (s, e) =>
         {
             System.IO.File.WriteAllText(System.IO.Path.Combine(FileSystem.CacheDirectory, "unhandled_crash.txt"), e.ExceptionObject.ToString());
         };

@@ -1,7 +1,7 @@
 <Project>
   <ItemGroup>
-    <PackageVersion Include="Aspire.Hosting.DevTunnels" Version="13.4.5" />
-    <PackageVersion Include="Aspire.Hosting.Maui" Version="13.4.5-preview.1.26316.12" />
+    <PackageVersion Include="Aspire.Hosting.DevTunnels" Version="13.4.6" />
+    <PackageVersion Include="Aspire.Hosting.Maui" Version="13.4.6-preview.1.26319.6" />
     <PackageVersion Include="CameraMaui" Version="1.4.14" />
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageVersion Include="CommunityToolkit.Maui" Version="14.2.0" />
