@@ -39,18 +39,25 @@
 
 		<!-- To develop, package, and publish an app to the Microsoft Store, see: https://aka.ms/MauiTemplateUnpackaged -->
 		<WindowsPackageType>None</WindowsPackageType>
+	</PropertyGroup>
+	<PropertyGroup Condition="$(TargetFramework.Contains('-windows'))">
+		<StartupObject>BeanTracker.MAUI.WinUI.CustomProgram</StartupObject>
+	</PropertyGroup>
+	<PropertyGroup>
 
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">15.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">15.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
 		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
 		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+
+		<WindowsSdkPackageVersion>10.0.22621.56</WindowsSdkPackageVersion>
 	</PropertyGroup>
 
-  <PropertyGroup Condition="$(TargetFramework.Contains('-ios')) and '$(Configuration)' == 'Debug'">
-    <RuntimeIdentifiers>iossimulator-x64</RuntimeIdentifiers>
-    <DisableCodesignVerification>true</DisableCodesignVerification>
-  </PropertyGroup>
+	<PropertyGroup Condition="$(TargetFramework.Contains('-ios')) and '$(Configuration)' == 'Debug'">
+		<RuntimeIdentifiers>iossimulator-x64</RuntimeIdentifiers>
+		<DisableCodesignVerification>true</DisableCodesignVerification>
+	</PropertyGroup>
 
 	<ItemGroup>
 		<!-- App Icon -->
@@ -84,6 +91,8 @@
 		<PackageReference Include="Plugin.Maui.SwipeCardView" />
 		<PackageReference Include="OllamaSharp" />
 		<PackageReference Include="Plugin.LocalNotification" />
+		<PackageReference Include="Duende.IdentityModel.OidcClient" />
+		<PackageReference Include="WinUIEx" Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'" />
 	</ItemGroup>
 
 </Project>

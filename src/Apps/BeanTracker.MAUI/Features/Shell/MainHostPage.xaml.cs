@@ -4,6 +4,7 @@ using BeanTracker.MAUI.Features.Breweries;
 using BeanTracker.MAUI.Features.Coffee;
 using BeanTracker.MAUI.Features.Favourites;
 using BeanTracker.MAUI.Features.OCR;
+using BeanTracker.MAUI.Features.SSO;
 using BeanTracker.MAUI.Helpers;
 using System.ComponentModel;
 
@@ -27,6 +28,7 @@ public sealed partial class MainHostPage : ContentPage
         OcrPage            ocrPage,
         BarcodeScannerPage barcodePage,
         BluetoothPage      bluetoothPage,
+        SsoPage            ssoPage,
         BatteryAwarenessService batteryService)
     {
         InitializeComponent();
@@ -39,7 +41,8 @@ public sealed partial class MainHostPage : ContentPage
             breweriesPage,
             ocrPage,
             barcodePage,
-            bluetoothPage
+            bluetoothPage,
+            ssoPage
         ];
 
         // Add all views to the grid but hide them initially

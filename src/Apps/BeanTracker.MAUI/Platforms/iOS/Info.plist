@@ -44,5 +44,16 @@
 	<string>BeanTracker uses Bluetooth to discover and connect to nearby BLE devices.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>BeanTracker uses Bluetooth to discover and connect to nearby BLE devices.</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>BeanTracker SSO Callback</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>beantracker</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>

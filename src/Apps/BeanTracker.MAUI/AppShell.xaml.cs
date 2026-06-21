@@ -18,6 +18,7 @@ public sealed partial class AppShell : Shell
         Routing.RegisterRoute(nameof(BreweryDetailPage), typeof(BreweryDetailPage));
         Routing.RegisterRoute(nameof(ImageSubmitPage), typeof(ImageSubmitPage));
         Routing.RegisterRoute(nameof(BleDeviceDetailPage), typeof(BleDeviceDetailPage));
+        Routing.RegisterRoute("AdminPage", typeof(BeanTracker.MAUI.Features.Admin.AdminPage));
 
         _ = ScheduleFeedbackNotificationAsync();
     }

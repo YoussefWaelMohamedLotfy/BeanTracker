@@ -15,6 +15,7 @@ public sealed partial class MainHostViewModel : ObservableObject
     public const int TabOcr           = 3;
     public const int TabBarcode       = 4;
     public const int TabBluetooth     = 5;
+    public const int TabSso           = 6;
 
     [ObservableProperty]
     [NotifyPropertyChangedFor(
@@ -24,12 +25,14 @@ public sealed partial class MainHostViewModel : ObservableObject
         nameof(OcrTabTextColor),
         nameof(BarcodeTabTextColor),
         nameof(BluetoothTabTextColor),
+        nameof(SsoTabTextColor),
         nameof(CoffeeUnderlineOpacity),
         nameof(FavouritesUnderlineOpacity),
         nameof(BreweriesUnderlineOpacity),
         nameof(OcrUnderlineOpacity),
         nameof(BarcodeUnderlineOpacity),
-        nameof(BluetoothUnderlineOpacity))]
+        nameof(BluetoothUnderlineOpacity),
+        nameof(SsoUnderlineOpacity))]
     public partial int SelectedTabIndex { get; set; } = TabCoffee;
 
 
@@ -47,6 +50,7 @@ public sealed partial class MainHostViewModel : ObservableObject
     public Color OcrTabTextColor        => SelectedTabIndex == TabOcr        ? SelectedColor : UnselectedColor;
     public Color BarcodeTabTextColor    => SelectedTabIndex == TabBarcode    ? SelectedColor : UnselectedColor;
     public Color BluetoothTabTextColor  => SelectedTabIndex == TabBluetooth  ? SelectedColor : UnselectedColor;
+    public Color SsoTabTextColor         => SelectedTabIndex == TabSso        ? SelectedColor : UnselectedColor;
 
     // ── Underline indicator opacity (1 = visible, 0 = hidden) ───────────
     public double CoffeeUnderlineOpacity     => SelectedTabIndex == TabCoffee     ? 1.0 : 0.0;
@@ -55,6 +59,7 @@ public sealed partial class MainHostViewModel : ObservableObject
     public double OcrUnderlineOpacity        => SelectedTabIndex == TabOcr        ? 1.0 : 0.0;
     public double BarcodeUnderlineOpacity    => SelectedTabIndex == TabBarcode    ? 1.0 : 0.0;
     public double BluetoothUnderlineOpacity  => SelectedTabIndex == TabBluetooth  ? 1.0 : 0.0;
+    public double SsoUnderlineOpacity        => SelectedTabIndex == TabSso        ? 1.0 : 0.0;
 
     // ── Command ──────────────────────────────────────────────────────────
     [RelayCommand]

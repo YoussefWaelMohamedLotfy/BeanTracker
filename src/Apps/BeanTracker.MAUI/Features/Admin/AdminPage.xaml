@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage
+    x:Class="BeanTracker.MAUI.Features.Admin.AdminPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:BeanTracker.MAUI.Features.Admin"
+    x:DataType="vm:AdminViewModel"
+    Title="{Binding Title}">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="24,32">
+            
+            <Label
+                Text="Admin Dashboard"
+                FontSize="24"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center"
+                TextColor="{AppThemeBinding Light={StaticResource Espresso}, Dark={StaticResource Crema}}" />
+
+            <Label
+                Text="Welcome to the secure administration area."
+                FontSize="16"
+                HorizontalTextAlignment="Center"
+                TextColor="{AppThemeBinding Light={StaticResource WarmGray500}, Dark={StaticResource WarmGray300}}" />
+                
+            <Border
+                Margin="0,20"
+                Padding="20"
+                BackgroundColor="#22D32F2F"
+                StrokeThickness="1"
+                Stroke="#D32F2F">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+                <Label
+                    Text="You are viewing this page because you hold the 'admin' role in Keycloak."
+                    FontSize="14"
+                    TextColor="#D32F2F"
+                    HorizontalTextAlignment="Center" />
+            </Border>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</ContentPage>

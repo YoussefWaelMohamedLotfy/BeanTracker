@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<host:FeatureView xmlns:host="clr-namespace:BeanTracker.MAUI.Features.Host"
+    x:Class="BeanTracker.MAUI.Features.SSO.SsoPage"
+    xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:vm="clr-namespace:BeanTracker.MAUI.Features.SSO"
+    x:DataType="vm:SsoViewModel">
+
+    <ScrollView>
+        <VerticalStackLayout Spacing="16" Padding="24,32">
+
+            <!-- ── SSO Header ──────────────────────────────────── -->
+            <Border
+                BackgroundColor="{AppThemeBinding Light={StaticResource Crema}, Dark={StaticResource Ristretto}}"
+                StrokeThickness="0"
+                HorizontalOptions="Center"
+                HeightRequest="72"
+                WidthRequest="72"
+                Padding="0">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="36" />
+                </Border.StrokeShape>
+                <Path
+                    Data="M18,8h-1V6c0-2.76-2.24-5-5-5S7,3.24,7,6v2H6c-1.1,0-2,0.9-2,2v10c0,1.1,0.9,2,2,2h12c1.1,0,2-0.9,2-2V10 C20,8.9,19.1,8,18,8z M12,17c-1.1,0-2-0.9-2-2s0.9-2,2-2s2,0.9,2,2S13.1,17,12,17z M15.1,8H8.9V6c0-1.71,1.39-3.1,3.1-3.1 s3.1,1.39,3.1,3.1V8z"
+                    Fill="{AppThemeBinding Light={StaticResource Cappuccino}, Dark={StaticResource Latte}}"
+                    Aspect="Uniform"
+                    HeightRequest="36"
+                    WidthRequest="36"
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center" />
+            </Border>
+
+            <Label
+                Text="Single Sign-On"
+                FontSize="24"
+                FontAttributes="Bold"
+                HorizontalTextAlignment="Center"
+                TextColor="{AppThemeBinding Light={StaticResource Espresso}, Dark={StaticResource Crema}}" />
+
+            <Label
+                Text="{Binding StatusText}"
+                FontSize="14"
+                HorizontalTextAlignment="Center"
+                TextColor="{AppThemeBinding Light={StaticResource WarmGray500}, Dark={StaticResource WarmGray300}}" />
+
+            <!-- ── Login / Logout Button ───────────────────────── -->
+            <Button
+                Text="{Binding ButtonText}"
+                Command="{Binding LoginOrLogoutCommand}"
+                IsEnabled="{Binding IsNotBusy}"
+                FontSize="16"
+                FontAttributes="Bold"
+                CornerRadius="28"
+                HeightRequest="56"
+                Margin="24,8"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Cappuccino}, Dark={StaticResource Latte}}"
+                TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Espresso}}" />
+
+            <!-- ── Loading indicator ───────────────────────────── -->
+            <ActivityIndicator
+                IsRunning="{Binding IsBusy}"
+                IsVisible="{Binding IsBusy}"
+                Color="{StaticResource Cappuccino}"
+                HorizontalOptions="Center" />
+
+            <!-- ── Error message ───────────────────────────────── -->
+            <Border
+                IsVisible="{Binding HasError}"
+                BackgroundColor="#33D32F2F"
+                StrokeThickness="0"
+                Padding="16,12"
+                Margin="0,4">
+                <Border.StrokeShape>
+                    <RoundRectangle CornerRadius="12" />
+                </Border.StrokeShape>
+                <Label
+                    Text="{Binding ErrorMessage}"
+                    FontSize="13"
+                    TextColor="#D32F2F"
+                    HorizontalTextAlignment="Center" />
+            </Border>
+
+            <!-- ── Claims Section (visible after login) ────────── -->
+            <VerticalStackLayout
+                Spacing="12"
+                IsVisible="{Binding IsLoggedIn}">
+
+                <Button
+                    Text="Open Admin Dashboard"
+                    Command="{Binding GoToAdminPageCommand}"
+                    IsEnabled="{Binding IsAdmin}"
+                    FontSize="14"
+                    FontAttributes="Bold"
+                    CornerRadius="16"
+                    HeightRequest="48"
+                    Margin="0,8"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource Espresso}, Dark={StaticResource Crema}}"
+                    TextColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource Espresso}}" />
+
+                <BoxView
+                    HeightRequest="1"
+                    BackgroundColor="{AppThemeBinding Light={StaticResource WarmGray200}, Dark={StaticResource WarmGray900}}"
+                    Margin="0,8" />
+
+                <Label
+                    Text="Your Claims"
+                    FontSize="18"
+                    FontAttributes="Bold"
+                    TextColor="{AppThemeBinding Light={StaticResource Espresso}, Dark={StaticResource Crema}}" />
+
+                <CollectionView
+                    ItemsSource="{Binding Claims}">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate x:DataType="vm:ClaimDisplayItem">
+                            <Border
+                                Margin="0,3"
+                                Padding="14,10"
+                                StrokeThickness="1"
+                                Stroke="{AppThemeBinding Light={StaticResource WarmGray200}, Dark={StaticResource WarmGray900}}"
+                                BackgroundColor="{AppThemeBinding Light={StaticResource FlatWhite}, Dark={StaticResource Ristretto}}">
+                                <Border.StrokeShape>
+                                    <RoundRectangle CornerRadius="10" />
+                                </Border.StrokeShape>
+                                <Grid RowDefinitions="Auto,Auto" RowSpacing="2">
+                                    <Label
+                                        Grid.Row="0"
+                                        Text="{Binding Type}"
+                                        FontSize="11"
+                                        FontAttributes="Bold"
+                                        TextColor="{AppThemeBinding Light={StaticResource Cappuccino}, Dark={StaticResource Latte}}" />
+                                    <Label
+                                        Grid.Row="1"
+                                        Text="{Binding Value}"
+                                        FontSize="13"
+                                        TextColor="{AppThemeBinding Light={StaticResource Espresso}, Dark={StaticResource Crema}}"
+                                        LineBreakMode="CharacterWrap" />
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+            </VerticalStackLayout>
+
+        </VerticalStackLayout>
+    </ScrollView>
+
+</host:FeatureView>

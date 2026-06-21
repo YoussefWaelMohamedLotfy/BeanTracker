@@ -10,6 +10,7 @@ using BeanTracker.MAUI.Features.Favourites;
 using BeanTracker.MAUI.Features.Feedback;
 using BeanTracker.MAUI.Features.OCR;
 using BeanTracker.MAUI.Features.Host;
+using BeanTracker.MAUI.Features.SSO;
 using BeanTracker.MAUI.Helpers;
 using Camera.MAUI;
 using CommunityToolkit.Maui;
@@ -63,6 +64,7 @@ public static class MauiProgram
         builder.Services.AddTransient<IFavouritesService, LocalFavouritesService>();
         builder.Services.AddSingleton(new HttpClient());
         builder.Services.AddTransient<IBreweryService, BreweryApiService>();
+        builder.Services.AddSingleton<KeycloakAuthService>();
         builder.Services.AddSingleton<ICoffeeImageService, CoffeeImageApiService>();
 
         // Pages
@@ -78,6 +80,8 @@ public static class MauiProgram
         builder.Services.AddTransient<ImageSubmitPage>();
         builder.Services.AddTransient<BluetoothPage>();
         builder.Services.AddTransient<BleDeviceDetailPage>();
+        builder.Services.AddTransient<SsoPage>();
+        builder.Services.AddTransient<BeanTracker.MAUI.Features.Admin.AdminPage>();
 
         // ViewModels
         builder.Services.AddSingleton<MainHostViewModel>();
@@ -91,6 +95,8 @@ public static class MauiProgram
         builder.Services.AddTransient<ImageSubmitViewModel>();
         builder.Services.AddTransient<BluetoothViewModel>();
         builder.Services.AddTransient<BleDeviceDetailViewModel>();
+        builder.Services.AddTransient<SsoViewModel>();
+        builder.Services.AddTransient<BeanTracker.MAUI.Features.Admin.AdminViewModel>();
 
         // Popups
         builder.Services.AddTransient<FeedbackPopup>();

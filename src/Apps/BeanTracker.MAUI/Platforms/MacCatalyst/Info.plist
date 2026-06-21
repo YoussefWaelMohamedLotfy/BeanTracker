@@ -44,5 +44,16 @@
 	<string>BeanTracker uses Bluetooth to discover and connect to nearby BLE devices.</string>
 	<key>NSCameraUsageDescription</key>
 	<string>BeanTracker uses the camera to scan barcodes.</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleURLName</key>
+			<string>BeanTracker SSO Callback</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>beantracker</string>
+			</array>
+		</dict>
+	</array>
 </dict>
 </plist>
