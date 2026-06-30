@@ -12,6 +12,9 @@
     <Project Path="src/Aspire/BeanTracker.Aspire.AppHost/BeanTracker.Aspire.AppHost.csproj" Id="ee0053c8-8ecd-4d52-b370-5650f8030844" />
     <Project Path="src/Aspire/BeanTracker.Aspire.ServiceDefaults/BeanTracker.Aspire.ServiceDefaults.csproj" />
   </Folder>
+  <Folder Name="/src/Backend/">
+    <Project Path="src/Backend/BeanTracker.API/BeanTracker.API.csproj" />
+  </Folder>
   <Folder Name="/src/Core/">
     <Project Path="src/Core/BeanTracker.Core/BeanTracker.Core.csproj" />
   </Folder>

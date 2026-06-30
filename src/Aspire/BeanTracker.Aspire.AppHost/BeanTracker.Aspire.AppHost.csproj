@@ -14,4 +14,8 @@
     <PackageReference Include="Aspire.Hosting.DevTunnels" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Backend\BeanTracker.API\BeanTracker.API.csproj" />
+  </ItemGroup>
+
 </Project>
