@@ -8,8 +8,9 @@
     <PackageVersion Include="CameraMaui" Version="1.4.14" />
     <PackageVersion Include="CommunityToolkit.Mvvm" Version="8.4.2" />
     <PackageVersion Include="CommunityToolkit.Maui" Version="14.2.0" />
-    <PackageVersion Include="Duende.IdentityModel.OidcClient" Version="6.0.1" />
-    <PackageVersion Include="Microsoft.Maui.Controls" Version="10.0.71" />
+    <PackageVersion Include="Duende.IdentityModel.OidcClient" Version="7.1.0" />
+    <PackageVersion Include="Microsoft.AspNetCore.OpenApi" Version="10.0.9" />
+    <PackageVersion Include="Microsoft.Maui.Controls" Version="10.0.80" />
     <PackageVersion Include="Microsoft.Extensions.Logging.Debug" Version="10.0.9" />
     <PackageVersion Include="Microsoft.EntityFrameworkCore.Sqlite" Version="10.0.9" />
     <PackageVersion Include="Plugin.BLE" Version="3.2.1" />
@@ -24,9 +25,17 @@
     <PackageVersion Include="Microsoft.Extensions.ServiceDiscovery" Version="10.7.0" />
     <PackageVersion Include="OpenTelemetry.Exporter.OpenTelemetryProtocol" Version="1.16.0" />
     <PackageVersion Include="OpenTelemetry.Extensions.Hosting" Version="1.16.0" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.15.2" />
-    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.15.1" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.16.0" />
+    <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.16.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.15.1" />
     <PackageVersion Include="WinUIEx" Version="2.9.1" />
+    <!-- Datasync Community Toolkit -->
+    <PackageVersion Include="CommunityToolkit.Datasync.Server" Version="10.1.0" />
+    <PackageVersion Include="CommunityToolkit.Datasync.Server.EntityFrameworkCore" Version="10.1.0" />
+    <PackageVersion Include="CommunityToolkit.Datasync.Client" Version="8.0.0" />
+    <!-- PostgreSQL EF Core -->
+    <PackageVersion Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="10.0.2" />
+    <PackageVersion Include="Microsoft.EntityFrameworkCore.Design" Version="10.0.9" />
+    <PackageVersion Include="Aspire.Npgsql.EntityFrameworkCore.PostgreSQL" Version="13.4.6" />
   </ItemGroup>
 </Project>

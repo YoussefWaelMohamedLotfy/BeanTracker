@@ -1,4 +1,5 @@
 using BeanTracker.Core.Coffee;
+using BeanTracker.Core.Data;
 using BeanTracker.Core.Favourites;
 using BeanTracker.MAUI.Helpers;
 using CommunityToolkit.Mvvm.ComponentModel;
@@ -10,11 +11,15 @@ namespace BeanTracker.MAUI.Features.Coffee;
 public sealed partial class CoffeeDrinksViewModel(
     ICoffeeDrinkService coffeeDrinkService,
     ICoffeeImageService coffeeImageService,
-    IFavouritesService favouritesService) : ObservableObject, IDisposable
+    IFavouritesService favouritesService,
+    DatasyncService datasyncService) : ObservableObject, IDisposable
 {
     private const int DebounceMs = 400;
 
     private CancellationTokenSource? _debounceCts;
+
+    [ObservableProperty]
+    public partial bool IsRefreshing { get; set; }
 
     [ObservableProperty]
     public partial string SearchQuery { get; set; } = string.Empty;
@@ -85,6 +90,26 @@ public sealed partial class CoffeeDrinksViewModel(
     {
         var results = await coffeeDrinkService.SearchAsync(SearchQuery);
         Drinks = new ObservableCollection<CoffeeDrink>(results);
+    }
+
+    [RelayCommand]
+    private async Task RefreshAsync()
+    {
+        try
+        {
+            IsRefreshing = true;
+            await datasyncService.SynchronizeAsync();
+            await LoadAsync();
+            await FeedbackHelper.ShowNotificationAsync("Sync completed! 🚀");
+        }
+        catch (Exception ex)
+        {
+            await FeedbackHelper.ShowNotificationAsync($"Sync failed: {ex.Message}");
+        }
+        finally
+        {
+            IsRefreshing = false;
+        }
     }
 
     [RelayCommand]

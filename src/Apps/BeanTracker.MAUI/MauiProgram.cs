@@ -46,24 +46,40 @@ public static class MauiProgram
 
         // Database — transient so each service gets a fresh unit-of-work
         var dbPath = Path.Combine(FileSystem.AppDataDirectory, "beantracker.db");
+
+        // Point to the Aspire API backend port (7268 for HTTPS)
+        // Android Emulator uses 10.0.2.2 to reach the host's localhost
+        var baseUrl = DeviceInfo.Platform == DevicePlatform.Android ? "https://10.0.2.2:7268/" : "https://localhost:7268/";
+        var serviceEndpoint = new Uri(baseUrl);
+
         builder.Services.AddTransient(_ =>
         {
             var opts = new DbContextOptionsBuilder<BeanTrackerDbContext>()
                 .UseSqlite($"Data Source={dbPath}")
                 .Options;
-            return new BeanTrackerDbContext(opts);
+
+            // Create a custom HttpClient to bypass local SSL certificate validation
+            var handler = new HttpClientHandler();
+#if DEBUG
+            handler.ServerCertificateCustomValidationCallback = (message, cert, chain, errors) => true;
+#endif
+            var httpClient = new HttpClient(handler) { BaseAddress = serviceEndpoint };
+
+            return new BeanTrackerDbContext(opts, httpClient);
         });
+
+        // Datasync offline sync service
+        builder.Services.AddTransient<DatasyncService>();
 
         // Services
         builder.Services.AddSingleton<BatteryAwarenessService>();
         builder.Services.AddSingleton(AudioManager.Current);
         builder.Services.AddSingleton<IBiometric>(_ => BiometricAuthenticationService.Default);
         builder.Services.AddSingleton<IScreenSecurity>(_ => ScreenSecurity.Default);
-        builder.Services.AddSingleton<ICoffeeDrinkService>(_ =>
-            new LocalCoffeeDrinkService(() => FileSystem.OpenAppPackageFileAsync("drinks.json")));
+        builder.Services.AddTransient<ICoffeeDrinkService, SyncedCoffeeDrinkService>();
         builder.Services.AddTransient<IFavouritesService, LocalFavouritesService>();
         builder.Services.AddSingleton(new HttpClient());
-        builder.Services.AddTransient<IBreweryService, BreweryApiService>();
+        builder.Services.AddTransient<IBreweryService, SyncedBreweryService>();
         builder.Services.AddSingleton<KeycloakAuthService>();
         builder.Services.AddSingleton<ICoffeeImageService, CoffeeImageApiService>();
 

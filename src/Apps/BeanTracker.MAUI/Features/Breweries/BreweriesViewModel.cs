@@ -1,12 +1,19 @@
 using BeanTracker.Core.Breweries;
+using BeanTracker.Core.Data;
+using BeanTracker.MAUI.Helpers;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using System.Collections.ObjectModel;
 
 namespace BeanTracker.MAUI.Features.Breweries;
 
-public sealed partial class BreweriesViewModel(IBreweryService breweryService) : ObservableObject
+public sealed partial class BreweriesViewModel(
+    IBreweryService breweryService,
+    DatasyncService datasyncService) : ObservableObject
 {
+    [ObservableProperty]
+    public partial bool IsRefreshing { get; set; }
+
     [ObservableProperty]
     public partial string SearchQuery { get; set; } = string.Empty;
 
@@ -18,6 +25,26 @@ public sealed partial class BreweriesViewModel(IBreweryService breweryService) :
     {
         var results = await breweryService.SearchAsync(SearchQuery);
         Breweries = new ObservableCollection<Brewery>(results);
+    }
+
+    [RelayCommand]
+    private async Task RefreshAsync()
+    {
+        try
+        {
+            IsRefreshing = true;
+            await datasyncService.SynchronizeAsync();
+            await LoadAsync();
+            await FeedbackHelper.ShowNotificationAsync("Sync completed! 🚀");
+        }
+        catch (Exception ex)
+        {
+            await FeedbackHelper.ShowNotificationAsync($"Sync failed: {ex.Message}");
+        }
+        finally
+        {
+            IsRefreshing = false;
+        }
     }
 
     [RelayCommand]
