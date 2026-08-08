@@ -20,6 +20,7 @@ using Plugin.LocalNotification;
 using Plugin.Maui.Audio;
 using Plugin.Maui.Biometric;
 using Plugin.Maui.ScreenSecurity;
+using Shiny;
 
 namespace BeanTracker.MAUI;
 
@@ -34,6 +35,7 @@ public static class MauiProgram
             .UseScreenSecurity()
             .UseMauiCameraView()
             .UseLocalNotification()
+            .UseShinyControls()
             .ConfigureFonts(fonts =>
             {
                 fonts.AddFont("OpenSans-Regular.ttf", "OpenSansRegular");

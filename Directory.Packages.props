@@ -28,6 +28,7 @@
     <PackageVersion Include="OpenTelemetry.Instrumentation.AspNetCore" Version="1.17.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Http" Version="1.17.0" />
     <PackageVersion Include="OpenTelemetry.Instrumentation.Runtime" Version="1.17.0" />
+    <PackageVersion Include="Shiny.Maui.Controls" Version="1.0.1-beta-0175" />
     <PackageVersion Include="WinUIEx" Version="2.9.2" />
     <!-- Datasync Community Toolkit -->
     <PackageVersion Include="CommunityToolkit.Datasync.Server" Version="10.1.2" />

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:shiny="http://shiny.net/maui/controls"
+             x:Class="BeanTracker.MAUI.Features.OCR.StepProgressBar"
+             x:Name="ThisControl">
+
+    <Grid>
+        <!-- Layer 1: Hidden Shiny Slider (underneath, fully transparent) -->
+        <shiny:Slider
+            x:Name="HiddenSlider"
+            Minimum="0"
+            ColdColor="Transparent"
+            HotColor="Transparent"
+            ThumbColor="Transparent"
+            ThumbSize="0"
+            TrackHeight="0"
+            ShowTooltip="False"
+            InputTransparent="True"
+            Opacity="0"
+            HeightRequest="0" />
+
+        <!-- Layer 2: Visual segmented step indicators with stroke dividers -->
+        <HorizontalStackLayout
+            x:Name="SegmentsLayout"
+            Spacing="8"
+            VerticalOptions="Center"
+            HorizontalOptions="Fill" />
+    </Grid>
+
+</ContentView>

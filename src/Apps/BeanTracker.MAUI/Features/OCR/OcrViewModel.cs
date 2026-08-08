@@ -52,6 +52,14 @@ public sealed partial class OcrViewModel : ObservableObject
     [ObservableProperty]
     public partial bool IsAnalyzing { get; set; }
 
+    /// <summary>Total number of steps in the OCR workflow progress bar (dynamic).</summary>
+    [ObservableProperty]
+    public partial int TotalSteps { get; set; } = 4;
+
+    /// <summary>Current step in the OCR workflow (0 = not started, 1..TotalSteps = progress).</summary>
+    [ObservableProperty]
+    public partial int CurrentStep { get; set; }
+
     public bool HasImage => SelectedImageSource is not null;
     public bool HasNoImage => !HasImage;
     public bool CanAnalyze => HasImage && SelectedDrink is not null;
@@ -121,6 +129,7 @@ public sealed partial class OcrViewModel : ObservableObject
         _cachedImagePath = null;
         FileSizeText = string.Empty;
         AnalysisResult = string.Empty;
+        CurrentStep = 0;
     }
 
     [RelayCommand(CanExecute = nameof(CanAnalyze))]
@@ -131,6 +140,7 @@ public sealed partial class OcrViewModel : ObservableObject
 
         IsAnalyzing = true;
         AnalysisResult = string.Empty;
+        CurrentStep = 3; // Step 3: Analysis in progress
 
         try
         {
@@ -186,17 +196,26 @@ public sealed partial class OcrViewModel : ObservableObject
         finally
         {
             IsAnalyzing = false;
+            CurrentStep = 4; // Step 4: Analysis complete
         }
     }
 
     partial void OnSelectedImageSourceChanged(ImageSource? value)
     {
         AnalyzeImageCommand.NotifyCanExecuteChanged();
+
+        // Step 1: Image loaded
+        if (value is not null && CurrentStep < 1)
+            CurrentStep = 1;
     }
 
     partial void OnSelectedDrinkChanged(CoffeeDrink? value)
     {
         AnalyzeImageCommand.NotifyCanExecuteChanged();
+
+        // Step 2: Drink selected
+        if (value is not null && CurrentStep < 2)
+            CurrentStep = 2;
     }
 
     private async Task LoadFileResultAsync(FileResult? file)

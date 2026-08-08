@@ -4,10 +4,64 @@
     xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:vm="clr-namespace:BeanTracker.MAUI.Features.OCR"
+    xmlns:local="clr-namespace:BeanTracker.MAUI.Features.OCR"
     x:DataType="vm:OcrViewModel">
 
     <ScrollView x:Name="PageScrollView">
         <VerticalStackLayout Spacing="20" Padding="16">
+
+            <!-- Step Progress Bar -->
+            <local:StepProgressBar
+                TotalSteps="{Binding TotalSteps}"
+                CurrentStep="{Binding CurrentStep}"
+                HeightRequest="20" />
+
+            <!-- Step Controls -->
+            <Grid ColumnDefinitions="*,Auto,Auto" ColumnSpacing="8" RowDefinitions="Auto,Auto" RowSpacing="10">
+
+                <!-- Total Steps -->
+                <Label
+                    Grid.Row="0" Grid.Column="0"
+                    Text="{Binding TotalSteps, StringFormat='Total Steps: {0}'}"
+                    VerticalOptions="Center"
+                    FontSize="14" />
+                <Stepper
+                    Grid.Row="0" Grid.Column="1"
+                    Minimum="1"
+                    Maximum="10"
+                    Increment="1"
+                    Value="{Binding TotalSteps}" />
+                <Label
+                    Grid.Row="0" Grid.Column="2"
+                    Text="{Binding TotalSteps}"
+                    VerticalOptions="Center"
+                    WidthRequest="24"
+                    HorizontalTextAlignment="Start"
+                    FontAttributes="Bold"
+                    FontSize="14" />
+
+                <!-- Current Step -->
+                <Label
+                    Grid.Row="1" Grid.Column="0"
+                    Text="{Binding CurrentStep, StringFormat='Current Step: {0}'}"
+                    VerticalOptions="Center"
+                    FontSize="14" />
+                <Stepper
+                    Grid.Row="1" Grid.Column="1"
+                    Minimum="0"
+                    Maximum="{Binding TotalSteps}"
+                    Increment="1"
+                    Value="{Binding CurrentStep}" />
+                <Label
+                    Grid.Row="1" Grid.Column="2"
+                    Text="{Binding CurrentStep}"
+                    VerticalOptions="Center"
+                    WidthRequest="24"
+                    HorizontalTextAlignment="Start"
+                    FontAttributes="Bold"
+                    FontSize="14" />
+
+            </Grid>
 
             <!-- Action Buttons -->
             <Grid ColumnDefinitions="*,*" ColumnSpacing="12">
