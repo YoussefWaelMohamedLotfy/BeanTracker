@@ -11,6 +11,7 @@ var postgres = builder
     .WithLifetime(ContainerLifetime.Persistent);
 
 var KeycloakDb = postgres.AddDatabase("Keycloak-Db");
+var beanTrackerDb = postgres.AddDatabase("beantracker-db");
 
 var keycloak = builder
     .AddKeycloak("keycloak", 8081, adminPassword: adminPassword)
@@ -40,5 +41,9 @@ if (OperatingSystem.IsMacOS())
 
 mauiApp.AddAndroidDevice()
     .WithOtlpDevTunnel();
+
+builder.AddProject<Projects.BeanTracker_API>("beantracker-api")
+    .WithReference(beanTrackerDb)
+    .WaitFor(beanTrackerDb);
 
 await builder.Build().RunAsync();

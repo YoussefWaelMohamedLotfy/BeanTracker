@@ -91,13 +91,24 @@ public sealed partial class SplashPage : ContentPage
     {
         var hwStatus = await _biometric.GetAuthenticationStatusAsync(AuthenticatorStrength.Weak);
 
-        // If the device has no biometric hardware or nothing enrolled, skip auth
+        // If the device has no biometric hardware, skip auth
         if (hwStatus is BiometricHwStatus.NoHardware
-                     or BiometricHwStatus.Unsupported
-                     or BiometricHwStatus.NotEnrolled
-                     or BiometricHwStatus.PresentButNotEnrolled)
+                     or BiometricHwStatus.Unsupported)
         {
             NavigateToShell();
+            return;
+        }
+
+        // If the device has biometric hardware but nothing is enrolled, require it
+        if (hwStatus is BiometricHwStatus.NotEnrolled
+                     or BiometricHwStatus.PresentButNotEnrolled)
+        {
+            await DisplayAlertAsync(
+                "Authentication Required",
+                "You must register a fingerprint or PIN on your device to use BeanTracker.",
+                "Close");
+
+            Application.Current!.Quit();
             return;
         }
 

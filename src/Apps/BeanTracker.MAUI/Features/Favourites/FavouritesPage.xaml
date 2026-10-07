@@ -7,64 +7,68 @@
     xmlns:core="clr-namespace:BeanTracker.Core.Favourites;assembly=BeanTracker.Core"
     x:DataType="vm:FavouritesViewModel">
 
-    <CollectionView ItemsSource="{Binding Favourites}">
-        <CollectionView.EmptyView>
-            <Label
-                HorizontalOptions="Center"
-                VerticalOptions="Center"
-                Text="No favourites saved yet." />
-        </CollectionView.EmptyView>
-        <CollectionView.ItemTemplate>
-            <DataTemplate x:DataType="core:FavouriteDrink">
-                <Grid ColumnDefinitions="64,*,Auto" Padding="16,10">
+    <RefreshView
+        IsRefreshing="{Binding IsRefreshing}"
+        Command="{Binding RefreshCommand}">
+        <CollectionView ItemsSource="{Binding Favourites}">
+            <CollectionView.EmptyView>
+                <Label
+                    HorizontalOptions="Center"
+                    VerticalOptions="Center"
+                    Text="No favourites saved yet." />
+            </CollectionView.EmptyView>
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="core:FavouriteDrink">
+                    <Grid ColumnDefinitions="64,*,Auto" Padding="16,10">
 
-                    <!-- Cup + heart icon -->
-                    <Border
-                        BackgroundColor="{StaticResource Mocha}"
-                        StrokeThickness="0"
-                        StrokeShape="Ellipse"
-                        HeightRequest="42" WidthRequest="42"
-                        HorizontalOptions="Center" VerticalOptions="Center">
-                        <Grid>
-                            <Label
-                                Text="☕"
-                                FontSize="20"
-                                HorizontalOptions="Center"
-                                VerticalOptions="Center" />
-                            <Label
-                                Text="♥"
-                                FontSize="10"
-                                TextColor="{StaticResource Crema}"
-                                HorizontalOptions="End"
-                                VerticalOptions="End"
-                                Margin="0,0,3,2" />
-                        </Grid>
-                    </Border>
+                        <!-- Cup + heart icon -->
+                        <Border
+                            BackgroundColor="{StaticResource Mocha}"
+                            StrokeThickness="0"
+                            StrokeShape="Ellipse"
+                            HeightRequest="42" WidthRequest="42"
+                            HorizontalOptions="Center" VerticalOptions="Center">
+                            <Grid>
+                                <Label
+                                    Text="☕"
+                                    FontSize="20"
+                                    HorizontalOptions="Center"
+                                    VerticalOptions="Center" />
+                                <Label
+                                    Text="♥"
+                                    FontSize="10"
+                                    TextColor="{StaticResource Crema}"
+                                    HorizontalOptions="End"
+                                    VerticalOptions="End"
+                                    Margin="0,0,3,2" />
+                            </Grid>
+                        </Border>
 
-                    <!-- Drink name -->
-                    <Label
-                        Grid.Column="1"
-                        Text="{Binding DrinkId}"
-                        FontSize="15"
-                        FontAttributes="Bold"
-                        VerticalOptions="Center" />
+                        <!-- Drink name -->
+                        <Label
+                            Grid.Column="1"
+                            Text="{Binding DrinkId}"
+                            FontSize="15"
+                            FontAttributes="Bold"
+                            VerticalOptions="Center" />
 
-                    <!-- Remove button -->
-                    <Button
-                        Grid.Column="2"
-                        Text="🗑"
-                        FontSize="16"
-                        BackgroundColor="Transparent"
-                        TextColor="{StaticResource WarmGray400}"
-                        BorderWidth="0"
-                        Padding="8,4"
-                        VerticalOptions="Center"
-                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FavouritesViewModel}}, Path=RemoveFavouriteCommand}"
-                        CommandParameter="{Binding DrinkId}" />
+                        <!-- Remove button -->
+                        <Button
+                            Grid.Column="2"
+                            Text="🗑"
+                            FontSize="16"
+                            BackgroundColor="Transparent"
+                            TextColor="{StaticResource WarmGray400}"
+                            BorderWidth="0"
+                            Padding="8,4"
+                            VerticalOptions="Center"
+                            Command="{Binding Source={RelativeSource AncestorType={x:Type vm:FavouritesViewModel}}, Path=RemoveFavouriteCommand}"
+                            CommandParameter="{Binding DrinkId}" />
 
-                </Grid>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+                    </Grid>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </RefreshView>
 
 </host:FeatureView>

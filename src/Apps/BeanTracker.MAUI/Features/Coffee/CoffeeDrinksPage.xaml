@@ -30,14 +30,17 @@
         </Grid>
 
         <!-- ── List View ──────────────────────────────────────── -->
-        <CollectionView
+        <RefreshView
             Grid.Row="1"
-            ItemsSource="{Binding Drinks}"
             IsVisible="{Binding IsListView}"
-            SelectionMode="Single"
-            SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
-            SelectionChangedCommand="{Binding SelectDrinkCommand}"
-            SelectionChangedCommandParameter="{Binding SelectedItem}">
+            IsRefreshing="{Binding IsRefreshing}"
+            Command="{Binding RefreshCommand}">
+            <CollectionView
+                ItemsSource="{Binding Drinks}"
+                SelectionMode="Single"
+                SelectedItem="{Binding SelectedItem, Mode=TwoWay}"
+                SelectionChangedCommand="{Binding SelectDrinkCommand}"
+                SelectionChangedCommandParameter="{Binding SelectedItem}">
             <CollectionView.EmptyView>
                 <Label
                     HorizontalOptions="Center"
@@ -77,6 +80,7 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
+        </RefreshView>
 
         <!-- ── Card Swipe View ────────────────────────────────── -->
         <Grid Grid.Row="1" IsVisible="{Binding IsCardSwipeView}">
